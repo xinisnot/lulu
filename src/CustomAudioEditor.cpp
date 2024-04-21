@@ -7,11 +7,15 @@ CustomAudioEditor::CustomAudioEditor (RNBO::JuceAudioProcessor* const p, RNBO::C
 {
     _audioProcessor->AudioProcessor::addListener(this);
 
-    _label.setText("Hi I'm Custom Interface", NotificationType::dontSendNotification);
-    _label.setBounds(0, 0, 400, 300);
-    _label.setColour(Label::textColourId, Colours::black);
-    addAndMakeVisible(_label);
-    setSize (_label.getWidth(), _label.getHeight());
+    // _label.setText("Hi I'm Custom Interface", NotificationType::dontSendNotification);
+    // _label.setBounds(0, 0, 400, 300);
+    // _label.setColour(Label::textColourId, Colours::black);
+    // addAndMakeVisible(_label);
+    // setSize (_label.getWidth(), _label.getHeight());
+
+    _rootComponent.setAudioProcessor(p); // <--- add this line
+    addAndMakeVisible(_rootComponent);
+    setSize(_rootComponent.getWidth(), _rootComponent.getHeight());
 }
 
 CustomAudioEditor::~CustomAudioEditor()
@@ -27,4 +31,5 @@ void CustomAudioEditor::paint (Graphics& g)
 void CustomAudioEditor::audioProcessorParameterChanged (AudioProcessor*, int parameterIndex, float value)
 {
     // Handle parameter changes here
+    _rootComponent.updateSliderForParam(parameterIndex, value);
 }
