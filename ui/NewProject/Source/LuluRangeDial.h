@@ -43,7 +43,7 @@ public:
         float sliderPosMinProportional  = juce::jmap(slider.getMinValue(), slider.getMinimum(), slider.getMaximum(), 0.0, 1.0);
         float sliderPosMaxProportional  = juce::jmap(slider.getMaxValue(), slider.getMinimum(), slider.getMaximum(), 0.0, 1.0);
         
-        auto outlineColour      = slider.findColour(juce::Slider::rotarySliderOutlineColourId).withAlpha(0.8f);
+        auto outlineColour      = slider.findColour(juce::Slider::rotarySliderOutlineColourId).withBrightness(0.27f);
         auto thumbColour        = slider.findColour(juce::Slider::thumbColourId);
         auto bounds             = juce::Rectangle<int>(x, y, width, height).toFloat().reduced(10);
         auto radius             = juce::jmin(bounds.getWidth(), bounds.getHeight()) / 2.0f;

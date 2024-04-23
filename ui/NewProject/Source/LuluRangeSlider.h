@@ -39,7 +39,7 @@ public:
                           juce::Slider& slider) override
     {
         auto trackWidth    = juce::jmin (2.0f, (float) height * 0.25f);
-        auto outlineColour = slider.findColour(juce::Slider::rotarySliderOutlineColourId).withAlpha(0.8f);
+        auto outlineColour = slider.findColour(juce::Slider::rotarySliderOutlineColourId).withBrightness(0.27f);
         auto valueColour   = slider.findColour(juce::Slider::thumbColourId);
 
         juce::Point<float> startPoint ((float) x, (float) y + (float) height * 0.5f);

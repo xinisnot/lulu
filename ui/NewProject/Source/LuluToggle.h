@@ -36,7 +36,7 @@ public:
                           float rotaryEndAngle,
                           juce::Slider& slider) override
     {
-        auto outlineColour      = slider.findColour(juce::Slider::rotarySliderOutlineColourId).withAlpha(0.8f);
+        auto outlineColour      = slider.findColour(juce::Slider::rotarySliderOutlineColourId).withBrightness(0.27f);
         auto bounds             = juce::Rectangle<int>(x, y, width, height).toFloat().reduced(10);
         auto radius             = juce::jmin(bounds.getWidth(), bounds.getHeight()) / 2.0f;
         auto lineWeight         = juce::jmin(2.0f, radius * 0.5f);

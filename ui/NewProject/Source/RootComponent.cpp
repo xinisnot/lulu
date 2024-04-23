@@ -32,103 +32,103 @@ RootComponent::RootComponent ()
     //[Constructor_pre] You can add your own custom stuff here..
     //[/Constructor_pre]
 
-    juce__component.reset (new LuluDial ("dens", "[trigger/denstity] Trigger frequencies that generate grain (unit: Hz)."));
+    juce__component.reset (new LuluDial ("dens", "Corresponds to [trigger/denstity]. The frequency of the trigger that generates grains (unit: Hz)."));
     addAndMakeVisible (juce__component.get());
     juce__component->setName ("trigger/density");
 
     juce__component->setBounds (0, 0, 94, 96);
 
-    juce__component2.reset (new LuluDial ("prob", "[trigger/probability] Probability of trigger generation."));
+    juce__component2.reset (new LuluDial ("prob", "Corresponds to [trigger/probability]. The probability that triggers is generated for each cycle."));
     addAndMakeVisible (juce__component2.get());
     juce__component2->setName ("trigger/probability");
 
     juce__component2->setBounds (96, 0, 94, 96);
 
-    juce__component3.reset (new LuluDial ("amp", "[cloud/amp_spread] Amount of amplitude blurring for each grain."));
+    juce__component3.reset (new LuluDial ("amp", "Corresponds to [cloud/amp_spread]. The amount of amplitude blur for each grain."));
     addAndMakeVisible (juce__component3.get());
     juce__component3->setName ("cloud/amp_spread");
 
     juce__component3->setBounds (192, 0, 94, 96);
 
-    juce__component4.reset (new LuluDial ("stereo", "[cloud/stereo_spread] Stereo-spread in the cloud."));
+    juce__component4.reset (new LuluDial ("stereo", "Corresponds to [cloud/stereo_spread]. The amount of stereo-spread for each grain."));
     addAndMakeVisible (juce__component4.get());
     juce__component4->setName ("cloud/stereo_spread");
 
     juce__component4->setBounds (288, 0, 94, 96);
 
-    juce__component5.reset (new LuluDial ("pitch", "[cloud/pitch_spread] Amount of pitch blurring for each grain."));
+    juce__component5.reset (new LuluDial ("pitch", "Corresponds to [cloud/pitch_spread]. The amount of pitch blur for each grain."));
     addAndMakeVisible (juce__component5.get());
     juce__component5->setName ("cloud/pitch_spread");
 
     juce__component5->setBounds (0, 96, 94, 96);
 
-    juce__component6.reset (new LuluDial ("reverse", "[cloud/reverse_prob] Probability of each grain being played backwards."));
+    juce__component6.reset (new LuluDial ("reverse", "Corresponds to [cloud/reverse_prob]. The probability that each grains is played backwards."));
     addAndMakeVisible (juce__component6.get());
     juce__component6->setName ("cloud/reverse_prob");
 
     juce__component6->setBounds (96, 96, 94, 96);
 
-    juce__component7.reset (new LuluDial ("fb", "[feedback/amount] Feedback gain (unit: dB)."));
+    juce__component7.reset (new LuluDial ("fb", "Corresponds to [feedback/amount]. Feedback gain (unit: dB)."));
     addAndMakeVisible (juce__component7.get());
     juce__component7->setName ("feedback/amount");
 
     juce__component7->setBounds (384, 0, 94, 96);
 
-    juce__component8.reset (new LuluDial ("filter", "[feedback/type] Filter characteristics."));
+    juce__component8.reset (new LuluDial ("filter", "Corresponds to [feedback/type]. Filter characteristics in the feedback loop."));
     addAndMakeVisible (juce__component8.get());
     juce__component8->setName ("feedback/type");
 
     juce__component8->setBounds (480, 0, 94, 96);
 
-    juce__component9.reset (new LuluDial ("cutoff", "[feedback/frequency] Cutoff frequency of filter (unit: Hz)."));
+    juce__component9.reset (new LuluDial ("cutoff", "Corresponds to [feedback/frequency]. Cutoff frequency of the filter in the feedback loop (unit: Hz)."));
     addAndMakeVisible (juce__component9.get());
     juce__component9->setName ("feedback/frequency");
 
     juce__component9->setBounds (576, 0, 94, 96);
 
-    juce__component10.reset (new LuluDial ("res", "[feedback/resonance] Resonance of filter."));
+    juce__component10.reset (new LuluDial ("res", "Corresponds to [feedback/resonance.] Resonance of the filter in the feedback loop."));
     addAndMakeVisible (juce__component10.get());
     juce__component10->setName ("feedback/resonance");
 
     juce__component10->setBounds (672, 0, 94, 96);
 
-    juce__component11.reset (new LuluDial ("dw", "[drywet] Drywet."));
+    juce__component11.reset (new LuluDial ("dw", "Corresponds to [drywet]. The amount of wet signal."));
     addAndMakeVisible (juce__component11.get());
     juce__component11->setName ("drywet");
 
     juce__component11->setBounds (672, 96, 94, 96);
 
-    juce__component12.reset (new LuluToggle ("freeze", "[record/freeze] Freeze."));
+    juce__component12.reset (new LuluToggle ("freeze", "Corresponds to [record/freeze]. When enabled, recording is stopped and texture is freezed."));
     addAndMakeVisible (juce__component12.get());
     juce__component12->setName ("record/freeze");
 
     juce__component12->setBounds (384, 96, 94, 96);
 
-    juce__component13.reset (new LuluToggle ("arp", "[cloud/arp] If enabled, pitches are selected in the order in which note-ons are received."));
+    juce__component13.reset (new LuluToggle ("arp", "Corresponds to [cloud/arp]. When enabled, pitches are selected in the order in which note-ons are received."));
     addAndMakeVisible (juce__component13.get());
     juce__component13->setName ("cloud/arp");
 
     juce__component13->setBounds (480, 96, 94, 96);
 
-    juce__component14.reset (new LuluRangeDial ("saw", 0.5, "[cloud/window_saw_min] [cloud/window_saw_max] Amount of deformation of the window function due to phase distortion."));
+    juce__component14.reset (new LuluRangeDial ("saw", 0.5, "Corresponds to [cloud/window_saw_min] and [cloud/window_saw_max]. The peak of the window function varies within a specified range. The further away from 0.5, the more like a sawtooth wave it becomes."));
     addAndMakeVisible (juce__component14.get());
     juce__component14->setName ("cloud/window_saw");
 
     juce__component14->setBounds (192, 96, 94, 96);
 
-    juce__component15.reset (new LuluRangeDial ("square", 0.0, "[cloud/window_square_min] [cloud/window_square_max] Amount of deformation of the window function due to phase distortion."));
+    juce__component15.reset (new LuluRangeDial ("square", 0.0, "Corresponds to [cloud/window_square_min] and [cloud/window_square_max]. The peak of the window function varies within a specified range. The larger the value, the more like a square wave it becomes."));
     addAndMakeVisible (juce__component15.get());
     juce__component15->setName ("cloud/window_square");
 
     juce__component15->setBounds (288, 96, 94, 96);
 
-    juce__component17.reset (new LuluRangeSlider ("size", 100.0, "[cloud/size_min] [cloud/size_max] Grain size (unit: ms)."));
+    juce__component17.reset (new LuluRangeSlider ("size", 100.0, "Corresponds to [cloud/size_min] and [cloud/size_max]. The size range of each grain (unit: ms)."));
     addAndMakeVisible (juce__component17.get());
     juce__component17->setName ("cloud/size");
 
     juce__component17->setBounds (8, 192, 750, 24);
 
-    juce__component16.reset (new LuluRangeSlider ("pos", 100.0, "[cloud/position_spread_min] [cloud/position_spread_max] Amount of position blurring for each grain (unit: ms)."));
+    juce__component16.reset (new LuluRangeSlider ("pos", 100.0, "Corresponds to [cloud/position_spread_min] and [cloud/position_spread_max]. Delay time of each grains varies within a specified range (unit: ms)."));
     addAndMakeVisible (juce__component16.get());
     juce__component16->setName ("cloud/position_spread");
 
@@ -138,18 +138,18 @@ RootComponent::RootComponent ()
                                         TRANS ("lulu by @xinisnot")));
     addAndMakeVisible (juce__label.get());
     juce__label->setFont (juce::Font (12.00f, juce::Font::plain).withTypefaceStyle ("Regular"));
-    juce__label->setJustificationType (juce::Justification::centredRight);
+    juce__label->setJustificationType (juce::Justification::centred);
     juce__label->setEditable (false, false, false);
     juce__label->setColour (juce::TextEditor::textColourId, juce::Colours::black);
     juce__label->setColour (juce::TextEditor::backgroundColourId, juce::Colour (0x00000000));
 
-    juce__label->setBounds (664, 240, 102, 24);
+    juce__label->setBounds (576, 136, 94, 24);
 
 
     //[UserPreSize]
     //[/UserPreSize]
 
-    setSize (766, 264);
+    setSize (766, 240);
 
 
     //[Constructor] You can add your own custom stuff here..
@@ -226,7 +226,7 @@ void RootComponent::paint (juce::Graphics& g)
     //[UserPrePaint] Add your own custom painting code here..
     //[/UserPrePaint]
 
-    g.fillAll (juce::Colour (0xff323e44));
+    g.fillAll (juce::Colour (0xff2c3337));
 
     //[UserPaint] Add your own custom painting code here..
     //[/UserPaint]
@@ -538,64 +538,64 @@ BEGIN_JUCER_METADATA
                  parentClasses="public juce::Component, public juce::Slider::Listener"
                  constructorParams="" variableInitialisers="" snapPixels="8" snapActive="1"
                  snapShown="1" overlayOpacity="0.330" fixedSize="0" initialWidth="766"
-                 initialHeight="264">
-  <BACKGROUND backgroundColour="ff323e44"/>
+                 initialHeight="240">
+  <BACKGROUND backgroundColour="ff2c3337"/>
   <GENERICCOMPONENT name="trigger/density" id="a88a56cbaafa361c" memberName="juce__component"
                     virtualName="" explicitFocusOrder="0" pos="0 0 94 96" class="LuluDial"
-                    params="&quot;dens&quot;, &quot;[trigger/denstity] Trigger frequencies that generate grain (unit: Hz).&quot;"/>
+                    params="&quot;dens&quot;, &quot;Corresponds to [trigger/denstity]. The frequency of the trigger that generates grains (unit: Hz).&quot;"/>
   <GENERICCOMPONENT name="trigger/probability" id="d93a829d71a35dd7" memberName="juce__component2"
                     virtualName="" explicitFocusOrder="0" pos="96 0 94 96" class="LuluDial"
-                    params="&quot;prob&quot;, &quot;[trigger/probability] Probability of trigger generation.&quot;"/>
+                    params="&quot;prob&quot;, &quot;Corresponds to [trigger/probability]. The probability that triggers is generated for each cycle.&quot;"/>
   <GENERICCOMPONENT name="cloud/amp_spread" id="553b244a5844e8a4" memberName="juce__component3"
                     virtualName="" explicitFocusOrder="0" pos="192 0 94 96" class="LuluDial"
-                    params="&quot;amp&quot;, &quot;[cloud/amp_spread] Amount of amplitude blurring for each grain.&quot;"/>
+                    params="&quot;amp&quot;, &quot;Corresponds to [cloud/amp_spread]. The amount of amplitude blur for each grain.&quot;"/>
   <GENERICCOMPONENT name="cloud/stereo_spread" id="3a132989744af231" memberName="juce__component4"
                     virtualName="" explicitFocusOrder="0" pos="288 0 94 96" class="LuluDial"
-                    params="&quot;stereo&quot;, &quot;[cloud/stereo_spread] Stereo-spread in the cloud.&quot;"/>
+                    params="&quot;stereo&quot;, &quot;Corresponds to [cloud/stereo_spread]. The amount of stereo-spread for each grain.&quot;"/>
   <GENERICCOMPONENT name="cloud/pitch_spread" id="69e38761c82b373" memberName="juce__component5"
                     virtualName="" explicitFocusOrder="0" pos="0 96 94 96" class="LuluDial"
-                    params="&quot;pitch&quot;, &quot;[cloud/pitch_spread] Amount of pitch blurring for each grain.&quot;"/>
+                    params="&quot;pitch&quot;, &quot;Corresponds to [cloud/pitch_spread]. The amount of pitch blur for each grain.&quot;"/>
   <GENERICCOMPONENT name="cloud/reverse_prob" id="a7966469528a5614" memberName="juce__component6"
                     virtualName="" explicitFocusOrder="0" pos="96 96 94 96" class="LuluDial"
-                    params="&quot;reverse&quot;, &quot;[cloud/reverse_prob] Probability of each grain being played backwards.&quot;"/>
+                    params="&quot;reverse&quot;, &quot;Corresponds to [cloud/reverse_prob]. The probability that each grains is played backwards.&quot;"/>
   <GENERICCOMPONENT name="feedback/amount" id="b506f0eb0009a4d4" memberName="juce__component7"
                     virtualName="" explicitFocusOrder="0" pos="384 0 94 96" class="LuluDial"
-                    params="&quot;fb&quot;, &quot;[feedback/amount] Feedback gain (unit: dB).&quot;"/>
+                    params="&quot;fb&quot;, &quot;Corresponds to [feedback/amount]. Feedback gain (unit: dB).&quot;"/>
   <GENERICCOMPONENT name="feedback/type" id="575ffde6533637ff" memberName="juce__component8"
                     virtualName="" explicitFocusOrder="0" pos="480 0 94 96" class="LuluDial"
-                    params="&quot;filter&quot;, &quot;[feedback/type] Filter characteristics.&quot;"/>
+                    params="&quot;filter&quot;, &quot;Corresponds to [feedback/type]. Filter characteristics in the feedback loop.&quot;"/>
   <GENERICCOMPONENT name="feedback/frequency" id="4487c21a6436cc49" memberName="juce__component9"
                     virtualName="" explicitFocusOrder="0" pos="576 0 94 96" class="LuluDial"
-                    params="&quot;cutoff&quot;, &quot;[feedback/frequency] Cutoff frequency of filter (unit: Hz).&quot;"/>
+                    params="&quot;cutoff&quot;, &quot;Corresponds to [feedback/frequency]. Cutoff frequency of the filter in the feedback loop (unit: Hz).&quot;"/>
   <GENERICCOMPONENT name="feedback/resonance" id="374fa9821f93d455" memberName="juce__component10"
                     virtualName="" explicitFocusOrder="0" pos="672 0 94 96" class="LuluDial"
-                    params="&quot;res&quot;, &quot;[feedback/resonance] Resonance of filter.&quot;"/>
+                    params="&quot;res&quot;, &quot;Corresponds to [feedback/resonance.] Resonance of the filter in the feedback loop.&quot;"/>
   <GENERICCOMPONENT name="drywet" id="74d5b38edd6fc99f" memberName="juce__component11"
                     virtualName="" explicitFocusOrder="0" pos="672 96 94 96" class="LuluDial"
-                    params="&quot;dw&quot;, &quot;[drywet] Drywet.&quot;"/>
+                    params="&quot;dw&quot;, &quot;Corresponds to [drywet]. The amount of wet signal.&quot;"/>
   <GENERICCOMPONENT name="record/freeze" id="fddf570a78af6785" memberName="juce__component12"
                     virtualName="" explicitFocusOrder="0" pos="384 96 94 96" class="LuluToggle"
-                    params="&quot;freeze&quot;, &quot;[record/freeze] Freeze.&quot;"/>
+                    params="&quot;freeze&quot;, &quot;Corresponds to [record/freeze]. When enabled, recording is stopped and texture is freezed.&quot;"/>
   <GENERICCOMPONENT name="cloud/arp" id="3298acec569d528c" memberName="juce__component13"
                     virtualName="" explicitFocusOrder="0" pos="480 96 94 96" class="LuluToggle"
-                    params="&quot;arp&quot;, &quot;[cloud/arp] If enabled, pitches are selected in the order in which note-ons are received.&quot;"/>
+                    params="&quot;arp&quot;, &quot;Corresponds to [cloud/arp]. When enabled, pitches are selected in the order in which note-ons are received.&quot;"/>
   <GENERICCOMPONENT name="cloud/window_saw" id="328ba8c80d3af421" memberName="juce__component14"
                     virtualName="" explicitFocusOrder="0" pos="192 96 94 96" class="LuluRangeDial"
-                    params="&quot;saw&quot;, 0.5, &quot;[cloud/window_saw_min] [cloud/window_saw_max] Amount of deformation of the window function due to phase distortion.&quot;"/>
+                    params="&quot;saw&quot;, 0.5, &quot;Corresponds to [cloud/window_saw_min] and [cloud/window_saw_max]. The peak of the window function varies within a specified range. The further away from 0.5, the more like a sawtooth wave it becomes.&quot;"/>
   <GENERICCOMPONENT name="cloud/window_square" id="2b4ac4b9e6276bbc" memberName="juce__component15"
                     virtualName="" explicitFocusOrder="0" pos="288 96 94 96" class="LuluRangeDial"
-                    params="&quot;square&quot;, 0.0, &quot;[cloud/window_square_min] [cloud/window_square_max] Amount of deformation of the window function due to phase distortion.&quot;"/>
+                    params="&quot;square&quot;, 0.0, &quot;Corresponds to [cloud/window_square_min] and [cloud/window_square_max]. The peak of the window function varies within a specified range. The larger the value, the more like a square wave it becomes.&quot;"/>
   <GENERICCOMPONENT name="cloud/size" id="6a8ebac4af393906" memberName="juce__component17"
                     virtualName="" explicitFocusOrder="0" pos="8 192 750 24" class="LuluRangeSlider"
-                    params="&quot;size&quot;, 100.0, &quot;[cloud/size_min] [cloud/size_max] Grain size (unit: ms).&quot;"/>
+                    params="&quot;size&quot;, 100.0, &quot;Corresponds to [cloud/size_min] and [cloud/size_max]. The size range of each grain (unit: ms).&quot;"/>
   <GENERICCOMPONENT name="cloud/position_spread" id="90965c074bde1229" memberName="juce__component16"
                     virtualName="" explicitFocusOrder="0" pos="8 216 750 24" class="LuluRangeSlider"
-                    params="&quot;pos&quot;, 100.0, &quot;[cloud/position_spread_min] [cloud/position_spread_max] Amount of position blurring for each grain (unit: ms).&quot;"/>
+                    params="&quot;pos&quot;, 100.0, &quot;Corresponds to [cloud/position_spread_min] and [cloud/position_spread_max]. Delay time of each grains varies within a specified range (unit: ms).&quot;"/>
   <LABEL name="new label" id="a1146fdc32b96514" memberName="juce__label"
-         virtualName="" explicitFocusOrder="0" pos="664 240 102 24" edTextCol="ff000000"
+         virtualName="" explicitFocusOrder="0" pos="576 136 94 24" edTextCol="ff000000"
          edBkgCol="0" labelText="lulu by @xinisnot" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
-         fontsize="12.0" kerning="0.0" bold="0" italic="0" justification="34"/>
+         fontsize="12.0" kerning="0.0" bold="0" italic="0" justification="36"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA
