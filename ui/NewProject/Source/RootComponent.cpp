@@ -143,7 +143,7 @@ RootComponent::RootComponent ()
     juce__label->setColour (juce::TextEditor::textColourId, juce::Colours::black);
     juce__label->setColour (juce::TextEditor::backgroundColourId, juce::Colour (0x00000000));
 
-    juce__label->setBounds (576, 136, 94, 24);
+    juce__label->setBounds (576, 132, 94, 24);
 
 
     //[UserPreSize]
@@ -592,7 +592,7 @@ BEGIN_JUCER_METADATA
                     virtualName="" explicitFocusOrder="0" pos="8 216 750 24" class="LuluRangeSlider"
                     params="&quot;pos&quot;, 100.0, &quot;Corresponds to [cloud/position_spread_min] and [cloud/position_spread_max]. Delay time of each grains varies within a specified range (unit: ms).&quot;"/>
   <LABEL name="new label" id="a1146fdc32b96514" memberName="juce__label"
-         virtualName="" explicitFocusOrder="0" pos="576 136 94 24" edTextCol="ff000000"
+         virtualName="" explicitFocusOrder="0" pos="576 132 94 24" edTextCol="ff000000"
          edBkgCol="0" labelText="lulu by @xinisnot" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="12.0" kerning="0.0" bold="0" italic="0" justification="36"/>
