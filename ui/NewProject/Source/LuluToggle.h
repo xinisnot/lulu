@@ -27,7 +27,7 @@ public:
 class LuluToggleLaf : public LuluDialLaf
 {
 public:
-    LuluToggleLaf(juce::Colour textColour) : LuluDialLaf(textColour) {};
+    LuluToggleLaf(juce::Colour accentColour) : LuluDialLaf(accentColour) {};
 
     virtual void drawRotarySlider(juce::Graphics& g,
                           int x, int y, int width, int height,
@@ -37,7 +37,6 @@ public:
                           juce::Slider& slider) override
     {
         auto outlineColour      = slider.findColour(juce::Slider::rotarySliderOutlineColourId).withAlpha(0.8f);
-        auto thumbColour        = slider.findColour(juce::Slider::thumbColourId);
         auto bounds             = juce::Rectangle<int>(x, y, width, height).toFloat().reduced(10);
         auto radius             = juce::jmin(bounds.getWidth(), bounds.getHeight()) / 2.0f;
         auto lineWeight         = juce::jmin(2.0f, radius * 0.5f);
@@ -77,7 +76,7 @@ public:
                               juce::MathConstants<float>::twoPi,
                               true);
             
-            g.setColour(thumbColour);
+            g.setColour(getAccentColour());
             g.strokePath(led, juce::PathStrokeType(lineWeight, juce::PathStrokeType::curved, juce::PathStrokeType::rounded));
         }
         

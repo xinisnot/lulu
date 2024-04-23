@@ -30,7 +30,7 @@ public:
 class LuluDialLaf : public juce::LookAndFeel_V4
 {
 public:
-    LuluDialLaf(juce::Colour textColour) : textColour_(textColour) {};
+    LuluDialLaf(juce::Colour accentColour) : accentColour_(accentColour) {};
 
     virtual void drawRotarySlider(juce::Graphics& g,
                           int x, int y, int width, int height,
@@ -40,7 +40,6 @@ public:
                           juce::Slider& slider) override
     {
         auto outlineColour      = slider.findColour(juce::Slider::rotarySliderOutlineColourId).withAlpha(0.8f);
-        auto thumbColour        = slider.findColour(juce::Slider::thumbColourId);
         auto bounds             = juce::Rectangle<int>(x, y, width, height).toFloat().reduced(10);
         auto radius             = juce::jmin(bounds.getWidth(), bounds.getHeight()) / 2.0f;
         auto lineWeight         = juce::jmin(2.0f, radius * 0.5f);
@@ -66,12 +65,12 @@ public:
         g.strokePath(backgroundArc, juce::PathStrokeType(lineWeight, juce::PathStrokeType::curved, juce::PathStrokeType::rounded));
         
         // draw thumb
-        g.setColour(thumbColour);
+        g.setColour(getAccentColour());
         g.drawEllipse(juce::Rectangle<float>(5.0f, 5.0f).withCentre(thumbPoint), lineWeight);
         
         // draw slider name or value
         g.setFont(12.0f);
-        g.setColour(getTextColour());
+        g.setColour(juce::Colour(0xffffffff));
         
         if(slider.isMouseOverOrDragging())
         {
@@ -95,13 +94,13 @@ public:
         return l;
     }
 
-    juce::Colour getTextColour()
+    juce::Colour getAccentColour()
     {
-        return textColour_;
+        return accentColour_;
     }
 
 private:
-    juce::Colour textColour_;
+    juce::Colour accentColour_;
 };
 
 
@@ -111,7 +110,7 @@ private:
 class LuluDialLaf_DrawValue : public LuluDialLaf
 {
 public:
-    LuluDialLaf_DrawValue(juce::Colour textColour) : LuluDialLaf(textColour) {};
+    LuluDialLaf_DrawValue(juce::Colour accentColour) : LuluDialLaf(accentColour) {};
 
     void drawRotarySlider(juce::Graphics& g,
                           int x, int y, int width, int height,
@@ -121,8 +120,6 @@ public:
                           juce::Slider& slider) override
     {
         auto outlineColour      = slider.findColour(juce::Slider::rotarySliderOutlineColourId).withAlpha(0.8f);
-        auto thumbColour        = slider.findColour(juce::Slider::thumbColourId);
-        auto fillColour         = thumbColour.withAlpha(0.8f);
         auto bounds             = juce::Rectangle<int>(x, y, width, height).toFloat().reduced(10);
         auto radius             = juce::jmin(bounds.getWidth(), bounds.getHeight()) / 2.0f;
         auto lineWeight         = juce::jmin(2.0f, radius * 0.5f);
@@ -150,7 +147,7 @@ public:
         g.strokePath(backgroundArc, juce::PathStrokeType(lineWeight, juce::PathStrokeType::curved, juce::PathStrokeType::rounded));
         
         // draw thumb
-        g.setColour(thumbColour);
+        g.setColour(getAccentColour());
         g.drawLine(juce::Line<float>(thumbStart, thumbEnd), lineWeight);
 
         // draw value
@@ -164,12 +161,11 @@ public:
                                toAngle,
                                true);
         
-        g.setColour (fillColour);
         g.strokePath (valueArc, juce::PathStrokeType (lineWeight, juce::PathStrokeType::curved, juce::PathStrokeType::rounded));
 
         // draw slider name or value
         g.setFont(12.0f);
-        g.setColour(getTextColour());
+        g.setColour(juce::Colour(0xffffffff));
         
         if(slider.isMouseOverOrDragging())
         {
@@ -188,7 +184,7 @@ public:
 class LuluDialLaf_FilterType : public LuluDialLaf
 {
 public:
-    LuluDialLaf_FilterType(juce::Colour textColour) : LuluDialLaf(textColour) {};
+    LuluDialLaf_FilterType(juce::Colour accentColour) : LuluDialLaf(accentColour) {};
     
     virtual void drawRotarySlider(juce::Graphics& g,
                           int x, int y, int width, int height,
@@ -198,7 +194,6 @@ public:
                           juce::Slider& slider) override
     {
         auto outlineColour      = slider.findColour(juce::Slider::rotarySliderOutlineColourId).withAlpha(0.8f);
-        auto thumbColour        = slider.findColour(juce::Slider::thumbColourId);
         auto bounds             = juce::Rectangle<int>(x, y, width, height).toFloat().reduced(10);
         auto radius             = juce::jmin(bounds.getWidth(), bounds.getHeight()) / 2.0f;
         auto lineWeight         = juce::jmin(2.0f, radius * 0.5f);
@@ -228,12 +223,12 @@ public:
         g.strokePath(backgroundArc, juce::PathStrokeType(lineWeight, juce::PathStrokeType::curved, juce::PathStrokeType::rounded));
         
         // draw thumb
-        g.setColour(thumbColour);
+        g.setColour(getAccentColour());
         g.drawEllipse(juce::Rectangle<float>(thumbDiam, thumbDiam).withCentre(thumbStart), lineWeight);
         
         // draw slider name or value
         g.setFont(12.0f);
-        g.setColour(getTextColour());
+        g.setColour(juce::Colour(0xffffffff));
         
         if(slider.isMouseOverOrDragging())
         {

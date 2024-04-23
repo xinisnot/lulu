@@ -67,12 +67,12 @@ private:
     RNBO::JuceAudioProcessor *processor = nullptr;
     HashMap<int, Slider *> slidersByParameterIndex; // used to map parameter index to slider we want to control
 
-    LuluDialLaf             luluDialLaf { juce::Colour(0xffffffff) };
+    LuluDialLaf             luluDialLaf { findColour(juce::Slider::thumbColourId) };
     LuluDialLaf             luluDialLaf_feedback { juce::Colour(0xffc03652) };
-    LuluDialLaf_DrawValue   luluDialLaf_drawValue { juce::Colour(0xffffffff) };
+    LuluDialLaf_DrawValue   luluDialLaf_drawValue { findColour(juce::Slider::thumbColourId) };
     LuluDialLaf_DrawValue   luluDialLaf_drawValue_feedback { juce::Colour(0xffc03652) };
     LuluDialLaf_FilterType  luluDialLaf_filterType { juce::Colour(0xffc03652) };
-    LuluToggleLaf           luluToggleLaf { juce::Colour(0xffffffff) };
+    LuluToggleLaf           luluToggleLaf { findColour(juce::Slider::thumbColourId) };
     LuluRangeDialLaf        luluRangeDialLaf;
     LuluRangeSliderLaf      luluRangeSliderLaf;
     TooltipWindow           tooltipWindow;
