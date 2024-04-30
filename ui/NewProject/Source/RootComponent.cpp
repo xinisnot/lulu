@@ -56,7 +56,7 @@ RootComponent::RootComponent ()
 
     juce__component4->setBounds (288, 0, 94, 96);
 
-    juce__component5.reset (new LuluDial ("pitch", "Corresponds to [cloud/pitch_spread]. The amount of pitch blur for each grain."));
+    juce__component5.reset (new LuluDial ("pitch", "Corresponds to [cloud/pitch_spread]. The amount of pitch blur for each grain (unit: cent)."));
     addAndMakeVisible (juce__component5.get());
     juce__component5->setName ("cloud/pitch_spread");
 
@@ -554,7 +554,7 @@ BEGIN_JUCER_METADATA
                     params="&quot;stereo&quot;, &quot;Corresponds to [cloud/stereo_spread]. The amount of stereo-spread for each grain.&quot;"/>
   <GENERICCOMPONENT name="cloud/pitch_spread" id="69e38761c82b373" memberName="juce__component5"
                     virtualName="" explicitFocusOrder="0" pos="0 96 94 96" class="LuluDial"
-                    params="&quot;pitch&quot;, &quot;Corresponds to [cloud/pitch_spread]. The amount of pitch blur for each grain.&quot;"/>
+                    params="&quot;pitch&quot;, &quot;Corresponds to [cloud/pitch_spread]. The amount of pitch blur for each grain (unit: cent).&quot;"/>
   <GENERICCOMPONENT name="cloud/reverse_prob" id="a7966469528a5614" memberName="juce__component6"
                     virtualName="" explicitFocusOrder="0" pos="96 96 94 96" class="LuluDial"
                     params="&quot;reverse&quot;, &quot;Corresponds to [cloud/reverse_prob]. The probability that each grains is played backwards.&quot;"/>
