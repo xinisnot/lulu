@@ -1,10 +1,6 @@
 # About
 
-lulu is polyphonic granular delay. If you only want to use VST/AU plugin, you can download here.
-
-# How does lulu work
-
-Maybe the main components of lulu is a audio buffer, midi buffer and grain generators. Audio buffer has 2 channels and length of each channels is 10 seconds, and input audio signal is always recorded to buffer. Midi buffer manages choosen pitch and velocity according with receiving note-on and note-off. Periodically generated trigger is sent to any one of 1500 grain generators, scheduling generation of grain. At that time one of pitch in Midi buffer is chosen, used as playback speed of grain. So grain generators work like voices of polyphonic synthesizer, and sound of cloud makes polyphonic texture.
+lulu is MIDI-controlled granular delay. If you only want to use VST/AU plugin, you can download [here](https://xinisnot.gumroad.com/l/lulu).
 
 # How to build
 
