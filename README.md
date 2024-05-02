@@ -1,6 +1,6 @@
 # About
 
-lulu is MIDI-controlled granular delay. If you only want to use VST/AU plugin, you can download [here](https://xinisnot.gumroad.com/l/lulu).
+lulu is MIDI-controlled granular delay. It is also released on [Gumroad](https://xinisnot.gumroad.com/l/lulu). If you like it, I would appreciate if you can leave a small tip.
 
 # How to build
 
