@@ -88,7 +88,7 @@ public:
     {
         auto* l = juce::LookAndFeel_V4::createSliderTextBox(slider);
         
-        l->setFont(l->getFont().withHeight(12.0f));
+        l->setFont(l->getFont().withHeight(11.0f));
         l->onEditorHide = [&slider, l] {
             slider.setValue(l->getText().getDoubleValue());
             slider.setTextBoxStyle(juce::Slider::NoTextBox, false, slider.getTextBoxWidth(), slider.getTextBoxHeight());
@@ -168,8 +168,8 @@ public:
         }
         
         // draw slider name or value
-        g.setFont(12.0f);
-        g.setColour(juce::Colour(0xffffffff));
+        g.setFont(11.0f);
+        g.setColour(juce::Colour(0xfff0f0f0));
         g.drawText(slider.getTitle(), 0, height/2 - 10, width, 20, juce::Justification::centred);
     }
 
@@ -178,7 +178,7 @@ public:
     {
         auto* l = juce::LookAndFeel_V4::createSliderTextBox(slider);
         
-        l->setFont(l->getFont().withHeight(12.0f));
+        l->setFont(l->getFont().withHeight(11.0f));
         l->onEditorHide = [&slider, l] {
             slider.setValue(l->getText().getDoubleValue());
             slider.setTextBoxStyle(juce::Slider::NoTextBox, false, slider.getTextBoxWidth(), slider.getTextBoxHeight());

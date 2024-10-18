@@ -4,7 +4,7 @@
 
 MainComponent::MainComponent()
 {
-    setSize(800, 160);
+    setSize(320, 340);
     addAndMakeVisible(sliderTriggerDensity);
     addAndMakeVisible(sliderTriggerProbability);
     addAndMakeVisible(sliderFeedbackAmount);
@@ -21,23 +21,31 @@ MainComponent::MainComponent()
     addAndMakeVisible(sliderCloudStereoSpread);
     addAndMakeVisible(sliderCloudPitchBlur);
     addAndMakeVisible(sliderCloudReverseProb);
+    addAndMakeVisible(labelTitle);
     
-    sliderTriggerDensity.setBounds    (0,   0,  80, 80);
-    sliderTriggerProbability.setBounds(80,  0,  80, 80);
-    sliderFeedbackAmount.setBounds    (160, 0,  80, 80);
-    sliderFeedbackDamp.setBounds      (240, 0,  80, 80);
-    toggleRecordFreeze.setBounds      (320, 0,  80, 80);
-    sliderDrywet.setBounds            (720, 0,  80, 80);
-    sliderCloudPosition.setBounds     (0,   80, 80, 80);
-    sliderCloudPositionBlur.setBounds (80,  80, 80, 80);
-    sliderCloudAmpBlur.setBounds      (160, 80, 80, 80);
-    sliderCloudGrainSize.setBounds    (240, 80, 80, 80);
-    sliderCloudGrainSizeBlur.setBounds(320, 80, 80, 80);
-    sliderCloudWindowTilt.setBounds   (400, 80, 80, 80);
-    sliderCloudWindowPulse.setBounds  (480, 80, 80, 80);
-    sliderCloudStereoSpread.setBounds (560, 80, 80, 80);
-    sliderCloudPitchBlur.setBounds    (640, 80, 80, 80);
-    sliderCloudReverseProb.setBounds  (720, 80, 80, 80);
+    sliderTriggerDensity.setBounds    (0,   0,   80,  80);
+    sliderTriggerProbability.setBounds(80,  0,   80,  80);
+    sliderFeedbackAmount.setBounds    (160, 0,   80,  80);
+    sliderFeedbackDamp.setBounds      (240, 0,   80,  80);
+    sliderCloudPosition.setBounds     (0,   80,  80,  80);
+    sliderCloudPositionBlur.setBounds (80,  80,  80,  80);
+    sliderCloudGrainSize.setBounds    (160, 80,  80,  80);
+    sliderCloudGrainSizeBlur.setBounds(240, 80,  80,  80);
+    sliderCloudAmpBlur.setBounds      (0,   160, 80,  80);
+    sliderCloudPitchBlur.setBounds    (80,  160, 80,  80);
+    sliderCloudStereoSpread.setBounds (160, 160, 80,  80);
+    sliderCloudReverseProb.setBounds  (240, 160, 80,  80);
+    sliderCloudWindowTilt.setBounds   (0,   240, 80,  80);
+    sliderCloudWindowPulse.setBounds  (80,  240, 80,  80);
+    toggleRecordFreeze.setBounds      (160, 240, 80,  80);
+    sliderDrywet.setBounds            (240, 240, 80,  80);
+    labelTitle.setBounds              (0,   320, 320, 20);
+
+    labelTitle.setFont(juce::Font (11.00f, juce::Font::plain).withTypefaceStyle ("Regular"));
+    labelTitle.setJustificationType (juce::Justification::right);
+    labelTitle.setEditable(false, false, false);
+    labelTitle.setColour(juce::TextEditor::backgroundColourId, juce::Colour (0x00000000));
+    labelTitle.setColour(juce::TextEditor::textColourId, juce::Colour(0xfff0f0f0));
     
     sliderTriggerDensity.setTitle    ("dens");
     sliderTriggerProbability.setTitle("prob");

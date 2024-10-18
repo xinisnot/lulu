@@ -34,11 +34,12 @@ private:
     LuluDial            sliderCloudPitchBlur;
     LuluDial            sliderCloudReverseProb;
     LuluToggle          toggleRecordFreeze;
+    juce::Label         labelTitle              { "label", "lulu by @xinisnot" };
     LuluDialLaf         luluDialLaf             { findColour(juce::Slider::thumbColourId), false };
     LuluDialLaf         luluDialLaf_fromCenter  { findColour(juce::Slider::thumbColourId), true };
     LuluToggleLaf       luluToggleLaf           { findColour(juce::Slider::thumbColourId) };
     juce::TooltipWindow tooltipWindow;
-    
+
     RNBO::JuceAudioProcessor* processor = nullptr;
     HashMap<int, juce::Slider*> slidersByParameterIndex; // used to map parameter index to slider we want to control
     
