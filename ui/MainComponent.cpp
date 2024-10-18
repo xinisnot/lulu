@@ -90,22 +90,22 @@ MainComponent::MainComponent()
     sliderCloudPitchBlur.setTooltip    ("[cloud/pitch_blur]");
     sliderCloudReverseProb.setTooltip  ("[cloud/reverse_prob]");
     
-    sliderTriggerDensity.setLookAndFeel    (&luluDialLaf_value);
-    sliderTriggerProbability.setLookAndFeel(&luluDialLaf_value);
-    sliderFeedbackAmount.setLookAndFeel    (&luluDialLaf_value);
-    sliderFeedbackDamp.setLookAndFeel      (&luluDialLaf_value);
+    sliderTriggerDensity.setLookAndFeel    (&luluDialLaf);
+    sliderTriggerProbability.setLookAndFeel(&luluDialLaf);
+    sliderFeedbackAmount.setLookAndFeel    (&luluDialLaf);
+    sliderFeedbackDamp.setLookAndFeel      (&luluDialLaf);
     toggleRecordFreeze.setLookAndFeel      (&luluToggleLaf);
-    sliderDrywet.setLookAndFeel            (&luluDialLaf_value);
-    sliderCloudPosition.setLookAndFeel     (&luluDialLaf_value);
-    sliderCloudPositionBlur.setLookAndFeel (&luluDialLaf_value);
-    sliderCloudAmpBlur.setLookAndFeel      (&luluDialLaf_value);
-    sliderCloudGrainSize.setLookAndFeel    (&luluDialLaf_value);
-    sliderCloudGrainSizeBlur.setLookAndFeel(&luluDialLaf_value);
-    sliderCloudWindowTilt.setLookAndFeel   (&luluDialLaf_point);
-    sliderCloudWindowPulse.setLookAndFeel  (&luluDialLaf_point);
-    sliderCloudStereoSpread.setLookAndFeel (&luluDialLaf_value);
-    sliderCloudPitchBlur.setLookAndFeel    (&luluDialLaf_value);
-    sliderCloudReverseProb.setLookAndFeel  (&luluDialLaf_value);
+    sliderDrywet.setLookAndFeel            (&luluDialLaf);
+    sliderCloudPosition.setLookAndFeel     (&luluDialLaf);
+    sliderCloudPositionBlur.setLookAndFeel (&luluDialLaf);
+    sliderCloudAmpBlur.setLookAndFeel      (&luluDialLaf);
+    sliderCloudGrainSize.setLookAndFeel    (&luluDialLaf);
+    sliderCloudGrainSizeBlur.setLookAndFeel(&luluDialLaf);
+    sliderCloudWindowTilt.setLookAndFeel   (&luluDialLaf_fromCenter);
+    sliderCloudWindowPulse.setLookAndFeel  (&luluDialLaf_fromCenter);
+    sliderCloudStereoSpread.setLookAndFeel (&luluDialLaf);
+    sliderCloudPitchBlur.setLookAndFeel    (&luluDialLaf);
+    sliderCloudReverseProb.setLookAndFeel  (&luluDialLaf);
 
     sliderTriggerDensity.addListener    (this);
     sliderTriggerProbability.addListener(this);
@@ -156,26 +156,26 @@ void MainComponent::setAudioProcessor(RNBO::JuceAudioProcessor *p)
         RNBO::ParameterValue value  = coreObject.getParameterValue(i);
         juce::Slider *slider        = nullptr;
         
-        if (juce::String(parameterName) == sliderDrywet.getName())
-            slider = &sliderDrywet;
-        else if (juce::String(parameterName) == sliderTriggerDensity.getName())
+        if (juce::String(parameterName) == sliderTriggerDensity.getName())
             slider = &sliderTriggerDensity;
+        else if (juce::String(parameterName) == sliderCloudPositionBlur.getName())
+            slider = &sliderCloudPositionBlur;
+        else if (juce::String(parameterName) == sliderCloudPosition.getName())
+            slider = &sliderCloudPosition;
+        else if (juce::String(parameterName) == sliderCloudGrainSize.getName())
+            slider = &sliderCloudGrainSize;
+        else if (juce::String(parameterName) == sliderCloudGrainSizeBlur.getName())
+            slider = &sliderCloudGrainSizeBlur;
+        else if (juce::String(parameterName) == sliderDrywet.getName())
+            slider = &sliderDrywet;
         else if (juce::String(parameterName) == sliderTriggerProbability.getName())
             slider = &sliderTriggerProbability;
         else if (juce::String(parameterName) == sliderFeedbackAmount.getName())
             slider = &sliderFeedbackAmount;
         else if (juce::String(parameterName) == sliderFeedbackDamp.getName())
             slider = &sliderFeedbackDamp;
-        else if (juce::String(parameterName) == sliderCloudPosition.getName())
-            slider = &sliderCloudPosition;
-        else if (juce::String(parameterName) == sliderCloudPositionBlur.getName())
-            slider = &sliderCloudPositionBlur;
         else if (juce::String(parameterName) == sliderCloudAmpBlur.getName())
             slider = &sliderCloudAmpBlur;
-        else if (juce::String(parameterName) == sliderCloudGrainSize.getName())
-            slider = &sliderCloudGrainSize;
-        else if (juce::String(parameterName) == sliderCloudGrainSizeBlur.getName())
-            slider = &sliderCloudGrainSizeBlur;
         else if (juce::String(parameterName) == sliderCloudWindowTilt.getName())
             slider = &sliderCloudWindowTilt;
         else if (juce::String(parameterName) == sliderCloudWindowPulse.getName())
@@ -196,6 +196,17 @@ void MainComponent::setAudioProcessor(RNBO::JuceAudioProcessor *p)
             coreObject.getParameterInfo(i, &parameterInfo);
             slider->setRange(parameterInfo.min, parameterInfo.max);
             slider->setValue(value);
+
+            if(slider->getName() == juce::String("trigger/density"))
+                slider->setSkewFactorFromMidPoint(100.0);
+            else if(slider->getName() == juce::String("cloud/position"))
+                slider->setSkewFactorFromMidPoint(200);
+            else if(slider->getName() == juce::String("cloud/position_blur"))
+                slider->setSkewFactorFromMidPoint(0.1);
+            else if(slider->getName() == juce::String("cloud/grain_size"))
+                slider->setSkewFactorFromMidPoint(200);
+            else if(slider->getName() == juce::String("cloud/grain_size_blur"))
+                slider->setSkewFactorFromMidPoint(0.1);
         }
     }
 }

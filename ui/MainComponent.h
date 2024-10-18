@@ -34,9 +34,9 @@ private:
     LuluDial            sliderCloudPitchBlur;
     LuluDial            sliderCloudReverseProb;
     LuluToggle          toggleRecordFreeze;
-    LuluDialLaf_Point   luluDialLaf_point { findColour(juce::Slider::thumbColourId) };
-    LuluDialLaf_Value   luluDialLaf_value { findColour(juce::Slider::thumbColourId) };
-    LuluToggleLaf       luluToggleLaf     { findColour(juce::Slider::thumbColourId) };
+    LuluDialLaf         luluDialLaf             { findColour(juce::Slider::thumbColourId), false };
+    LuluDialLaf         luluDialLaf_fromCenter  { findColour(juce::Slider::thumbColourId), true };
+    LuluToggleLaf       luluToggleLaf           { findColour(juce::Slider::thumbColourId) };
     juce::TooltipWindow tooltipWindow;
     
     RNBO::JuceAudioProcessor* processor = nullptr;
