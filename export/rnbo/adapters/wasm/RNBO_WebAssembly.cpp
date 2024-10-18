@@ -1,6 +1,10 @@
 // use the core engine, we do not need thread safety and state restoration
+#ifndef RNBO_SIMPLEENGINE
 #define RNBO_SIMPLEENGINE
+#endif
+#ifndef RNBO_NO_INT64
 #define RNBO_NO_INT64
+#endif
 
 #include "RNBO.h"
 #include "RNBO.cpp"

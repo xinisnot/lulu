@@ -54,7 +54,7 @@ target_sources(RNBOAudioPlugin PRIVATE
   src/Plugin.cpp
   src/CustomAudioEditor.cpp
   src/CustomAudioProcessor.cpp
-  ui/NewProject/Source/RootComponent.cpp
+  ui/MainComponent.cpp
   )
 
 if (EXISTS ${RNBO_BINARY_DATA_FILE})
@@ -68,7 +68,7 @@ target_include_directories(RNBOAudioPlugin
   ${RNBO_CPP_DIR}/common/
   ${RNBO_CPP_DIR}/adapters/juce/
   ${RNBO_CPP_DIR}/src/3rdparty/
-  ui/NewProject/Source
+  ui
   src
 )
 

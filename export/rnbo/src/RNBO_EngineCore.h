@@ -409,6 +409,11 @@ namespace RNBO {
 
 			_paramNameHash.update(_patcher.get());
 
+			// we need to update the size of the shadow value array and update shadow values in the ParameterInterfaces
+			for (auto&& pi : _activeParameterInterfaces) {
+				pi->refreshParameterCountAndValues();
+			}
+
 			if (_patcherChangedHandler) {
 				_patcherChangedHandler->patcherChanged();
 			}
@@ -610,11 +615,13 @@ namespace RNBO {
 
 		virtual void setPresetSync(UniquePresetPtr preset)
 		{
+#ifndef RNBO_NOPRESETS
 			_settingPreset = true;
 			sendOutgoingEvent(PresetEvent(_currentTime, PresetEvent::SettingBegin));
 			_patcher->setPreset(_currentTime, *preset);
 			sendOutgoingEvent(PresetEvent(_currentTime, PresetEvent::SettingEnd));
 			_settingPreset = false;
+#endif // RNBO_NOPRESETS
 		}
 
 		virtual ConstPresetPtr getPresetSync() {
@@ -624,9 +631,11 @@ namespace RNBO {
 		}
 
 		void presetTouched() override {
+#ifndef RNBO_NOPRESETS
 			if (!_settingPreset) {
 				sendOutgoingEvent(PresetEvent(_currentTime, PresetEvent::Touched, nullptr, nullptr));
 			}
+#endif // RNBO_NOPRESETS
 		}
 
 		virtual void beginProcessDataRefs() {}

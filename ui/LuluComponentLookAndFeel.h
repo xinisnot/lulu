@@ -1,36 +1,10 @@
 #pragma once
-#include <JuceHeader.h>
 
 
-class LuluDial : public juce::Slider
+class LuluDialLaf_Point : public juce::LookAndFeel_V4
 {
 public:
-    LuluDial(juce::String title, juce::String tooltipText)
-    {
-        setTitle(title);
-        setSliderStyle(juce::Slider::RotaryVerticalDrag);
-        setTextBoxStyle(juce::Slider::NoTextBox, false, 80, 20);
-        setTooltip(tooltipText);
-    }
-    
-    void mouseDoubleClick(const juce::MouseEvent&) override
-    {
-        if(getTextBoxPosition() == juce::Slider::NoTextBox)
-        {
-            setTextBoxStyle(juce::Slider::TextBoxBelow, false, getTextBoxWidth(), getTextBoxHeight());
-            showTextBox();
-        }
-    }
-};
-
-
-//==============================================================================
-
-
-class LuluDialLaf : public juce::LookAndFeel_V4
-{
-public:
-    LuluDialLaf(juce::Colour accentColour) : accentColour_(accentColour) {};
+    LuluDialLaf_Point(juce::Colour accentColour) : accentColour_(accentColour) {};
 
     virtual void drawRotarySlider(juce::Graphics& g,
                           int x, int y, int width, int height,
@@ -69,8 +43,8 @@ public:
         g.drawEllipse(juce::Rectangle<float>(5.0f, 5.0f).withCentre(thumbPoint), lineWeight);
         
         // draw slider name or value
-        g.setFont(12.0f);
-        g.setColour(juce::Colour(0xffffffff));
+        g.setFont(11.0f);
+        g.setColour(juce::Colour(0xfff0f0f0));
         
         if(slider.isMouseOverOrDragging())
         {
@@ -107,10 +81,10 @@ private:
 //==============================================================================
 
 
-class LuluDialLaf_DrawValue : public LuluDialLaf
+class LuluDialLaf_Value : public LuluDialLaf_Point
 {
 public:
-    LuluDialLaf_DrawValue(juce::Colour accentColour) : LuluDialLaf(accentColour) {};
+    LuluDialLaf_Value(juce::Colour accentColour) : LuluDialLaf_Point(accentColour) {};
 
     void drawRotarySlider(juce::Graphics& g,
                           int x, int y, int width, int height,
@@ -164,8 +138,8 @@ public:
         g.strokePath (valueArc, juce::PathStrokeType (lineWeight, juce::PathStrokeType::curved, juce::PathStrokeType::rounded));
 
         // draw slider name or value
-        g.setFont(12.0f);
-        g.setColour(juce::Colour(0xffffffff));
+        g.setFont(11.0f);
+        g.setColour(juce::Colour(0xfff0f0f0));
         
         if(slider.isMouseOverOrDragging())
         {
@@ -181,11 +155,11 @@ public:
 //==============================================================================
 
 
-class LuluDialLaf_FilterType : public LuluDialLaf
+class LuluToggleLaf : public LuluDialLaf_Point
 {
 public:
-    LuluDialLaf_FilterType(juce::Colour accentColour) : LuluDialLaf(accentColour) {};
-    
+    LuluToggleLaf(juce::Colour accentColour) : LuluDialLaf_Point(accentColour) {};
+
     virtual void drawRotarySlider(juce::Graphics& g,
                           int x, int y, int width, int height,
                           float sliderPosProportional,
@@ -206,8 +180,6 @@ public:
         juce::Point<float> thumbEnd  (bounds.getCentreX() +       arcRadius * std::cos(toAngle - juce::MathConstants<float>::halfPi),
                                       bounds.getCentreY() +       arcRadius * std::sin(toAngle - juce::MathConstants<float>::halfPi));
 
-        float thumbDiam = thumbStart.getDistanceFrom(thumbEnd);
-        
         // draw outline
         juce::Path backgroundArc;
         backgroundArc.addCentredArc(bounds.getCentreX(),
@@ -222,31 +194,26 @@ public:
         g.setColour(outlineColour);
         g.strokePath(backgroundArc, juce::PathStrokeType(lineWeight, juce::PathStrokeType::curved, juce::PathStrokeType::rounded));
         
-        // draw thumb
-        g.setColour(getAccentColour());
-        g.drawEllipse(juce::Rectangle<float>(thumbDiam, thumbDiam).withCentre(thumbStart), lineWeight);
+        // draw led
+        if(((int)slider.getValue()) == 1)
+        {
+            juce::Path led;
+            led.addCentredArc(bounds.getCentreX(),
+                              bounds.getCentreY(),
+                              arcRadius,
+                              arcRadius,
+                              0.0f,
+                              0.0f,
+                              juce::MathConstants<float>::twoPi,
+                              true);
+            
+            g.setColour(getAccentColour());
+            g.strokePath(led, juce::PathStrokeType(lineWeight, juce::PathStrokeType::curved, juce::PathStrokeType::rounded));
+        }
         
         // draw slider name or value
         g.setFont(12.0f);
         g.setColour(juce::Colour(0xffffffff));
-        
-        if(slider.isMouseOverOrDragging())
-        {
-            int value = (int) slider.getValue();
-            juce::String type;
-            
-            switch(value)
-            {
-                case 0: type = "bypass";   break;
-                case 1: type = "lowpass";  break;
-                case 2: type = "highpass"; break;
-                case 3: type = "bandpass"; break;
-                default: break;
-            }
-            
-            g.drawText(type, 0, height/2 - 10, width, 20, juce::Justification::centred);
-        }
-        else
-            g.drawText(slider.getTitle(), 0, height/2 - 10, width, 20, juce::Justification::centred);
+        g.drawText(slider.getTitle(), 0, height/2 - 10, width, 20, juce::Justification::centred);
     }
 };
