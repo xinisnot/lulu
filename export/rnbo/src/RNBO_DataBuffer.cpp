@@ -8,8 +8,6 @@
 
 #include "RNBO_DataBuffer.h"
 
-#include <cstring>
-
 namespace RNBO {
 
 	DataBuffer::DataBuffer(size_t size)

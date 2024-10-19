@@ -6,7 +6,6 @@
 //
 
 #include "RNBO_DataRefList.h"
-#include "RNBO_Std.h"
 
 #ifndef RNBO_NOSTDLIB
 

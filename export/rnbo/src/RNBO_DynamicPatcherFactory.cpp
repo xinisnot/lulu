@@ -201,11 +201,6 @@ namespace RNBO {
 			_wrappedObject->processTimeSignatureEvent(time, numerator, denominator);
 		}
 
-		void processBBUEvent(MillisecondTime time, number bars, number beats, number units) override
-		{
-			_wrappedObject->processBBUEvent(time, bars, beats, units);
-		}
-
 		void getState(PatcherStateInterface& state) override
 		{
 			_wrappedObject->getState(state);

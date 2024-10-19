@@ -11,7 +11,11 @@ namespace RNBO {
 	template<class T, size_t N> class array {
 	public:
 
-		array() {}
+		array() {
+			for (size_t i = 0; i < N; i++) {
+				_values[i] = _dummy;
+			}
+		}
 
 		template<typename... Ts> array(Ts ... args)
 		{
@@ -52,7 +56,7 @@ namespace RNBO {
 		T& operator[](size_t n) {
 			if (n >= N) {
 				Platform::get()->errorOrDefault(RuntimeError::OutOfRange, "array index out of range", false /*unused*/);
-				_dummy = {};
+				_dummy = static_cast<T>(0);
 				return _dummy;
 			}
 			return _values[n];
@@ -76,8 +80,8 @@ namespace RNBO {
 		}
 
 	private:
-		T _values[N ? N : 1] = {};
-		T _dummy = {};
+		T		_values[N ? N : 1];
+		T _dummy = static_cast<T>(0);
 	};
 
 } // namespace RNBO

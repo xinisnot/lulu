@@ -10,8 +10,6 @@
 
 namespace RNBO {
 
-	class EventTarget;
-
     /**
      * The EmptyEvent allows us to make an EventVariant that does not yet have an event.
      *

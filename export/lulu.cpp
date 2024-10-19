@@ -75,17 +75,17 @@ namespace RNBO {
 class rnbomatic : public PatcherInterfaceImpl {
 public:
 
-class RNBOSubpatcher_08 : public PatcherInterfaceImpl {
+class RNBOSubpatcher_27 : public PatcherInterfaceImpl {
     
     friend class rnbomatic;
     
     public:
     
-    RNBOSubpatcher_08()
+    RNBOSubpatcher_27()
     {
     }
     
-    ~RNBOSubpatcher_08()
+    ~RNBOSubpatcher_27()
     {
     }
     
@@ -192,7 +192,7 @@ class RNBOSubpatcher_08 : public PatcherInterfaceImpl {
                 number currentValue = buffer->getSample(channel, sampleIndex);
     
                 {
-                    value = value + currentValue * overdub;
+                    value = value * (1. - overdub) + currentValue * overdub;
                 }
             }
     
@@ -784,29 +784,29 @@ class RNBOSubpatcher_08 : public PatcherInterfaceImpl {
     
 };
 
-class RNBOSubpatcher_09 : public PatcherInterfaceImpl {
+class RNBOSubpatcher_28 : public PatcherInterfaceImpl {
     
     friend class rnbomatic;
     
     public:
     
-    class RNBOSubpatcher_07 : public PatcherInterfaceImpl {
+    class RNBOSubpatcher_26 : public PatcherInterfaceImpl {
             
-            friend class RNBOSubpatcher_09;
+            friend class RNBOSubpatcher_28;
             friend class rnbomatic;
             
             public:
             
-            RNBOSubpatcher_07()
+            RNBOSubpatcher_26()
             {
             }
             
-            ~RNBOSubpatcher_07()
+            ~RNBOSubpatcher_26()
             {
             }
             
-            virtual RNBOSubpatcher_09* getPatcher() const {
-                return static_cast<RNBOSubpatcher_09 *>(_parentPatcher);
+            virtual RNBOSubpatcher_28* getPatcher() const {
+                return static_cast<RNBOSubpatcher_28 *>(_parentPatcher);
             }
             
             rnbomatic* getTopLevelPatcher() {
@@ -1223,11 +1223,11 @@ class RNBOSubpatcher_09 : public PatcherInterfaceImpl {
             
     };
     
-    RNBOSubpatcher_09()
+    RNBOSubpatcher_28()
     {
     }
     
-    ~RNBOSubpatcher_09()
+    ~RNBOSubpatcher_28()
     {
         delete this->p_01;
     }
@@ -1364,7 +1364,7 @@ class RNBOSubpatcher_09 : public PatcherInterfaceImpl {
     void getState(PatcherStateInterface& ) {}
     
     void setState() {
-        this->p_01 = new RNBOSubpatcher_07();
+        this->p_01 = new RNBOSubpatcher_26();
         this->p_01->setEngineAndPatcher(this->getEngine(), this);
         this->p_01->initialize();
         this->p_01->setParameterOffset(this->getParameterOffset(this->p_01));
@@ -2395,21 +2395,21 @@ class RNBOSubpatcher_09 : public PatcherInterfaceImpl {
         Int _noteNumber;
         Index isMuted;
         ParameterIndex parameterOffset;
-        RNBOSubpatcher_07* p_01;
+        RNBOSubpatcher_26* p_01;
     
 };
 
-class RNBOSubpatcher_10 : public PatcherInterfaceImpl {
+class RNBOSubpatcher_29 : public PatcherInterfaceImpl {
     
     friend class rnbomatic;
     
     public:
     
-    RNBOSubpatcher_10()
+    RNBOSubpatcher_29()
     {
     }
     
-    ~RNBOSubpatcher_10()
+    ~RNBOSubpatcher_29()
     {
     }
     
@@ -2430,7 +2430,7 @@ class RNBOSubpatcher_10 : public PatcherInterfaceImpl {
     
     number random(number low, number high) {
         number range = high - low;
-        return globalrandom() * range + low;
+        return rand01() * range + low;
     }
     
     number wrap(number x, number low, number high) {
@@ -3193,7 +3193,7 @@ class RNBOSubpatcher_10 : public PatcherInterfaceImpl {
     {
         codebox_02_out1 = 0;
         codebox_02_probability = 1;
-        codebox_02_voice_num = 100;
+        codebox_02_voice_num = 750;
         param_04_value = 1;
         dspexpr_03_in1 = 0;
         dspexpr_03_in2 = 0;
@@ -3275,17 +3275,17 @@ class RNBOSubpatcher_10 : public PatcherInterfaceImpl {
     
 };
 
-class RNBOSubpatcher_11 : public PatcherInterfaceImpl {
+class RNBOSubpatcher_30 : public PatcherInterfaceImpl {
     
     friend class rnbomatic;
     
     public:
     
-    RNBOSubpatcher_11()
+    RNBOSubpatcher_30()
     {
     }
     
-    ~RNBOSubpatcher_11()
+    ~RNBOSubpatcher_30()
     {
     }
     
@@ -3311,7 +3311,7 @@ class RNBOSubpatcher_11 : public PatcherInterfaceImpl {
     
     number random(number low, number high) {
         number range = high - low;
-        return globalrandom() * range + low;
+        return rand01() * range + low;
     }
     
     number wrap(number x, number low, number high) {
@@ -3495,10 +3495,20 @@ class RNBOSubpatcher_11 : public PatcherInterfaceImpl {
                         bufferreadsample_result = 0.0;
                     }
     
-                    SampleIndex truncIndex = (SampleIndex)(trunc(sampleIndex));
+                    SampleIndex index1 = (SampleIndex)(trunc(sampleIndex));
     
                     {
-                        bufferreadsample_result = __buffer->getSample(channelIndex, truncIndex);
+                        {
+                            {
+                                {
+                                    {
+                                        {
+                                            bufferreadsample_result = __buffer->getSample(channelIndex, index1);
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
     
@@ -3562,13 +3572,9 @@ class RNBOSubpatcher_11 : public PatcherInterfaceImpl {
                 auto __end = bufferSize;
                 auto __start = 0;
                 auto __phase = sampleIndex;
-                number size;
     
                 {
-                    size = __end - __start - 1;
-                }
-    
-                {
+                    number size = __end - __start;
                     bufferphasetoindex_result = __phase * size;
                 }
             }
@@ -3600,29 +3606,21 @@ class RNBOSubpatcher_11 : public PatcherInterfaceImpl {
                         bufferreadsample_result = 0.0;
                     }
     
-                    SampleIndex truncIndex = (SampleIndex)(trunc(sampleIndex));
+                    SampleIndex index1 = (SampleIndex)(trunc(sampleIndex));
     
                     {
-                        number frac = sampleIndex - truncIndex;
+                        number frac = sampleIndex - index1;
                         number wrap = bufferSize - 1;
+                        SampleIndex index2 = (SampleIndex)(index1 + 1);
     
-                        {
-                            SampleIndex index1 = (SampleIndex)(truncIndex);
+                        if (index2 > wrap)
+                            index2 = 0;
     
-                            if (index1 < 0)
-                                index1 = wrap;
-    
-                            SampleIndex index2 = (SampleIndex)(index1 + 1);
-    
-                            if (index2 > wrap)
-                                index2 = 0;
-    
-                            bufferreadsample_result = this->linearinterp(
-                                frac,
-                                __buffer->getSample(channelIndex, index1),
-                                __buffer->getSample(channelIndex, index2)
-                            );
-                        }
+                        bufferreadsample_result = this->linearinterp(
+                            frac,
+                            __buffer->getSample(channelIndex, index1),
+                            __buffer->getSample(channelIndex, index2)
+                        );
                     }
                 }
     
@@ -3677,29 +3675,21 @@ class RNBOSubpatcher_11 : public PatcherInterfaceImpl {
                         bufferreadsample_result = 0.0;
                     }
     
-                    SampleIndex truncIndex = (SampleIndex)(trunc(sampleIndex));
+                    SampleIndex index1 = (SampleIndex)(trunc(sampleIndex));
     
                     {
-                        number frac = sampleIndex - truncIndex;
+                        number frac = sampleIndex - index1;
                         number wrap = bufferSize - 1;
+                        SampleIndex index2 = (SampleIndex)(index1 + 1);
     
-                        {
-                            SampleIndex index1 = (SampleIndex)(truncIndex);
+                        if (index2 > wrap)
+                            index2 = 0;
     
-                            if (index1 < 0)
-                                index1 = wrap;
-    
-                            SampleIndex index2 = (SampleIndex)(index1 + 1);
-    
-                            if (index2 > wrap)
-                                index2 = 0;
-    
-                            bufferreadsample_result = this->linearinterp(
-                                frac,
-                                __buffer->getSample(channelIndex, index1),
-                                __buffer->getSample(channelIndex, index2)
-                            );
-                        }
+                        bufferreadsample_result = this->linearinterp(
+                            frac,
+                            __buffer->getSample(channelIndex, index1),
+                            __buffer->getSample(channelIndex, index2)
+                        );
                     }
                 }
     
@@ -3760,7 +3750,7 @@ class RNBOSubpatcher_11 : public PatcherInterfaceImpl {
             this->gen_03_pitch_spread_ratio,
             this->gen_03_grain_reverse_prob,
             this->gen_03_window_tilt,
-            this->gen_03_window_pulse,
+            this->gen_03_window_skirt,
             this->gen_03_buf_source_length,
             this->signals[1],
             this->signals[2],
@@ -3856,7 +3846,7 @@ class RNBOSubpatcher_11 : public PatcherInterfaceImpl {
         this->param_08_getPresetValue(getSubState(preset, "grain_size"));
         this->param_09_getPresetValue(getSubState(preset, "grain_size_blur"));
         this->param_10_getPresetValue(getSubState(preset, "window_tilt"));
-        this->param_11_getPresetValue(getSubState(preset, "window_pulse"));
+        this->param_11_getPresetValue(getSubState(preset, "window_skirt"));
         this->param_12_getPresetValue(getSubState(preset, "reverse_prob"));
         this->param_13_getPresetValue(getSubState(preset, "amp_blur"));
         this->param_14_getPresetValue(getSubState(preset, "pitch_blur"));
@@ -3999,7 +3989,7 @@ class RNBOSubpatcher_11 : public PatcherInterfaceImpl {
         switch (index) {
         default:
             {
-            for (Index i = 0; i < 500; i++)
+            for (Index i = 0; i < 750; i++)
                 voices[i]->setParameterValue(index, value, time);
             }
         }
@@ -4041,7 +4031,7 @@ class RNBOSubpatcher_11 : public PatcherInterfaceImpl {
             }
         case 5:
             {
-            return "window_pulse";
+            return "window_skirt";
             }
         case 6:
             {
@@ -4090,7 +4080,7 @@ class RNBOSubpatcher_11 : public PatcherInterfaceImpl {
             }
         case 5:
             {
-            return "cloud/window_pulse";
+            return "cloud/window_skirt";
             }
         case 6:
             {
@@ -4710,7 +4700,7 @@ class RNBOSubpatcher_11 : public PatcherInterfaceImpl {
             this->param_11_lastValue = this->param_11_value;
         }
     
-        this->gen_03_window_pulse_set(v);
+        this->gen_03_window_skirt_set(v);
     }
     
     void param_12_value_set(number v) {
@@ -4826,7 +4816,7 @@ class RNBOSubpatcher_11 : public PatcherInterfaceImpl {
         this->gen_03_h_window_phase_init();
         this->gen_03_h_window_delta_init();
         this->gen_03_h_window_tilt_init();
-        this->gen_03_h_window_pulse_init();
+        this->gen_03_h_window_skirt_init();
         this->gen_03_noise_3_init();
         this->gen_03_noise_6_init();
         this->gen_03_noise_9_init();
@@ -5063,7 +5053,7 @@ class RNBOSubpatcher_11 : public PatcherInterfaceImpl {
         return v;
     }
     
-    number gen_03_window_pulse_constrain(number v) const {
+    number gen_03_window_skirt_constrain(number v) const {
         if (v < 0)
             v = 0;
     
@@ -5073,9 +5063,9 @@ class RNBOSubpatcher_11 : public PatcherInterfaceImpl {
         return v;
     }
     
-    void gen_03_window_pulse_set(number v) {
-        v = this->gen_03_window_pulse_constrain(v);
-        this->gen_03_window_pulse = v;
+    void gen_03_window_skirt_set(number v) {
+        v = this->gen_03_window_skirt_constrain(v);
+        this->gen_03_window_skirt = v;
     }
     
     number param_12_value_constrain(number v) const {
@@ -5255,7 +5245,7 @@ class RNBOSubpatcher_11 : public PatcherInterfaceImpl {
         number pitch_spread_ratio,
         number grain_reverse_prob,
         number window_tilt,
-        number window_pulse,
+        number window_skirt,
         number buf_source_length,
         SampleValue * out1,
         SampleValue * out2,
@@ -5265,7 +5255,7 @@ class RNBOSubpatcher_11 : public PatcherInterfaceImpl {
         RNBO_UNUSED(voice_index);
         auto __gen_03_h_window_delta_value = this->gen_03_h_window_delta_value;
         auto __gen_03_h_window_phase_value = this->gen_03_h_window_phase_value;
-        auto __gen_03_h_window_pulse_value = this->gen_03_h_window_pulse_value;
+        auto __gen_03_h_window_skirt_value = this->gen_03_h_window_skirt_value;
         auto __gen_03_h_window_tilt_value = this->gen_03_h_window_tilt_value;
         auto __gen_03_h_grain_count_value = this->gen_03_h_grain_count_value;
         auto __gen_03_h_grain_inc_value = this->gen_03_h_grain_inc_value;
@@ -5366,7 +5356,7 @@ class RNBOSubpatcher_11 : public PatcherInterfaceImpl {
                 }
     
                 __gen_03_h_window_tilt_value = window_tilt;
-                __gen_03_h_window_pulse_value = window_pulse;
+                __gen_03_h_window_skirt_value = window_skirt;
                 __gen_03_h_window_phase_value = 0;
                 __gen_03_h_window_delta_value = (__gen_03_h_grain_size_value == 0. ? 0. : (number)1 / __gen_03_h_grain_size_value);
                 __gen_03_h_is_scheduled_value = 1;
@@ -5379,7 +5369,7 @@ class RNBOSubpatcher_11 : public PatcherInterfaceImpl {
                 number phaseDistortion_29 = 0;
     
                 {
-                    auto pulse_32 = __gen_03_h_window_pulse_value;
+                    auto pulse_32 = __gen_03_h_window_skirt_value;
                     auto tilt_31 = __gen_03_h_window_tilt_value;
                     auto x_30 = __gen_03_h_window_phase_value;
                     number y_33 = x_30;
@@ -5476,9 +5466,9 @@ class RNBOSubpatcher_11 : public PatcherInterfaceImpl {
             number expr_17_52 = yL_27;
             number expr_18_53 = yR_28;
             number expr_19_54 = __gen_03_h_is_scheduled_value;
-            out1[(Index)i] = expr_17_52;
-            out2[(Index)i] = expr_18_53;
             out3[(Index)i] = expr_19_54;
+            out2[(Index)i] = expr_18_53;
+            out1[(Index)i] = expr_17_52;
         }
     
         this->gen_03_h_is_scheduled_value = __gen_03_h_is_scheduled_value;
@@ -5489,7 +5479,7 @@ class RNBOSubpatcher_11 : public PatcherInterfaceImpl {
         this->gen_03_h_grain_inc_value = __gen_03_h_grain_inc_value;
         this->gen_03_h_grain_count_value = __gen_03_h_grain_count_value;
         this->gen_03_h_window_tilt_value = __gen_03_h_window_tilt_value;
-        this->gen_03_h_window_pulse_value = __gen_03_h_window_pulse_value;
+        this->gen_03_h_window_skirt_value = __gen_03_h_window_skirt_value;
         this->gen_03_h_window_phase_value = __gen_03_h_window_phase_value;
         this->gen_03_h_window_delta_value = __gen_03_h_window_delta_value;
     }
@@ -5707,20 +5697,20 @@ class RNBOSubpatcher_11 : public PatcherInterfaceImpl {
         this->gen_03_h_window_tilt_value = 0;
     }
     
-    number gen_03_h_window_pulse_getvalue() {
-        return this->gen_03_h_window_pulse_value;
+    number gen_03_h_window_skirt_getvalue() {
+        return this->gen_03_h_window_skirt_value;
     }
     
-    void gen_03_h_window_pulse_setvalue(number val) {
-        this->gen_03_h_window_pulse_value = val;
+    void gen_03_h_window_skirt_setvalue(number val) {
+        this->gen_03_h_window_skirt_value = val;
     }
     
-    void gen_03_h_window_pulse_reset() {
-        this->gen_03_h_window_pulse_value = 0;
+    void gen_03_h_window_skirt_reset() {
+        this->gen_03_h_window_skirt_value = 0;
     }
     
-    void gen_03_h_window_pulse_init() {
-        this->gen_03_h_window_pulse_value = 0;
+    void gen_03_h_window_skirt_init() {
+        this->gen_03_h_window_skirt_value = 0;
     }
     
     void gen_03_noise_3_reset() {
@@ -6151,7 +6141,7 @@ class RNBOSubpatcher_11 : public PatcherInterfaceImpl {
         gen_03_pitch_spread_ratio = 1;
         gen_03_grain_reverse_prob = 0;
         gen_03_window_tilt = 0.5;
-        gen_03_window_pulse = 0.5;
+        gen_03_window_skirt = 0.5;
         gen_03_buf_source_length = 0;
         mstosamps_01_ms = 0;
         param_06_value = 0;
@@ -6197,7 +6187,7 @@ class RNBOSubpatcher_11 : public PatcherInterfaceImpl {
         gen_03_h_window_phase_value = 0;
         gen_03_h_window_delta_value = 0;
         gen_03_h_window_tilt_value = 0;
-        gen_03_h_window_pulse_value = 0;
+        gen_03_h_window_skirt_value = 0;
         gen_03_cycle_18_ph_currentPhase = 0;
         gen_03_cycle_18_ph_conv = 0;
         gen_03_cycle_18_wrap = 0;
@@ -6236,7 +6226,7 @@ class RNBOSubpatcher_11 : public PatcherInterfaceImpl {
         number gen_03_pitch_spread_ratio;
         number gen_03_grain_reverse_prob;
         number gen_03_window_tilt;
-        number gen_03_window_pulse;
+        number gen_03_window_skirt;
         number gen_03_buf_source_length;
         number mstosamps_01_ms;
         number param_06_value;
@@ -6285,7 +6275,7 @@ class RNBOSubpatcher_11 : public PatcherInterfaceImpl {
         number gen_03_h_window_phase_value;
         number gen_03_h_window_delta_value;
         number gen_03_h_window_tilt_value;
-        number gen_03_h_window_pulse_value;
+        number gen_03_h_window_skirt_value;
         UInt gen_03_noise_3_state[4] = { };
         UInt gen_03_noise_6_state[4] = { };
         UInt gen_03_noise_9_state[4] = { };
@@ -6327,17 +6317,17 @@ class RNBOSubpatcher_11 : public PatcherInterfaceImpl {
     
 };
 
-class RNBOSubpatcher_12 : public PatcherInterfaceImpl {
+class RNBOSubpatcher_31 : public PatcherInterfaceImpl {
     
     friend class rnbomatic;
     
     public:
     
-    RNBOSubpatcher_12()
+    RNBOSubpatcher_31()
     {
     }
     
-    ~RNBOSubpatcher_12()
+    ~RNBOSubpatcher_31()
     {
     }
     
@@ -6440,7 +6430,7 @@ class RNBOSubpatcher_12 : public PatcherInterfaceImpl {
                 number currentValue = buffer->getSample(channel, sampleIndex);
     
                 {
-                    value = value + currentValue * overdub;
+                    value = value * (1. - overdub) + currentValue * overdub;
                 }
             }
     
@@ -6961,7 +6951,7 @@ rnbomatic()
     delete this->p_02;
     delete this->p_03;
     delete this->p_04;
-    for (int i = 0; i < 500; i++) {
+    for (int i = 0; i < 750; i++) {
         delete p_05[i];
     }
     delete this->p_06;
@@ -7125,7 +7115,7 @@ void prepareToProcess(number sampleRate, Index maxBlockSize, bool force) {
     this->p_03->prepareToProcess(sampleRate, maxBlockSize, force);
     this->p_04->prepareToProcess(sampleRate, maxBlockSize, force);
 
-    for (Index i = 0; i < 500; i++) {
+    for (Index i = 0; i < 750; i++) {
         this->p_05[i]->prepareToProcess(sampleRate, maxBlockSize, force);
     }
 
@@ -7275,7 +7265,7 @@ void processDataViewUpdate(DataRefIndex index, MillisecondTime time) {
     this->p_03->processDataViewUpdate(index, time);
     this->p_04->processDataViewUpdate(index, time);
 
-    for (Index i = 0; i < 500; i++) {
+    for (Index i = 0; i < 750; i++) {
         this->p_05[i]->processDataViewUpdate(index, time);
     }
 
@@ -7326,28 +7316,28 @@ Index getPatcherSerial() const {
 void getState(PatcherStateInterface& ) {}
 
 void setState() {
-    this->p_02 = new RNBOSubpatcher_08();
+    this->p_02 = new RNBOSubpatcher_27();
     this->p_02->setEngineAndPatcher(this->getEngine(), this);
     this->p_02->initialize();
     this->p_02->setParameterOffset(this->getParameterOffset(this->p_02));
-    this->p_03 = new RNBOSubpatcher_09();
+    this->p_03 = new RNBOSubpatcher_28();
     this->p_03->setEngineAndPatcher(this->getEngine(), this);
     this->p_03->initialize();
     this->p_03->setParameterOffset(this->getParameterOffset(this->p_03));
-    this->p_04 = new RNBOSubpatcher_10();
+    this->p_04 = new RNBOSubpatcher_29();
     this->p_04->setEngineAndPatcher(this->getEngine(), this);
     this->p_04->initialize();
     this->p_04->setParameterOffset(this->getParameterOffset(this->p_04));
 
-    for (Index i = 0; i < 500; i++) {
-        this->p_05[(Index)i] = new RNBOSubpatcher_11();
+    for (Index i = 0; i < 750; i++) {
+        this->p_05[(Index)i] = new RNBOSubpatcher_30();
         this->p_05[(Index)i]->setEngineAndPatcher(this->getEngine(), this);
         this->p_05[(Index)i]->initialize();
         this->p_05[(Index)i]->setParameterOffset(this->getParameterOffset(this->p_05[0]));
         this->p_05[(Index)i]->setVoiceIndex(i + 1);
     }
 
-    this->p_06 = new RNBOSubpatcher_12();
+    this->p_06 = new RNBOSubpatcher_31();
     this->p_06->setEngineAndPatcher(this->getEngine(), this);
     this->p_06->initialize();
     this->p_06->setParameterOffset(this->getParameterOffset(this->p_06));
@@ -7360,7 +7350,7 @@ void getPreset(PatcherStateInterface& preset) {
     this->p_03->getPreset(getSubState(getSubState(preset, "__sps"), "feedback"));
     this->p_04->getPreset(getSubState(getSubState(preset, "__sps"), "trigger"));
 
-    for (Index i = 0; i < 500; i++)
+    for (Index i = 0; i < 750; i++)
         this->p_05[i]->getPreset(getSubStateAt(getSubState(preset, "__sps"), "cloud", i));
 
     this->p_06->getPreset(getSubState(getSubState(preset, "__sps"), "midi_process"));
@@ -7384,43 +7374,43 @@ void setPreset(MillisecondTime time, PatcherStateInterface& preset) {
         getSubState(getSubState(getSubState(preset, "__sps"), "trigger"), "probability")
     );
 
-    for (Index i0 = 0; i0 < 500; i0++) this->p_05[i0]->param_06_setPresetValue(
+    for (Index i0 = 0; i0 < 750; i0++) this->p_05[i0]->param_06_setPresetValue(
         getSubState(getSubStateAt(getSubState(preset, "__sps"), "cloud", i0), "position")
     );
 
-    for (Index i0 = 0; i0 < 500; i0++) this->p_05[i0]->param_07_setPresetValue(
+    for (Index i0 = 0; i0 < 750; i0++) this->p_05[i0]->param_07_setPresetValue(
         getSubState(getSubStateAt(getSubState(preset, "__sps"), "cloud", i0), "position_blur")
     );
 
-    for (Index i0 = 0; i0 < 500; i0++) this->p_05[i0]->param_08_setPresetValue(
+    for (Index i0 = 0; i0 < 750; i0++) this->p_05[i0]->param_08_setPresetValue(
         getSubState(getSubStateAt(getSubState(preset, "__sps"), "cloud", i0), "grain_size")
     );
 
-    for (Index i0 = 0; i0 < 500; i0++) this->p_05[i0]->param_09_setPresetValue(
+    for (Index i0 = 0; i0 < 750; i0++) this->p_05[i0]->param_09_setPresetValue(
         getSubState(getSubStateAt(getSubState(preset, "__sps"), "cloud", i0), "grain_size_blur")
     );
 
-    for (Index i0 = 0; i0 < 500; i0++) this->p_05[i0]->param_10_setPresetValue(
+    for (Index i0 = 0; i0 < 750; i0++) this->p_05[i0]->param_10_setPresetValue(
         getSubState(getSubStateAt(getSubState(preset, "__sps"), "cloud", i0), "window_tilt")
     );
 
-    for (Index i0 = 0; i0 < 500; i0++) this->p_05[i0]->param_11_setPresetValue(
-        getSubState(getSubStateAt(getSubState(preset, "__sps"), "cloud", i0), "window_pulse")
+    for (Index i0 = 0; i0 < 750; i0++) this->p_05[i0]->param_11_setPresetValue(
+        getSubState(getSubStateAt(getSubState(preset, "__sps"), "cloud", i0), "window_skirt")
     );
 
-    for (Index i0 = 0; i0 < 500; i0++) this->p_05[i0]->param_12_setPresetValue(
+    for (Index i0 = 0; i0 < 750; i0++) this->p_05[i0]->param_12_setPresetValue(
         getSubState(getSubStateAt(getSubState(preset, "__sps"), "cloud", i0), "reverse_prob")
     );
 
-    for (Index i0 = 0; i0 < 500; i0++) this->p_05[i0]->param_13_setPresetValue(
+    for (Index i0 = 0; i0 < 750; i0++) this->p_05[i0]->param_13_setPresetValue(
         getSubState(getSubStateAt(getSubState(preset, "__sps"), "cloud", i0), "amp_blur")
     );
 
-    for (Index i0 = 0; i0 < 500; i0++) this->p_05[i0]->param_14_setPresetValue(
+    for (Index i0 = 0; i0 < 750; i0++) this->p_05[i0]->param_14_setPresetValue(
         getSubState(getSubStateAt(getSubState(preset, "__sps"), "cloud", i0), "pitch_blur")
     );
 
-    for (Index i0 = 0; i0 < 500; i0++) this->p_05[i0]->param_15_setPresetValue(
+    for (Index i0 = 0; i0 < 750; i0++) this->p_05[i0]->param_15_setPresetValue(
         getSubState(getSubStateAt(getSubState(preset, "__sps"), "cloud", i0), "stereo_spread")
     );
 }
@@ -7652,7 +7642,7 @@ void getParameterInfo(ParameterIndex index, ParameterInfo * info) const {
             index -= this->p_04->getNumParameters();
 
             if (index < this->p_05[0]->getNumParameters()) {
-                for (Index i = 0; i < 500; i++) {
+                for (Index i = 0; i < 750; i++) {
                     this->p_05[i]->getParameterInfo(index, info);
                 }
             }
@@ -7890,7 +7880,7 @@ void processNumMessage(MessageTag tag, MessageTag objectId, MillisecondTime time
     this->p_03->processNumMessage(tag, objectId, time, payload);
     this->p_04->processNumMessage(tag, objectId, time, payload);
 
-    for (Index i = 0; i < 500; i++) {
+    for (Index i = 0; i < 750; i++) {
         this->p_05[i]->processNumMessage(tag, objectId, time, payload);
     }
 
@@ -7909,7 +7899,7 @@ void processListMessage(
     this->p_03->processListMessage(tag, objectId, time, payload);
     this->p_04->processListMessage(tag, objectId, time, payload);
 
-    for (Index i = 0; i < 500; i++) {
+    for (Index i = 0; i < 750; i++) {
         this->p_05[i]->processListMessage(tag, objectId, time, payload);
     }
 
@@ -7923,7 +7913,7 @@ void processBangMessage(MessageTag tag, MessageTag objectId, MillisecondTime tim
     this->p_03->processBangMessage(tag, objectId, time);
     this->p_04->processBangMessage(tag, objectId, time);
 
-    for (Index i = 0; i < 500; i++) {
+    for (Index i = 0; i < 750; i++) {
         this->p_05[i]->processBangMessage(tag, objectId, time);
     }
 
@@ -8028,7 +8018,7 @@ void allocateDataRefs() {
     this->p_03->allocateDataRefs();
     this->p_04->allocateDataRefs();
 
-    for (Index i = 0; i < 500; i++) {
+    for (Index i = 0; i < 750; i++) {
         this->p_05[i]->allocateDataRefs();
     }
 
@@ -8111,7 +8101,7 @@ void initializeObjects() {
     this->p_03->initializeObjects();
     this->p_04->initializeObjects();
 
-    for (Index i = 0; i < 500; i++) {
+    for (Index i = 0; i < 750; i++) {
         this->p_05[i]->initializeObjects();
     }
 
@@ -8128,7 +8118,7 @@ void startup() {
     this->p_03->startup();
     this->p_04->startup();
 
-    for (Index i = 0; i < 500; i++) {
+    for (Index i = 0; i < 750; i++) {
         this->p_05[i]->startup();
     }
 
@@ -8268,13 +8258,13 @@ void p_04_out2_number_set(number v) {
 }
 
 void p_05_voicestatus_set(const list& v) {
-    for (Index i = 0; i < 500; i++) {
+    for (Index i = 0; i < 750; i++) {
         if (i + 1 == this->p_05_target || 0 == this->p_05_target) {
             this->p_05[i]->updateTime(this->_currentTime);
         }
     }
 
-    for (Index i = 0; i < 500; i++) {
+    for (Index i = 0; i < 750; i++) {
         if (i + 1 == this->p_05_target || 0 == this->p_05_target) {
             this->p_05[i]->voice_01_mutein_list_set(v);
         }
@@ -8282,13 +8272,13 @@ void p_05_voicestatus_set(const list& v) {
 }
 
 void p_05_activevoices_set(number v) {
-    for (Index i = 0; i < 500; i++) {
+    for (Index i = 0; i < 750; i++) {
         if (i + 1 == this->p_05_target || 0 == this->p_05_target) {
             this->p_05[i]->updateTime(this->_currentTime);
         }
     }
 
-    for (Index i = 0; i < 500; i++) {
+    for (Index i = 0; i < 750; i++) {
         this->p_05[i]->voice_01_activevoices_set(v);
     }
 }
@@ -8298,13 +8288,13 @@ void p_05_mute_set(const list& v) {
     Index muteState = (Index)(v[1]);
 
     if (voiceNumber == 0) {
-        for (Index i = 0; i < 500; i++) {
+        for (Index i = 0; i < 750; i++) {
             this->p_05[(Index)i]->setIsMuted(muteState);
         }
     } else {
         Index subpatcherIndex = voiceNumber - 1;
 
-        if (subpatcherIndex >= 0 && subpatcherIndex < 500) {
+        if (subpatcherIndex >= 0 && subpatcherIndex < 750) {
             this->p_05[(Index)subpatcherIndex]->setIsMuted(muteState);
         }
     }
@@ -8315,13 +8305,13 @@ void p_05_mute_set(const list& v) {
 }
 
 void p_05_in1_bang_bang() {
-    for (Index i = 0; i < 500; i++) {
+    for (Index i = 0; i < 750; i++) {
         if (i + 1 == this->p_05_target || 0 == this->p_05_target) {
             this->p_05[i]->updateTime(this->_currentTime);
         }
     }
 
-    for (Index i = 0; i < 500; i++) {
+    for (Index i = 0; i < 750; i++) {
         if (i + 1 == this->p_05_target || 0 == this->p_05_target) {
             this->p_05[i]->eventinlet_02_out1_bang_bang();
         }
@@ -8395,7 +8385,7 @@ void p_05_perform(SampleValue * out1, SampleValue * out2, Index n) {
     for (number chan = 0; chan < 2; chan++)
         zeroSignal(outs[(Index)chan], n);
 
-    for (Index i = 0; i < 500; i++)
+    for (Index i = 0; i < 750; i++)
         this->p_05[(Index)i]->process(nullptr, 0, outs, 2, n);
 }
 
@@ -8524,7 +8514,7 @@ number p_05_calcActiveVoices() {
     {
         number activeVoices = 0;
 
-        for (Index i = 0; i < 500; i++) {
+        for (Index i = 0; i < 750; i++) {
             if ((bool)(!(bool)(this->p_05[(Index)i]->getIsMuted())))
                 activeVoices++;
         }
@@ -8922,11 +8912,11 @@ void assign_defaults()
     Index isMuted;
     indexlist paramInitIndices;
     indexlist paramInitOrder;
-    RNBOSubpatcher_08* p_02;
-    RNBOSubpatcher_09* p_03;
-    RNBOSubpatcher_10* p_04;
-    RNBOSubpatcher_11* p_05[500];
-    RNBOSubpatcher_12* p_06;
+    RNBOSubpatcher_27* p_02;
+    RNBOSubpatcher_28* p_03;
+    RNBOSubpatcher_29* p_04;
+    RNBOSubpatcher_30* p_05[750];
+    RNBOSubpatcher_31* p_06;
 
 };
 

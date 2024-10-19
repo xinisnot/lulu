@@ -1,7 +1,5 @@
 #include "RNBO.h"
-#include "RNBO_ParameterInterfaceAsync.h"
 #include "RNBO_ParameterInterfaceAsyncImpl.h"
-#include "RNBO_Engine.h"
 
 namespace RNBO {
 
@@ -25,7 +23,7 @@ namespace RNBO {
 				RNBO_ASSERT(false);
 				break;
 		}
-
+		
 		engine.registerAsyncParameterInterface(_impl);
 	}
 

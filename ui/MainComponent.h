@@ -29,15 +29,15 @@ private:
     LuluDial            sliderCloudGrainSize;
     LuluDial            sliderCloudGrainSizeBlur;
     LuluDial            sliderCloudWindowTilt;
-    LuluDial            sliderCloudWindowPulse;
+    LuluDial            sliderCloudWindowSkirt;
     LuluDial            sliderCloudStereoSpread;
     LuluDial            sliderCloudPitchBlur;
     LuluDial            sliderCloudReverseProb;
     LuluToggle          toggleRecordFreeze;
     juce::Label         labelTitle              { "label", "lulu by @xinisnot" };
-    LuluDialLaf         luluDialLaf             { findColour(juce::Slider::thumbColourId), false };
-    LuluDialLaf         luluDialLaf_fromCenter  { findColour(juce::Slider::thumbColourId), true };
-    LuluToggleLaf       luluToggleLaf           { findColour(juce::Slider::thumbColourId) };
+    LuluDialLaf         luluDialLaf             { false };
+    LuluDialLaf         luluDialLaf_fromCenter  { true };
+    LuluToggleLaf       luluToggleLaf;
     juce::TooltipWindow tooltipWindow;
 
     RNBO::JuceAudioProcessor* processor = nullptr;

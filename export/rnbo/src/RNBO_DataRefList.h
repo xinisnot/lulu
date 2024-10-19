@@ -12,9 +12,6 @@
 #include <vector>
 
 #ifndef RNBO_NOSTDLIB
-
-#include <string>
-
 namespace RNBO {
 	enum class DataRefType {
 		File,

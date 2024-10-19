@@ -5,9 +5,6 @@
 #ifndef _RNBO_Presets_H_
 #define _RNBO_Presets_H_
 
-#include "RNBO_Std.h"
-#include "RNBO_PatcherState.h"
-
 #ifdef RNBO_NOSTDLIB
 #define RNBO_NOPRESETS
 #endif
@@ -18,11 +15,11 @@ namespace RNBO {
 	using Preset = PatcherState;
 	using PresetCallback = void(*);
 	using UniquePresetPtr = void*;
-    using PresetPtr = std::shared_ptr<Preset>;
-    using ConstPresetPtr = std::shared_ptr<const Preset>;
 }
 
 #else
+
+#include "RNBO_PatcherState.h"
 
 RNBO_PUSH_DISABLE_WARNINGS
 #include "3rdparty/json/json.hpp"
