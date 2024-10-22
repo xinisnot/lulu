@@ -81,8 +81,9 @@ namespace RNBO {
 	class BinaryDataImpl : public BinaryData {
 		public:
 			using Storage = std::unordered_map<std::string, BinaryDataEntry>;
-			BinaryDataImpl(Storage storage) : BinaryData(), mStorage(storage) {}
-			BinaryDataImpl() : BinaryData() {} //empty
+			// storage must live as long as BinaryDataImpl
+			BinaryDataImpl(const Storage& storage) : BinaryData(), mStorage(storage) {}
+			BinaryDataImpl() : BinaryData(), mStorage(mDummy) {} //empty
 
 			bool get(const std::string& key, BinaryDataEntry& out) const override {
 				auto it = mStorage.find(key);
@@ -94,7 +95,8 @@ namespace RNBO {
 			}
 
 		private:
-			Storage mStorage;
+			const Storage mDummy; // so we can have a reference to something
+			const Storage& mStorage;
 	};
 }
 

@@ -615,11 +615,13 @@ namespace RNBO {
 
 		virtual void setPresetSync(UniquePresetPtr preset)
 		{
+#ifndef RNBO_NOPRESETS
 			_settingPreset = true;
 			sendOutgoingEvent(PresetEvent(_currentTime, PresetEvent::SettingBegin));
 			_patcher->setPreset(_currentTime, *preset);
 			sendOutgoingEvent(PresetEvent(_currentTime, PresetEvent::SettingEnd));
 			_settingPreset = false;
+#endif // RNBO_NOPRESETS
 		}
 
 		virtual ConstPresetPtr getPresetSync() {
@@ -629,9 +631,11 @@ namespace RNBO {
 		}
 
 		void presetTouched() override {
+#ifndef RNBO_NOPRESETS
 			if (!_settingPreset) {
 				sendOutgoingEvent(PresetEvent(_currentTime, PresetEvent::Touched, nullptr, nullptr));
 			}
+#endif // RNBO_NOPRESETS
 		}
 
 		virtual void beginProcessDataRefs() {}
