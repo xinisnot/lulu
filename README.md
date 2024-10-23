@@ -36,7 +36,7 @@ Finally, build VST/AU plugins in `build` directory.
 $ cmake --build .
 ```
 
-By default, plugins are builded as Debug-build (quick compile, convenient for debug, but perfermance is slower and file size is larger). If you want to build for your sound/music creation, you should build as as Release-build.
+By default, plugins are builded as Debug-build (quick compile, convenient for debug, but perfermance is slower and file size is larger). If you want to build for your sound/music creation, you should build as Release-build.
 
  ```
 $ cmake --build . --config Release
