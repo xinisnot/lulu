@@ -4,7 +4,7 @@
 
 MainComponent::MainComponent()
 {
-    setSize(320, 340);
+    setSize(320, 335);
     addAndMakeVisible(sliderTriggerDensity);
     addAndMakeVisible(sliderTriggerProbability);
     addAndMakeVisible(sliderFeedbackAmount);
