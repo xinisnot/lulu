@@ -4,7 +4,7 @@ lulu is MIDI-controlled granular delay. It is also released on [Gumroad](https:/
 
 # How to build
 
-Basically, you can build along with [this way](https://github.com/Cycling74/rnbo.example.juce). So after installing the necessary tools, first you should clone this repository, and update JUCE submodule.
+Basically, you can build along with [this way](https://github.com/Cycling74/rnbo.example.juce). So after installing the necessary tools (especially git, cmake and IDE), first you should clone this repository, and update JUCE submodule.
 
 ```
 $ git clone https://github.com/xinisnot/lulu.git
@@ -19,10 +19,27 @@ Next generate your build system. For example you want to use macOS and Xcode, yo
 $ cmake .. -G Xcode
 ```
 
-Finally, build VST/AU plugins. By default, plugins are builded as Debug-build (quick compile, but seems that perfermance is slower and file size is larger). If you want to build as Release-build, you should add `--config Release` option.
+If you have an error at this point, maybe there is reason in version of JUCE (git submodule adds development version). To avoid this, you may be able to use stable version. Download JUCE from [here](https://juce.com/download/) and install, and do below in `thirdparty` directory (assuming you are in `build`).
 
 ```
+$ cd ../thirdparty
+$ rmdir juce
+$ ln -s PATH_TO_JUCE .
+$ mv SYMBOLIC_LINK_NAME juce
+$ cd ../build
+$ cmake .. -G Xcode
+```
+
+Finally, build VST/AU plugins in `build` directory.
+
+ ```
 $ cmake --build .
+```
+
+By default, plugins are builded as Debug-build (quick compile, convenient for debug, but perfermance is slower and file size is larger). If you want to build for your sound/music creation, you should build as as Release-build.
+
+ ```
+$ cmake --build . --config Release
 ```
 
 # Note
