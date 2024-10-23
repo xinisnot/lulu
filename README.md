@@ -19,7 +19,7 @@ Next generate your build system. For example you want to use macOS and Xcode, yo
 $ cmake .. -G Xcode
 ```
 
-If you have an error at this point, maybe there is reason in version of JUCE (git submodule adds development version). To avoid this, you may be able to use stable version. Download JUCE from [here](https://juce.com/download/) and install, and do below in `thirdparty` directory (assuming you are in `build`).
+If you have an error at this point, maybe there is reason in version of JUCE (git submodule adds development version). To avoid this, you may be able to use stable version. Download JUCE from [here](https://juce.com/download/) and install, and make a symbolic link to JUCE in `thirdparty` directory (assuming you are in `build`).
 
 ```
 $ cd ../thirdparty
