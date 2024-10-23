@@ -1,6 +1,6 @@
 # About
 
-lulu is MIDI-controlled granular delay. It is also released on [Gumroad](https://xinisnot.gumroad.com/l/lulu). If you like it, I would appreciate if you can leave a small tip.
+lulu is MIDI-controlled live granular. It is also released on [Gumroad](https://xinisnot.gumroad.com/l/lulu). If you like it, I would appreciate if you can leave a small tip.
 
 # How to build
 
