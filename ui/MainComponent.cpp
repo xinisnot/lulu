@@ -39,7 +39,7 @@ MainComponent::MainComponent()
     sliderCloudWindowSkirt.setBounds  (80,  240, 80,  80);
     toggleRecordFreeze.setBounds      (160, 240, 80,  80);
     sliderDrywet.setBounds            (240, 240, 80,  80);
-    labelTitle.setBounds              (0,   320, 320, 80);
+    labelTitle.setBounds              (0,   320, 320, 15);
 
     labelTitle.setFont(juce::Font (11.00f, juce::Font::plain).withTypefaceStyle ("Regular"));
     labelTitle.setJustificationType (juce::Justification::topRight);
