@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
 
 # On M1 Macs, uncomment to enable universal binaries
-# set(CMAKE_OSX_ARCHITECTURES "x86_64;arm64" CACHE STRING "")
+set(CMAKE_OSX_ARCHITECTURES "x86_64;arm64" CACHE STRING "")
 
 set(CMAKE_BUILD_TYPE Debug CACHE STRING "Choose the type of build, options are: Debug Release")
 
@@ -14,7 +14,7 @@ set(CMAKE_COLOR_DIAGNOSTICS ON)
 
 set(RNBO_CPP_DIR "${CMAKE_CURRENT_SOURCE_DIR}/export/rnbo/" CACHE FILEPATH "The path to the the RNBO c++ source directory")
 set(RNBO_EXPORT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/export/" CACHE FILEPATH "path to your export directory")
-set(RNBO_CLASS_FILE_NAME "rnbo_source.cpp" CACHE STRING "the name of your rnbo class file")
+set(RNBO_CLASS_FILE_NAME "lulu.cpp" CACHE STRING "the name of your rnbo class file")
 mark_as_advanced(RNBO_CLASS_FILE_NAME)
 
 set(RNBO_CLASS_NAME "rnbomatic")
@@ -54,8 +54,6 @@ add_subdirectory(
 # See the discussion here: https://forums.steinberg.net/t/vst3-and-midi-cc-pitfall/201879/11
 add_compile_definitions(JUCE_VST3_EMULATE_MIDI_CC_WITH_PARAMETERS=0)
 
-# setup your application, you can remove this include if you don't want to build applications
-include(${CMAKE_CURRENT_LIST_DIR}/App.cmake)
 
 # setup your plugin(s), you can remove this include if you don't want to build plugins
 include(${CMAKE_CURRENT_LIST_DIR}/Plugin.cmake)
