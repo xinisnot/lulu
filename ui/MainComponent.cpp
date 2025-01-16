@@ -4,7 +4,7 @@
 
 MainComponent::MainComponent()
 {
-    setSize(700, 153);
+    setSize(700, 363);
     addAndMakeVisible(sliderTriggerDensity);
     addAndMakeVisible(sliderTriggerProbability);
     addAndMakeVisible(sliderFeedbackAmount);
@@ -24,6 +24,7 @@ MainComponent::MainComponent()
     addAndMakeVisible(sliderCloudReverseProb);
     addAndMakeVisible(sliderEnvelopeAttack);
     addAndMakeVisible(sliderEnvelopeRelease);
+    addAndMakeVisible(scope);
     addAndMakeVisible(labelTitle);
     
     sliderTriggerDensity.setBounds    (0,   0,  70, 70);
@@ -47,7 +48,8 @@ MainComponent::MainComponent()
     sliderMixerDry.setBounds          (560, 70, 70, 70);
     sliderMixerWet.setBounds          (630, 70, 70, 70);
 
-    labelTitle.setBounds              (0, 140, 700, 13);
+    scope.setBounds                   (0, 140, 700, 210);
+    labelTitle.setBounds              (0, 350, 700, 13);
 
     labelTitle.setFont(juce::Font (10.00f, juce::Font::plain).withTypefaceStyle ("Regular"));
     labelTitle.setJustificationType (juce::Justification::topRight);
@@ -225,6 +227,34 @@ void MainComponent::setAudioProcessor(RNBO::JuceAudioProcessor *p)
             else if(slider->getName() == juce::String("cloud/grain_size_blur"))     slider->setSkewFactorFromMidPoint(0.1);
         }
     }
+
+    RNBO::Float32AudioBuffer scopeBufferType(1, coreObject.getSampleRate());
+    RNBO::Float32AudioBuffer indexBufferType(1, coreObject.getSampleRate());
+
+    uint32_t scopeBufferSize = sizeof(float) * static_cast<uint32_t>(coreObject.getSampleRate() * 5.0);
+    uint32_t indexBufferSize = sizeof(float) * static_cast<uint32_t>(1);
+
+    scopeBuffer = std::make_unique<float[]>(scopeBufferSize);
+    indexBuffer = std::make_unique<float[]>(indexBufferSize);
+
+    coreObject.setExternalData(
+        "scope",
+        reinterpret_cast<char*>(scopeBuffer.get()),
+        scopeBufferSize / sizeof(char),
+        scopeBufferType
+    );
+
+    coreObject.setExternalData(
+        "scope_index",
+        reinterpret_cast<char*>(indexBuffer.get()),
+        indexBufferSize / sizeof(char),
+        indexBufferType
+    );
+
+    scope.setSampleBufferPtr(scopeBuffer.get());
+    scope.setIndexBufferPtr(indexBuffer.get());
+    scope.setScopeLengthInSec(5.0f);
+    scope.setAudioProcessor(processor);
 }
 
 

@@ -4,15 +4,15 @@
 #include "RNBO.h"
 #include "RNBO_JuceAudioProcessor.h"
 
-class RNBOscilloscope  : public juce::Component, public juce::Timer
+class LuluOscilloscope  : public juce::Component, public juce::Timer
 {
 public:
-    RNBOscilloscope()
+    LuluOscilloscope()
     {
         startTimerHz(30);
     }
 
-    ~RNBOscilloscope() override
+    ~LuluOscilloscope() override
     {
         stopTimer();
     }
@@ -76,9 +76,9 @@ public:
 
 private:
     RNBO::JuceAudioProcessor *processor = nullptr;
-    float* sampleBufferPtr;
-    float* indexBufferPtr;
-    float scopeLengthInSec;
+    float* sampleBufferPtr = nullptr;
+    float* indexBufferPtr = nullptr;
+    float scopeLengthInSec { 0.0f };
     
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (RNBOscilloscope)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LuluOscilloscope)
 };

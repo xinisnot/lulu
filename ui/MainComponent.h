@@ -38,6 +38,11 @@ private:
     LuluDial            sliderEnvelopeAttack;
     LuluDial            sliderEnvelopeRelease;
     LuluToggle          toggleRecordFreeze;
+    
+    std::unique_ptr<float[]> scopeBuffer;
+    std::unique_ptr<float[]> indexBuffer;
+    LuluOscilloscope    scope;
+
     juce::Label         labelTitle              { "label", "lulu by @xinisnot" };
     LuluDialLaf         luluDialLaf             { false };
     LuluDialLaf         luluDialLaf_fromCenter  { true };
