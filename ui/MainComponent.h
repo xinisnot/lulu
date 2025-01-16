@@ -3,6 +3,7 @@
 #include <JuceHeader.h>
 #include "LuluDial.h"
 #include "LuluToggle.h"
+#include "LuluOscilloscope.h"
 #include "RNBO.h"
 #include "RNBO_JuceAudioProcessor.h"
 
