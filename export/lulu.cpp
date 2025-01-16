@@ -75,17 +75,17 @@ namespace RNBO {
 class rnbomatic : public PatcherInterfaceImpl {
 public:
 
-class RNBOSubpatcher_132 : public PatcherInterfaceImpl {
+class RNBOSubpatcher_83 : public PatcherInterfaceImpl {
     
     friend class rnbomatic;
     
     public:
     
-    RNBOSubpatcher_132()
+    RNBOSubpatcher_83()
     {
     }
     
-    ~RNBOSubpatcher_132()
+    ~RNBOSubpatcher_83()
     {
     }
     
@@ -1064,17 +1064,17 @@ class RNBOSubpatcher_132 : public PatcherInterfaceImpl {
     
 };
 
-class RNBOSubpatcher_133 : public PatcherInterfaceImpl {
+class RNBOSubpatcher_84 : public PatcherInterfaceImpl {
     
     friend class rnbomatic;
     
     public:
     
-    RNBOSubpatcher_133()
+    RNBOSubpatcher_84()
     {
     }
     
-    ~RNBOSubpatcher_133()
+    ~RNBOSubpatcher_84()
     {
     }
     
@@ -1516,12 +1516,20 @@ class RNBOSubpatcher_133 : public PatcherInterfaceImpl {
     void processDataViewUpdate(DataRefIndex index, MillisecondTime time) {
         this->updateTime(time);
     
-        if (index == 3) {
+        if (index == 5) {
             this->codebox_tilde_01_source = new Float64Buffer(this->getPatcher()->source);
         }
     
-        if (index == 2) {
+        if (index == 4) {
             this->codebox_tilde_01_sample_index = new Float64Buffer(this->getPatcher()->sample_index);
+        }
+    
+        if (index == 1) {
+            this->codebox_tilde_01_scope = new Float32Buffer(this->getPatcher()->scope);
+        }
+    
+        if (index == 0) {
+            this->codebox_tilde_01_scope_index = new Float32Buffer(this->getPatcher()->scope_index);
         }
     }
     
@@ -1530,6 +1538,8 @@ class RNBOSubpatcher_133 : public PatcherInterfaceImpl {
         this->setState();
         this->codebox_tilde_01_source = new Float64Buffer(this->getPatcher()->source);
         this->codebox_tilde_01_sample_index = new Float64Buffer(this->getPatcher()->sample_index);
+        this->codebox_tilde_01_scope = new Float32Buffer(this->getPatcher()->scope);
+        this->codebox_tilde_01_scope_index = new Float32Buffer(this->getPatcher()->scope_index);
     }
     
     protected:
@@ -1576,7 +1586,8 @@ class RNBOSubpatcher_133 : public PatcherInterfaceImpl {
     }
     
     void initializeObjects() {
-        this->codebox_tilde_01_counter_init();
+        this->codebox_tilde_01_counter_src_init();
+        this->codebox_tilde_01_counter_view_init();
     }
     
     void sendOutlet(OutletIndex index, ParameterValue value) {
@@ -1594,6 +1605,8 @@ class RNBOSubpatcher_133 : public PatcherInterfaceImpl {
     void allocateDataRefs() {
         this->codebox_tilde_01_source = this->codebox_tilde_01_source->allocateIfNeeded();
         this->codebox_tilde_01_sample_index = this->codebox_tilde_01_sample_index->allocateIfNeeded();
+        this->codebox_tilde_01_scope = this->codebox_tilde_01_scope->allocateIfNeeded();
+        this->codebox_tilde_01_scope_index = this->codebox_tilde_01_scope_index->allocateIfNeeded();
     }
     
     number param_03_value_constrain(number v) const {
@@ -1627,16 +1640,39 @@ class RNBOSubpatcher_133 : public PatcherInterfaceImpl {
     
         for (i = 0; i < n; i++) {
             number state = freeze == 0;
-            number index = this->codebox_tilde_01_counter_next(state, 0, this->dim(this->codebox_tilde_01_source))[0];
-            this->poke_default(this->codebox_tilde_01_sample_index, index, 0, 0, 0);//#map:_###_obj_###_:10
+            number index_src = this->codebox_tilde_01_counter_src_next(state, 0, this->dim(this->codebox_tilde_01_source))[0];
+            number index_view = this->codebox_tilde_01_counter_view_next(state, 0, this->dim(this->codebox_tilde_01_scope))[0];
+            this->poke_default(this->codebox_tilde_01_sample_index, index_src, 0, 0, 0);//#map:_###_obj_###_:14
+            this->poke_default(this->codebox_tilde_01_scope_index, index_view, 0, 0, 0);//#map:_###_obj_###_:15
     
             if (state != 0) {
-                this->poke_default(this->codebox_tilde_01_source, in1[(Index)i] + in3[(Index)i], index, 0, 0);//#map:_###_obj_###_:14
-                this->poke_default(this->codebox_tilde_01_source, in2[(Index)i] + in4[(Index)i], index, 1, 0);//#map:_###_obj_###_:15
-            }//#map:_###_obj_###_:12
+                this->poke_default(
+                    this->codebox_tilde_01_source,
+                    in1[(Index)i] + in3[(Index)i],
+                    index_src,
+                    0,
+                    0
+                );//#map:_###_obj_###_:19
     
-            out1[(Index)i] = in1[(Index)i];//#map:_###_obj_###_:18
-            out2[(Index)i] = in2[(Index)i];//#map:_###_obj_###_:19
+                this->poke_default(
+                    this->codebox_tilde_01_source,
+                    in2[(Index)i] + in4[(Index)i],
+                    index_src,
+                    1,
+                    0
+                );//#map:_###_obj_###_:20
+    
+                this->poke_default(
+                    this->codebox_tilde_01_scope,
+                    (in1[(Index)i] + in2[(Index)i]) * 0.5,
+                    index_view,
+                    0,
+                    0
+                );//#map:_###_obj_###_:21
+            }//#map:_###_obj_###_:17
+    
+            out1[(Index)i] = in1[(Index)i];//#map:_###_obj_###_:24
+            out2[(Index)i] = in2[(Index)i];//#map:_###_obj_###_:25
         }
     }
     
@@ -1647,38 +1683,72 @@ class RNBOSubpatcher_133 : public PatcherInterfaceImpl {
         this->stackprotect_count = __stackprotect_count;
     }
     
-    array<number, 3> codebox_tilde_01_counter_next(number a, number reset, number limit) {
+    array<number, 3> codebox_tilde_01_counter_src_next(number a, number reset, number limit) {
         number carry_flag = 0;
     
         if (reset != 0) {
-            this->codebox_tilde_01_counter_count = 0;
-            this->codebox_tilde_01_counter_carry = 0;
+            this->codebox_tilde_01_counter_src_count = 0;
+            this->codebox_tilde_01_counter_src_carry = 0;
         } else {
-            this->codebox_tilde_01_counter_count += a;
+            this->codebox_tilde_01_counter_src_count += a;
     
             if (limit != 0) {
-                if ((a > 0 && this->codebox_tilde_01_counter_count >= limit) || (a < 0 && this->codebox_tilde_01_counter_count <= limit)) {
-                    this->codebox_tilde_01_counter_count = 0;
-                    this->codebox_tilde_01_counter_carry += 1;
+                if ((a > 0 && this->codebox_tilde_01_counter_src_count >= limit) || (a < 0 && this->codebox_tilde_01_counter_src_count <= limit)) {
+                    this->codebox_tilde_01_counter_src_count = 0;
+                    this->codebox_tilde_01_counter_src_carry += 1;
                     carry_flag = 1;
                 }
             }
         }
     
         return {
-            this->codebox_tilde_01_counter_count,
+            this->codebox_tilde_01_counter_src_count,
             carry_flag,
-            this->codebox_tilde_01_counter_carry
+            this->codebox_tilde_01_counter_src_carry
         };
     }
     
-    void codebox_tilde_01_counter_init() {
-        this->codebox_tilde_01_counter_count = -1;
+    void codebox_tilde_01_counter_src_init() {
+        this->codebox_tilde_01_counter_src_count = -1;
     }
     
-    void codebox_tilde_01_counter_reset() {
-        this->codebox_tilde_01_counter_carry = 0;
-        this->codebox_tilde_01_counter_count = 0;
+    void codebox_tilde_01_counter_src_reset() {
+        this->codebox_tilde_01_counter_src_carry = 0;
+        this->codebox_tilde_01_counter_src_count = 0;
+    }
+    
+    array<number, 3> codebox_tilde_01_counter_view_next(number a, number reset, number limit) {
+        number carry_flag = 0;
+    
+        if (reset != 0) {
+            this->codebox_tilde_01_counter_view_count = 0;
+            this->codebox_tilde_01_counter_view_carry = 0;
+        } else {
+            this->codebox_tilde_01_counter_view_count += a;
+    
+            if (limit != 0) {
+                if ((a > 0 && this->codebox_tilde_01_counter_view_count >= limit) || (a < 0 && this->codebox_tilde_01_counter_view_count <= limit)) {
+                    this->codebox_tilde_01_counter_view_count = 0;
+                    this->codebox_tilde_01_counter_view_carry += 1;
+                    carry_flag = 1;
+                }
+            }
+        }
+    
+        return {
+            this->codebox_tilde_01_counter_view_count,
+            carry_flag,
+            this->codebox_tilde_01_counter_view_carry
+        };
+    }
+    
+    void codebox_tilde_01_counter_view_init() {
+        this->codebox_tilde_01_counter_view_count = -1;
+    }
+    
+    void codebox_tilde_01_counter_view_reset() {
+        this->codebox_tilde_01_counter_view_carry = 0;
+        this->codebox_tilde_01_counter_view_count = 0;
     }
     
     void param_03_getPresetValue(PatcherStateInterface& preset) {
@@ -1732,8 +1802,10 @@ class RNBOSubpatcher_133 : public PatcherInterfaceImpl {
         maxvs = 0;
         sr = 44100;
         invsr = 0.00002267573696;
-        codebox_tilde_01_counter_carry = 0;
-        codebox_tilde_01_counter_count = 0;
+        codebox_tilde_01_counter_src_carry = 0;
+        codebox_tilde_01_counter_src_count = 0;
+        codebox_tilde_01_counter_view_carry = 0;
+        codebox_tilde_01_counter_view_count = 0;
         param_03_lastValue = 0;
         stackprotect_count = 0;
         _voiceIndex = 0;
@@ -1760,10 +1832,14 @@ class RNBOSubpatcher_133 : public PatcherInterfaceImpl {
         Index maxvs;
         number sr;
         number invsr;
-        int codebox_tilde_01_counter_carry;
-        number codebox_tilde_01_counter_count;
+        int codebox_tilde_01_counter_src_carry;
+        number codebox_tilde_01_counter_src_count;
+        int codebox_tilde_01_counter_view_carry;
+        number codebox_tilde_01_counter_view_count;
         Float64BufferRef codebox_tilde_01_source;
         Float64BufferRef codebox_tilde_01_sample_index;
+        Float32BufferRef codebox_tilde_01_scope;
+        Float32BufferRef codebox_tilde_01_scope_index;
         number param_03_lastValue;
         number stackprotect_count;
         Index _voiceIndex;
@@ -1773,29 +1849,29 @@ class RNBOSubpatcher_133 : public PatcherInterfaceImpl {
     
 };
 
-class RNBOSubpatcher_134 : public PatcherInterfaceImpl {
+class RNBOSubpatcher_85 : public PatcherInterfaceImpl {
     
     friend class rnbomatic;
     
     public:
     
-    class RNBOSubpatcher_131 : public PatcherInterfaceImpl {
+    class RNBOSubpatcher_82 : public PatcherInterfaceImpl {
             
-            friend class RNBOSubpatcher_134;
+            friend class RNBOSubpatcher_85;
             friend class rnbomatic;
             
             public:
             
-            RNBOSubpatcher_131()
+            RNBOSubpatcher_82()
             {
             }
             
-            ~RNBOSubpatcher_131()
+            ~RNBOSubpatcher_82()
             {
             }
             
-            virtual RNBOSubpatcher_134* getPatcher() const {
-                return static_cast<RNBOSubpatcher_134 *>(_parentPatcher);
+            virtual RNBOSubpatcher_85* getPatcher() const {
+                return static_cast<RNBOSubpatcher_85 *>(_parentPatcher);
             }
             
             rnbomatic* getTopLevelPatcher() {
@@ -2212,11 +2288,11 @@ class RNBOSubpatcher_134 : public PatcherInterfaceImpl {
             
     };
     
-    RNBOSubpatcher_134()
+    RNBOSubpatcher_85()
     {
     }
     
-    ~RNBOSubpatcher_134()
+    ~RNBOSubpatcher_85()
     {
         delete this->p_01;
     }
@@ -2353,7 +2429,7 @@ class RNBOSubpatcher_134 : public PatcherInterfaceImpl {
     void getState(PatcherStateInterface& ) {}
     
     void setState() {
-        this->p_01 = new RNBOSubpatcher_131();
+        this->p_01 = new RNBOSubpatcher_82();
         this->p_01->setEngineAndPatcher(this->getEngine(), this);
         this->p_01->initialize();
         this->p_01->setParameterOffset(this->getParameterOffset(this->p_01));
@@ -3384,21 +3460,21 @@ class RNBOSubpatcher_134 : public PatcherInterfaceImpl {
         Int _noteNumber;
         Index isMuted;
         ParameterIndex parameterOffset;
-        RNBOSubpatcher_131* p_01;
+        RNBOSubpatcher_82* p_01;
     
 };
 
-class RNBOSubpatcher_135 : public PatcherInterfaceImpl {
+class RNBOSubpatcher_86 : public PatcherInterfaceImpl {
     
     friend class rnbomatic;
     
     public:
     
-    RNBOSubpatcher_135()
+    RNBOSubpatcher_86()
     {
     }
     
-    ~RNBOSubpatcher_135()
+    ~RNBOSubpatcher_86()
     {
     }
     
@@ -3863,7 +3939,7 @@ class RNBOSubpatcher_135 : public PatcherInterfaceImpl {
     void processDataViewUpdate(DataRefIndex index, MillisecondTime time) {
         this->updateTime(time);
     
-        if (index == 5) {
+        if (index == 7) {
             this->codebox_02_note_count = new Float64Buffer(this->getPatcher()->note_count);
         }
     }
@@ -4264,17 +4340,17 @@ class RNBOSubpatcher_135 : public PatcherInterfaceImpl {
     
 };
 
-class RNBOSubpatcher_136 : public PatcherInterfaceImpl {
+class RNBOSubpatcher_87 : public PatcherInterfaceImpl {
     
     friend class rnbomatic;
     
     public:
     
-    RNBOSubpatcher_136()
+    RNBOSubpatcher_87()
     {
     }
     
-    ~RNBOSubpatcher_136()
+    ~RNBOSubpatcher_87()
     {
     }
     
@@ -5594,37 +5670,37 @@ class RNBOSubpatcher_136 : public PatcherInterfaceImpl {
     void processDataViewUpdate(DataRefIndex index, MillisecondTime time) {
         this->updateTime(time);
     
-        if (index == 3) {
+        if (index == 5) {
             this->gen_03_buf_source = new Float64Buffer(this->getPatcher()->source);
             this->dim_01_buffer = new Float64Buffer(this->getPatcher()->source);
             this->dim_01_bufferUpdated();
         }
     
-        if (index == 6) {
+        if (index == 8) {
             this->gen_03_buf_window = new Float64Buffer(this->getPatcher()->window);
         }
     
-        if (index == 4) {
+        if (index == 6) {
             this->gen_03_buf_notes_state = new Float64Buffer(this->getPatcher()->notes_state);
         }
     
-        if (index == 5) {
+        if (index == 7) {
             this->gen_03_buf_note_count = new Float64Buffer(this->getPatcher()->note_count);
         }
     
-        if (index == 2) {
+        if (index == 4) {
             this->gen_03_buf_sample_index = new Float64Buffer(this->getPatcher()->sample_index);
         }
     
-        if (index == 7) {
+        if (index == 9) {
             this->gen_03_buf_arp_count = new Float32Buffer(this->getPatcher()->arp_count);
         }
     
-        if (index == 1) {
+        if (index == 3) {
             this->gen_03_buf_envelope = new Float64Buffer(this->getPatcher()->envelope);
         }
     
-        if (index == 8) {
+        if (index == 10) {
             this->gen_03_cycle_18_buffer = new Float64Buffer(this->getPatcher()->RNBODefaultSinus);
             this->gen_03_cycle_20_buffer = new Float64Buffer(this->getPatcher()->RNBODefaultSinus);
         }
@@ -6529,9 +6605,9 @@ class RNBOSubpatcher_136 : public PatcherInterfaceImpl {
             number expr_17_54 = yL_29;
             number expr_18_55 = yR_30;
             number expr_19_56 = __gen_03_h_is_scheduled_value;
-            out1[(Index)i] = expr_17_54;
             out2[(Index)i] = expr_18_55;
             out3[(Index)i] = expr_19_56;
+            out1[(Index)i] = expr_17_54;
         }
     
         this->gen_03_h_is_scheduled_value = __gen_03_h_is_scheduled_value;
@@ -7406,17 +7482,17 @@ class RNBOSubpatcher_136 : public PatcherInterfaceImpl {
     
 };
 
-class RNBOSubpatcher_137 : public PatcherInterfaceImpl {
+class RNBOSubpatcher_88 : public PatcherInterfaceImpl {
     
     friend class rnbomatic;
     
     public:
     
-    RNBOSubpatcher_137()
+    RNBOSubpatcher_88()
     {
     }
     
-    ~RNBOSubpatcher_137()
+    ~RNBOSubpatcher_88()
     {
     }
     
@@ -8000,15 +8076,15 @@ class RNBOSubpatcher_137 : public PatcherInterfaceImpl {
     void processDataViewUpdate(DataRefIndex index, MillisecondTime time) {
         this->updateTime(time);
     
-        if (index == 1) {
+        if (index == 3) {
             this->poke_tilde_01_buffer = new Float64Buffer(this->getPatcher()->envelope);
         }
     
-        if (index == 4) {
+        if (index == 6) {
             this->codebox_03_notes_state = new Float64Buffer(this->getPatcher()->notes_state);
         }
     
-        if (index == 5) {
+        if (index == 7) {
             this->codebox_03_note_count = new Float64Buffer(this->getPatcher()->note_count);
         }
     }
@@ -8609,17 +8685,17 @@ class RNBOSubpatcher_137 : public PatcherInterfaceImpl {
     
 };
 
-class RNBOSubpatcher_138 : public PatcherInterfaceImpl {
+class RNBOSubpatcher_89 : public PatcherInterfaceImpl {
     
     friend class rnbomatic;
     
     public:
     
-    RNBOSubpatcher_138()
+    RNBOSubpatcher_89()
     {
     }
     
-    ~RNBOSubpatcher_138()
+    ~RNBOSubpatcher_89()
     {
     }
     
@@ -8975,11 +9051,11 @@ class RNBOSubpatcher_138 : public PatcherInterfaceImpl {
     void processDataViewUpdate(DataRefIndex index, MillisecondTime time) {
         this->updateTime(time);
     
-        if (index == 4) {
+        if (index == 6) {
             this->codebox_04_notes_state = new Float64Buffer(this->getPatcher()->notes_state);
         }
     
-        if (index == 5) {
+        if (index == 7) {
             this->codebox_04_note_count = new Float64Buffer(this->getPatcher()->note_count);
         }
     }
@@ -9385,6 +9461,8 @@ void prepareToProcess(number sampleRate, Index maxBlockSize, bool force) {
     this->data_05_dspsetup(forceDSPSetup);
     this->data_06_dspsetup(forceDSPSetup);
     this->data_07_dspsetup(forceDSPSetup);
+    this->data_08_dspsetup(forceDSPSetup);
+    this->data_09_dspsetup(forceDSPSetup);
     this->globaltransport_dspsetup(forceDSPSetup);
     this->p_02->prepareToProcess(sampleRate, maxBlockSize, force);
     this->p_03->prepareToProcess(sampleRate, maxBlockSize, force);
@@ -9426,45 +9504,55 @@ DataRef* getDataRef(DataRefIndex index)  {
     switch (index) {
     case 0:
         {
-        return addressOf(this->note_off);
+        return addressOf(this->scope_index);
         break;
         }
     case 1:
         {
-        return addressOf(this->envelope);
+        return addressOf(this->scope);
         break;
         }
     case 2:
         {
-        return addressOf(this->sample_index);
+        return addressOf(this->note_off);
         break;
         }
     case 3:
         {
-        return addressOf(this->source);
+        return addressOf(this->envelope);
         break;
         }
     case 4:
         {
-        return addressOf(this->notes_state);
+        return addressOf(this->sample_index);
         break;
         }
     case 5:
         {
-        return addressOf(this->note_count);
+        return addressOf(this->source);
         break;
         }
     case 6:
         {
-        return addressOf(this->window);
+        return addressOf(this->notes_state);
         break;
         }
     case 7:
         {
-        return addressOf(this->arp_count);
+        return addressOf(this->note_count);
         break;
         }
     case 8:
+        {
+        return addressOf(this->window);
+        break;
+        }
+    case 9:
+        {
+        return addressOf(this->arp_count);
+        break;
+        }
+    case 10:
         {
         return addressOf(this->RNBODefaultSinus);
         break;
@@ -9477,7 +9565,7 @@ DataRef* getDataRef(DataRefIndex index)  {
 }
 
 DataRefIndex getNumDataRefs() const {
-    return 9;
+    return 11;
 }
 
 void fillwindow(DataRef& ref) {
@@ -9506,12 +9594,12 @@ void fillRNBODefaultSinus(DataRef& ref) {
 
 void fillDataRef(DataRefIndex index, DataRef& ref) {
     switch (index) {
-    case 6:
+    case 8:
         {
         this->fillwindow(ref);
         break;
         }
-    case 8:
+    case 10:
         {
         this->fillRNBODefaultSinus(ref);
         break;
@@ -9527,38 +9615,48 @@ void processDataViewUpdate(DataRefIndex index, MillisecondTime time) {
     this->updateTime(time);
 
     if (index == 0) {
-        this->data_01_buffer = new Float64Buffer(this->note_off);
+        this->data_01_buffer = new Float32Buffer(this->scope_index);
         this->data_01_bufferUpdated();
     }
 
     if (index == 1) {
-        this->data_02_buffer = new Float64Buffer(this->envelope);
+        this->data_02_buffer = new Float32Buffer(this->scope);
         this->data_02_bufferUpdated();
     }
 
     if (index == 2) {
-        this->data_03_buffer = new Float64Buffer(this->sample_index);
+        this->data_03_buffer = new Float64Buffer(this->note_off);
         this->data_03_bufferUpdated();
     }
 
     if (index == 3) {
-        this->data_07_buffer = new Float64Buffer(this->source);
-        this->data_07_bufferUpdated();
-    }
-
-    if (index == 4) {
-        this->data_04_buffer = new Float64Buffer(this->notes_state);
+        this->data_04_buffer = new Float64Buffer(this->envelope);
         this->data_04_bufferUpdated();
     }
 
-    if (index == 5) {
-        this->data_05_buffer = new Float64Buffer(this->note_count);
+    if (index == 4) {
+        this->data_05_buffer = new Float64Buffer(this->sample_index);
         this->data_05_bufferUpdated();
     }
 
+    if (index == 5) {
+        this->data_09_buffer = new Float64Buffer(this->source);
+        this->data_09_bufferUpdated();
+    }
+
     if (index == 6) {
-        this->data_06_buffer = new Float64Buffer(this->window);
+        this->data_06_buffer = new Float64Buffer(this->notes_state);
         this->data_06_bufferUpdated();
+    }
+
+    if (index == 7) {
+        this->data_07_buffer = new Float64Buffer(this->note_count);
+        this->data_07_bufferUpdated();
+    }
+
+    if (index == 8) {
+        this->data_08_buffer = new Float64Buffer(this->window);
+        this->data_08_bufferUpdated();
     }
 
     this->p_02->processDataViewUpdate(index, time);
@@ -9578,6 +9676,8 @@ void processDataViewUpdate(DataRefIndex index, MillisecondTime time) {
 }
 
 void initialize() {
+    this->scope_index = initDataRef("scope_index", false, nullptr, "buffer~");
+    this->scope = initDataRef("scope", false, nullptr, "buffer~");
     this->note_off = initDataRef("note_off", false, nullptr, "data");
     this->envelope = initDataRef("envelope", false, nullptr, "data");
     this->sample_index = initDataRef("sample_index", true, nullptr, "data");
@@ -9589,22 +9689,26 @@ void initialize() {
     this->RNBODefaultSinus = initDataRef("RNBODefaultSinus", true, nullptr, "buffer~");
     this->assign_defaults();
     this->setState();
-    this->note_off->setIndex(0);
-    this->data_01_buffer = new Float64Buffer(this->note_off);
-    this->envelope->setIndex(1);
-    this->data_02_buffer = new Float64Buffer(this->envelope);
-    this->sample_index->setIndex(2);
-    this->data_03_buffer = new Float64Buffer(this->sample_index);
-    this->source->setIndex(3);
-    this->data_07_buffer = new Float64Buffer(this->source);
-    this->notes_state->setIndex(4);
-    this->data_04_buffer = new Float64Buffer(this->notes_state);
-    this->note_count->setIndex(5);
-    this->data_05_buffer = new Float64Buffer(this->note_count);
-    this->window->setIndex(6);
-    this->data_06_buffer = new Float64Buffer(this->window);
-    this->arp_count->setIndex(7);
-    this->RNBODefaultSinus->setIndex(8);
+    this->scope_index->setIndex(0);
+    this->data_01_buffer = new Float32Buffer(this->scope_index);
+    this->scope->setIndex(1);
+    this->data_02_buffer = new Float32Buffer(this->scope);
+    this->note_off->setIndex(2);
+    this->data_03_buffer = new Float64Buffer(this->note_off);
+    this->envelope->setIndex(3);
+    this->data_04_buffer = new Float64Buffer(this->envelope);
+    this->sample_index->setIndex(4);
+    this->data_05_buffer = new Float64Buffer(this->sample_index);
+    this->source->setIndex(5);
+    this->data_09_buffer = new Float64Buffer(this->source);
+    this->notes_state->setIndex(6);
+    this->data_06_buffer = new Float64Buffer(this->notes_state);
+    this->note_count->setIndex(7);
+    this->data_07_buffer = new Float64Buffer(this->note_count);
+    this->window->setIndex(8);
+    this->data_08_buffer = new Float64Buffer(this->window);
+    this->arp_count->setIndex(9);
+    this->RNBODefaultSinus->setIndex(10);
     this->initializeObjects();
     this->allocateDataRefs();
     this->startup();
@@ -9627,25 +9731,25 @@ Index getPatcherSerial() const {
 void getState(PatcherStateInterface& ) {}
 
 void setState() {
-    this->p_02 = new RNBOSubpatcher_132();
+    this->p_02 = new RNBOSubpatcher_83();
     this->p_02->setEngineAndPatcher(this->getEngine(), this);
     this->p_02->initialize();
     this->p_02->setParameterOffset(this->getParameterOffset(this->p_02));
-    this->p_03 = new RNBOSubpatcher_133();
+    this->p_03 = new RNBOSubpatcher_84();
     this->p_03->setEngineAndPatcher(this->getEngine(), this);
     this->p_03->initialize();
     this->p_03->setParameterOffset(this->getParameterOffset(this->p_03));
-    this->p_04 = new RNBOSubpatcher_134();
+    this->p_04 = new RNBOSubpatcher_85();
     this->p_04->setEngineAndPatcher(this->getEngine(), this);
     this->p_04->initialize();
     this->p_04->setParameterOffset(this->getParameterOffset(this->p_04));
-    this->p_05 = new RNBOSubpatcher_135();
+    this->p_05 = new RNBOSubpatcher_86();
     this->p_05->setEngineAndPatcher(this->getEngine(), this);
     this->p_05->initialize();
     this->p_05->setParameterOffset(this->getParameterOffset(this->p_05));
 
     for (Index i = 0; i < 1000; i++) {
-        this->p_06[(Index)i] = new RNBOSubpatcher_136();
+        this->p_06[(Index)i] = new RNBOSubpatcher_87();
         this->p_06[(Index)i]->setEngineAndPatcher(this->getEngine(), this);
         this->p_06[(Index)i]->initialize();
         this->p_06[(Index)i]->setParameterOffset(this->getParameterOffset(this->p_06[0]));
@@ -9653,14 +9757,14 @@ void setState() {
     }
 
     for (Index i = 0; i < 128; i++) {
-        this->p_07[(Index)i] = new RNBOSubpatcher_137();
+        this->p_07[(Index)i] = new RNBOSubpatcher_88();
         this->p_07[(Index)i]->setEngineAndPatcher(this->getEngine(), this);
         this->p_07[(Index)i]->initialize();
         this->p_07[(Index)i]->setParameterOffset(this->getParameterOffset(this->p_07[0]));
         this->p_07[(Index)i]->setVoiceIndex(i + 1);
     }
 
-    this->p_08 = new RNBOSubpatcher_138();
+    this->p_08 = new RNBOSubpatcher_89();
     this->p_08->setEngineAndPatcher(this->getEngine(), this);
     this->p_08->initialize();
     this->p_08->setParameterOffset(this->getParameterOffset(this->p_08));
@@ -10407,93 +10511,113 @@ void allocateDataRefs() {
     }
 
     this->p_08->allocateDataRefs();
-    this->data_01_buffer->requestSize(128, 1);
+    this->data_01_buffer->requestSize(1, 1);
     this->data_01_buffer->setSampleRate(this->sr);
-    this->data_02_buffer->requestSize(128, 1);
-    this->data_02_buffer->setSampleRate(this->sr);
-    this->data_03_buffer->requestSize(1, 1);
+    this->data_03_buffer->requestSize(128, 1);
     this->data_03_buffer->setSampleRate(this->sr);
-    this->data_04_buffer->requestSize(128, 3);
+    this->data_04_buffer->requestSize(128, 1);
     this->data_04_buffer->setSampleRate(this->sr);
     this->data_05_buffer->requestSize(1, 1);
     this->data_05_buffer->setSampleRate(this->sr);
-    this->data_06_buffer->requestSize(65536, 1);
+    this->data_06_buffer->requestSize(128, 3);
     this->data_06_buffer->setSampleRate(this->sr);
+    this->data_07_buffer->requestSize(1, 1);
+    this->data_07_buffer->setSampleRate(this->sr);
+    this->data_08_buffer->requestSize(65536, 1);
+    this->data_08_buffer->setSampleRate(this->sr);
     this->data_01_buffer = this->data_01_buffer->allocateIfNeeded();
 
-    if (this->note_off->hasRequestedSize()) {
-        if (this->note_off->wantsFill())
-            this->zeroDataRef(this->note_off);
+    if (this->scope_index->hasRequestedSize()) {
+        if (this->scope_index->wantsFill())
+            this->zeroDataRef(this->scope_index);
 
         this->getEngine()->sendDataRefUpdated(0);
     }
 
     this->data_02_buffer = this->data_02_buffer->allocateIfNeeded();
 
-    if (this->envelope->hasRequestedSize()) {
-        if (this->envelope->wantsFill())
-            this->zeroDataRef(this->envelope);
+    if (this->scope->hasRequestedSize()) {
+        if (this->scope->wantsFill())
+            this->zeroDataRef(this->scope);
 
         this->getEngine()->sendDataRefUpdated(1);
     }
 
     this->data_03_buffer = this->data_03_buffer->allocateIfNeeded();
 
-    if (this->sample_index->hasRequestedSize()) {
-        if (this->sample_index->wantsFill())
-            this->zeroDataRef(this->sample_index);
+    if (this->note_off->hasRequestedSize()) {
+        if (this->note_off->wantsFill())
+            this->zeroDataRef(this->note_off);
 
         this->getEngine()->sendDataRefUpdated(2);
     }
 
-    this->data_07_buffer = this->data_07_buffer->allocateIfNeeded();
+    this->data_04_buffer = this->data_04_buffer->allocateIfNeeded();
 
-    if (this->source->hasRequestedSize()) {
-        if (this->source->wantsFill())
-            this->zeroDataRef(this->source);
+    if (this->envelope->hasRequestedSize()) {
+        if (this->envelope->wantsFill())
+            this->zeroDataRef(this->envelope);
 
         this->getEngine()->sendDataRefUpdated(3);
     }
 
-    this->data_04_buffer = this->data_04_buffer->allocateIfNeeded();
+    this->data_05_buffer = this->data_05_buffer->allocateIfNeeded();
 
-    if (this->notes_state->hasRequestedSize()) {
-        if (this->notes_state->wantsFill())
-            this->zeroDataRef(this->notes_state);
+    if (this->sample_index->hasRequestedSize()) {
+        if (this->sample_index->wantsFill())
+            this->zeroDataRef(this->sample_index);
 
         this->getEngine()->sendDataRefUpdated(4);
     }
 
-    this->data_05_buffer = this->data_05_buffer->allocateIfNeeded();
+    this->data_09_buffer = this->data_09_buffer->allocateIfNeeded();
 
-    if (this->note_count->hasRequestedSize()) {
-        if (this->note_count->wantsFill())
-            this->zeroDataRef(this->note_count);
+    if (this->source->hasRequestedSize()) {
+        if (this->source->wantsFill())
+            this->zeroDataRef(this->source);
 
         this->getEngine()->sendDataRefUpdated(5);
     }
 
     this->data_06_buffer = this->data_06_buffer->allocateIfNeeded();
 
+    if (this->notes_state->hasRequestedSize()) {
+        if (this->notes_state->wantsFill())
+            this->zeroDataRef(this->notes_state);
+
+        this->getEngine()->sendDataRefUpdated(6);
+    }
+
+    this->data_07_buffer = this->data_07_buffer->allocateIfNeeded();
+
+    if (this->note_count->hasRequestedSize()) {
+        if (this->note_count->wantsFill())
+            this->zeroDataRef(this->note_count);
+
+        this->getEngine()->sendDataRefUpdated(7);
+    }
+
+    this->data_08_buffer = this->data_08_buffer->allocateIfNeeded();
+
     if (this->window->hasRequestedSize()) {
         if (this->window->wantsFill())
             this->fillwindow(this->window);
 
-        this->getEngine()->sendDataRefUpdated(6);
+        this->getEngine()->sendDataRefUpdated(8);
     }
 
     if (this->arp_count->hasRequestedSize()) {
         if (this->arp_count->wantsFill())
             this->zeroDataRef(this->arp_count);
 
-        this->getEngine()->sendDataRefUpdated(7);
+        this->getEngine()->sendDataRefUpdated(9);
     }
 
     if (this->RNBODefaultSinus->hasRequestedSize()) {
         if (this->RNBODefaultSinus->wantsFill())
             this->fillRNBODefaultSinus(this->RNBODefaultSinus);
 
-        this->getEngine()->sendDataRefUpdated(8);
+        this->getEngine()->sendDataRefUpdated(10);
     }
 }
 
@@ -10505,6 +10629,8 @@ void initializeObjects() {
     this->data_05_init();
     this->data_06_init();
     this->data_07_init();
+    this->data_08_init();
+    this->data_09_init();
     this->p_02->initializeObjects();
     this->p_03->initializeObjects();
     this->p_04->initializeObjects();
@@ -10912,6 +11038,22 @@ void data_07_sizeout_set(number v) {
     this->data_07_sizeout = v;
 }
 
+void data_08_srout_set(number ) {}
+
+void data_08_chanout_set(number ) {}
+
+void data_08_sizeout_set(number v) {
+    this->data_08_sizeout = v;
+}
+
+void data_09_srout_set(number ) {}
+
+void data_09_chanout_set(number ) {}
+
+void data_09_sizeout_set(number v) {
+    this->data_09_sizeout = v;
+}
+
 void data_01_init() {
     this->data_01_buffer->setWantsFill(true);
 }
@@ -10949,13 +11091,24 @@ void data_01_report() {
 }
 
 void data_02_init() {
+    {
+        this->data_02_buffer->requestSize(
+            this->data_02_evaluateSizeExpr(this->samplerate(), this->vectorsize()),
+            this->data_02_channels
+        );
+    }
+
     this->data_02_buffer->setWantsFill(true);
 }
 
 Index data_02_evaluateSizeExpr(number samplerate, number vectorsize) {
     RNBO_UNUSED(vectorsize);
-    RNBO_UNUSED(samplerate);
     number size = 0;
+
+    {
+        size = samplerate * 5;
+    }
+
     return (Index)(size);
 }
 
@@ -11129,24 +11282,13 @@ void data_06_report() {
 }
 
 void data_07_init() {
-    {
-        this->data_07_buffer->requestSize(
-            this->data_07_evaluateSizeExpr(this->samplerate(), this->vectorsize()),
-            this->data_07_channels
-        );
-    }
-
     this->data_07_buffer->setWantsFill(true);
 }
 
 Index data_07_evaluateSizeExpr(number samplerate, number vectorsize) {
     RNBO_UNUSED(vectorsize);
+    RNBO_UNUSED(samplerate);
     number size = 0;
-
-    {
-        size = samplerate * 320;
-    }
-
     return (Index)(size);
 }
 
@@ -11173,6 +11315,89 @@ void data_07_report() {
     this->data_07_srout_set(this->data_07_buffer->getSampleRate());
     this->data_07_chanout_set(this->data_07_buffer->getChannels());
     this->data_07_sizeout_set(this->data_07_buffer->getSize());
+}
+
+void data_08_init() {
+    this->data_08_buffer->setWantsFill(true);
+}
+
+Index data_08_evaluateSizeExpr(number samplerate, number vectorsize) {
+    RNBO_UNUSED(vectorsize);
+    RNBO_UNUSED(samplerate);
+    number size = 0;
+    return (Index)(size);
+}
+
+void data_08_dspsetup(bool force) {
+    if ((bool)(this->data_08_setupDone) && (bool)(!(bool)(force)))
+        return;
+
+    if (this->data_08_sizemode == 2) {
+        this->data_08_buffer = this->data_08_buffer->setSize((Index)(this->mstosamps(this->data_08_sizems)));
+        updateDataRef(this, this->data_08_buffer);
+    } else if (this->data_08_sizemode == 3) {
+        this->data_08_buffer = this->data_08_buffer->setSize(this->data_08_evaluateSizeExpr(this->samplerate(), this->vectorsize()));
+        updateDataRef(this, this->data_08_buffer);
+    }
+
+    this->data_08_setupDone = true;
+}
+
+void data_08_bufferUpdated() {
+    this->data_08_report();
+}
+
+void data_08_report() {
+    this->data_08_srout_set(this->data_08_buffer->getSampleRate());
+    this->data_08_chanout_set(this->data_08_buffer->getChannels());
+    this->data_08_sizeout_set(this->data_08_buffer->getSize());
+}
+
+void data_09_init() {
+    {
+        this->data_09_buffer->requestSize(
+            this->data_09_evaluateSizeExpr(this->samplerate(), this->vectorsize()),
+            this->data_09_channels
+        );
+    }
+
+    this->data_09_buffer->setWantsFill(true);
+}
+
+Index data_09_evaluateSizeExpr(number samplerate, number vectorsize) {
+    RNBO_UNUSED(vectorsize);
+    number size = 0;
+
+    {
+        size = samplerate * 320;
+    }
+
+    return (Index)(size);
+}
+
+void data_09_dspsetup(bool force) {
+    if ((bool)(this->data_09_setupDone) && (bool)(!(bool)(force)))
+        return;
+
+    if (this->data_09_sizemode == 2) {
+        this->data_09_buffer = this->data_09_buffer->setSize((Index)(this->mstosamps(this->data_09_sizems)));
+        updateDataRef(this, this->data_09_buffer);
+    } else if (this->data_09_sizemode == 3) {
+        this->data_09_buffer = this->data_09_buffer->setSize(this->data_09_evaluateSizeExpr(this->samplerate(), this->vectorsize()));
+        updateDataRef(this, this->data_09_buffer);
+    }
+
+    this->data_09_setupDone = true;
+}
+
+void data_09_bufferUpdated() {
+    this->data_09_report();
+}
+
+void data_09_report() {
+    this->data_09_srout_set(this->data_09_buffer->getSampleRate());
+    this->data_09_chanout_set(this->data_09_buffer->getChannels());
+    this->data_09_sizeout_set(this->data_09_buffer->getSize());
 }
 
 number p_06_calcActiveVoices() {
@@ -11230,42 +11455,52 @@ void updateTime(MillisecondTime time) {
 void assign_defaults()
 {
     data_01_sizeout = 0;
-    data_01_size = 128;
+    data_01_size = 1;
     data_01_sizems = 0;
     data_01_normalize = 0.995;
     data_01_channels = 1;
     data_02_sizeout = 0;
-    data_02_size = 128;
+    data_02_size = 0;
     data_02_sizems = 0;
     data_02_normalize = 0.995;
     data_02_channels = 1;
-    p_02_target = 0;
     data_03_sizeout = 0;
-    data_03_size = 1;
+    data_03_size = 128;
     data_03_sizems = 0;
     data_03_normalize = 0.995;
     data_03_channels = 1;
-    p_03_target = 0;
     data_04_sizeout = 0;
     data_04_size = 128;
     data_04_sizems = 0;
     data_04_normalize = 0.995;
-    data_04_channels = 3;
+    data_04_channels = 1;
+    p_02_target = 0;
     data_05_sizeout = 0;
     data_05_size = 1;
     data_05_sizems = 0;
     data_05_normalize = 0.995;
     data_05_channels = 1;
+    p_03_target = 0;
     data_06_sizeout = 0;
-    data_06_size = 65536;
+    data_06_size = 128;
     data_06_sizems = 0;
     data_06_normalize = 0.995;
-    data_06_channels = 1;
+    data_06_channels = 3;
     data_07_sizeout = 0;
-    data_07_size = 0;
+    data_07_size = 1;
     data_07_sizems = 0;
     data_07_normalize = 0.995;
-    data_07_channels = 2;
+    data_07_channels = 1;
+    data_08_sizeout = 0;
+    data_08_size = 65536;
+    data_08_sizems = 0;
+    data_08_normalize = 0.995;
+    data_08_channels = 1;
+    data_09_sizeout = 0;
+    data_09_size = 0;
+    data_09_sizems = 0;
+    data_09_normalize = 0.995;
+    data_09_channels = 2;
     p_04_target = 0;
     p_05_target = 0;
     p_06_target = 0;
@@ -11292,7 +11527,7 @@ void assign_defaults()
     invsr = 0.00002267573696;
     data_01_sizemode = 1;
     data_01_setupDone = false;
-    data_02_sizemode = 1;
+    data_02_sizemode = 3;
     data_02_setupDone = false;
     data_03_sizemode = 1;
     data_03_setupDone = false;
@@ -11302,8 +11537,12 @@ void assign_defaults()
     data_05_setupDone = false;
     data_06_sizemode = 1;
     data_06_setupDone = false;
-    data_07_sizemode = 3;
+    data_07_sizemode = 1;
     data_07_setupDone = false;
+    data_08_sizemode = 1;
+    data_08_setupDone = false;
+    data_09_sizemode = 3;
+    data_09_setupDone = false;
     notein_01_status = 0;
     notein_01_byte1 = -1;
     notein_01_inchan = 0;
@@ -11327,23 +11566,23 @@ void assign_defaults()
     number data_02_sizems;
     number data_02_normalize;
     number data_02_channels;
-    number p_02_target;
     number data_03_sizeout;
     number data_03_size;
     number data_03_sizems;
     number data_03_normalize;
     number data_03_channels;
-    number p_03_target;
     number data_04_sizeout;
     number data_04_size;
     number data_04_sizems;
     number data_04_normalize;
     number data_04_channels;
+    number p_02_target;
     number data_05_sizeout;
     number data_05_size;
     number data_05_sizems;
     number data_05_normalize;
     number data_05_channels;
+    number p_03_target;
     number data_06_sizeout;
     number data_06_size;
     number data_06_sizems;
@@ -11354,6 +11593,16 @@ void assign_defaults()
     number data_07_sizems;
     number data_07_normalize;
     number data_07_channels;
+    number data_08_sizeout;
+    number data_08_size;
+    number data_08_sizems;
+    number data_08_normalize;
+    number data_08_channels;
+    number data_09_sizeout;
+    number data_09_size;
+    number data_09_sizems;
+    number data_09_normalize;
+    number data_09_channels;
     number p_04_target;
     number p_05_target;
     number p_06_target;
@@ -11373,10 +11622,10 @@ void assign_defaults()
     Index maxvs;
     number sr;
     number invsr;
-    Float64BufferRef data_01_buffer;
+    Float32BufferRef data_01_buffer;
     Int data_01_sizemode;
     bool data_01_setupDone;
-    Float64BufferRef data_02_buffer;
+    Float32BufferRef data_02_buffer;
     Int data_02_sizemode;
     bool data_02_setupDone;
     Float64BufferRef data_03_buffer;
@@ -11394,12 +11643,20 @@ void assign_defaults()
     Float64BufferRef data_07_buffer;
     Int data_07_sizemode;
     bool data_07_setupDone;
+    Float64BufferRef data_08_buffer;
+    Int data_08_sizemode;
+    bool data_08_setupDone;
+    Float64BufferRef data_09_buffer;
+    Int data_09_sizemode;
+    bool data_09_setupDone;
     int notein_01_status;
     int notein_01_byte1;
     int notein_01_inchan;
     signal globaltransport_tempo;
     signal globaltransport_state;
     number stackprotect_count;
+    DataRef scope_index;
+    DataRef scope;
     DataRef note_off;
     DataRef envelope;
     DataRef sample_index;
@@ -11414,13 +11671,13 @@ void assign_defaults()
     Index isMuted;
     indexlist paramInitIndices;
     indexlist paramInitOrder;
-    RNBOSubpatcher_132* p_02;
-    RNBOSubpatcher_133* p_03;
-    RNBOSubpatcher_134* p_04;
-    RNBOSubpatcher_135* p_05;
-    RNBOSubpatcher_136* p_06[1000];
-    RNBOSubpatcher_137* p_07[128];
-    RNBOSubpatcher_138* p_08;
+    RNBOSubpatcher_83* p_02;
+    RNBOSubpatcher_84* p_03;
+    RNBOSubpatcher_85* p_04;
+    RNBOSubpatcher_86* p_05;
+    RNBOSubpatcher_87* p_06[1000];
+    RNBOSubpatcher_88* p_07[128];
+    RNBOSubpatcher_89* p_08;
 
 };
 

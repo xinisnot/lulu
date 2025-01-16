@@ -394,6 +394,16 @@
   "transportUsed": false,
   "externalDataRefs": [
     {
+      "id": "scope_index",
+      "type": "Float32Buffer",
+      "tag": "buffer~"
+    },
+    {
+      "id": "scope",
+      "type": "Float32Buffer",
+      "tag": "buffer~"
+    },
+    {
       "id": "note_off",
       "type": "Float64Buffer",
       "tag": "data"
