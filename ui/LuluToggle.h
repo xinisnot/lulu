@@ -24,7 +24,7 @@ class LuluToggleLaf : public juce::LookAndFeel_V4
 public:
     LuluToggleLaf() {};
 
-    virtual void drawRotarySlider(juce::Graphics& g,
+    void drawRotarySlider(juce::Graphics& g,
                           int x, int y, int width, int height,
                           float sliderPosProportional,
                           float rotaryStartAngle,
