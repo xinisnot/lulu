@@ -4,6 +4,7 @@
 #include "LuluDial.h"
 #include "LuluToggle.h"
 #include "LuluOscilloscope.h"
+#include "LuluRangeSlider.h"
 #include "RNBO.h"
 #include "RNBO_JuceAudioProcessor.h"
 
@@ -38,6 +39,7 @@ private:
     LuluDial            sliderEnvelopeAttack;
     LuluDial            sliderEnvelopeRelease;
     LuluToggle          toggleRecordFreeze;
+    LuluRangeSlider     rangeSlider;
     
     std::unique_ptr<float[]> scopeBuffer;
     std::unique_ptr<float[]> indexBuffer;
@@ -47,6 +49,8 @@ private:
     LuluDialLaf         luluDialLaf             { false };
     LuluDialLaf         luluDialLaf_fromCenter  { true };
     LuluToggleLaf       luluToggleLaf;
+    LuluRangeSliderLaf  luluRangeSliderLaf;
+
     juce::TooltipWindow tooltipWindow;
 
     RNBO::JuceAudioProcessor* processor = nullptr;

@@ -25,6 +25,7 @@ MainComponent::MainComponent()
     addAndMakeVisible(sliderEnvelopeAttack);
     addAndMakeVisible(sliderEnvelopeRelease);
     addAndMakeVisible(scope);
+    addAndMakeVisible(rangeSlider);
     addAndMakeVisible(labelTitle);
     
     sliderTriggerDensity.setBounds    (0,   0,  70, 70);
@@ -49,6 +50,7 @@ MainComponent::MainComponent()
     sliderMixerWet.setBounds          (630, 70, 70, 70);
 
     scope.setBounds                   (0, 140, 700, 210);
+    rangeSlider.setBounds             (0, 140, 700, 210);
     labelTitle.setBounds              (0, 350, 700, 13);
 
     labelTitle.setFont(juce::Font (10.00f, juce::Font::plain).withTypefaceStyle ("Regular"));
@@ -136,6 +138,7 @@ MainComponent::MainComponent()
     sliderCloudReverseProb.setLookAndFeel  (&luluDialLaf);
     sliderEnvelopeAttack.setLookAndFeel    (&luluDialLaf);
     sliderEnvelopeRelease.setLookAndFeel   (&luluDialLaf);
+    rangeSlider.setLookAndFeel             (&luluRangeSliderLaf);
 
     sliderTriggerDensity.addListener    (this);
     sliderTriggerProbability.addListener(this);
@@ -160,6 +163,9 @@ MainComponent::MainComponent()
 
 MainComponent::~MainComponent()
 {
+    scopeBuffer.release();
+    indexBuffer.release();
+
     sliderTriggerDensity.setLookAndFeel    (nullptr);
     sliderTriggerProbability.setLookAndFeel(nullptr);
     sliderFeedbackAmount.setLookAndFeel    (nullptr);
@@ -179,6 +185,7 @@ MainComponent::~MainComponent()
     sliderCloudReverseProb.setLookAndFeel  (nullptr);
     sliderEnvelopeAttack.setLookAndFeel    (nullptr);
     sliderEnvelopeRelease.setLookAndFeel   (nullptr);
+    rangeSlider.setLookAndFeel             (nullptr);
 }
 
 
