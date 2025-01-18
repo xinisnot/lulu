@@ -4,7 +4,7 @@
 
 MainComponent::MainComponent()
 {
-    setSize(700, 363);
+    setSize(700, 350);
     addAndMakeVisible(sliderTriggerDensity);
     addAndMakeVisible(sliderTriggerProbability);
     addAndMakeVisible(sliderFeedbackAmount);
@@ -49,9 +49,9 @@ MainComponent::MainComponent()
     sliderMixerDry.setBounds          (560, 70, 70, 70);
     sliderMixerWet.setBounds          (630, 70, 70, 70);
 
+    labelTitle.setBounds              (0, 337, 700, 13);
     scope.setBounds                   (0, 140, 700, 210);
     rangeSlider.setBounds             (0, 140, 700, 210);
-    labelTitle.setBounds              (0, 350, 700, 13);
 
     labelTitle.setFont(juce::Font (10.00f, juce::Font::plain).withTypefaceStyle ("Regular"));
     labelTitle.setJustificationType (juce::Justification::topRight);
@@ -99,25 +99,25 @@ MainComponent::MainComponent()
     sliderEnvelopeAttack.setName    ("envelope/attack");
     sliderEnvelopeRelease.setName   ("envelope/release");
     
-    sliderTriggerDensity.setTooltip    ("[trigger/denstity] (unit: Hz)");
-    sliderTriggerProbability.setTooltip("[trigger/probability]");
-    sliderFeedbackAmount.setTooltip    ("[feedback/amount] (unit: dB)");
-    sliderFeedbackDamp.setTooltip      ("[feedback/damp].");
-    toggleRecordFreeze.setTooltip      ("[record/freeze]");
-    sliderMixerDry.setTooltip          ("[mixer/dry]");
-    sliderMixerWet.setTooltip          ("[mixer/wet]");
+    sliderTriggerDensity.setTooltip    ("[trigger/denstity] Frequency of generating grain. (unit: Hz)");
+    sliderTriggerProbability.setTooltip("[trigger/probability] Probability of generating grain.");
+    sliderFeedbackAmount.setTooltip    ("[feedback/amount] Amount of grain feedback. (unit: dB)");
+    sliderFeedbackDamp.setTooltip      ("[feedback/damp] Normalized Cutoff frequency of feedback.");
+    toggleRecordFreeze.setTooltip      ("[record/freeze] Pause recording.");
+    sliderMixerDry.setTooltip          ("[mixer/dry] Pre fx. (unit: dB)");
+    sliderMixerWet.setTooltip          ("[mixer/wet] Post fx. (unit: dB)");
     sliderCloudPosition.setTooltip     ("[cloud/position]");
     sliderCloudPositionBlur.setTooltip ("[cloud/position_blur]");
-    sliderCloudAmpBlur.setTooltip      ("[cloud/amp_blur]");
-    sliderCloudGrainSize.setTooltip    ("[cloud/grain_size] (unit: msec)");
-    sliderCloudGrainSizeBlur.setTooltip("[cloud/grain_size_blur]");
-    sliderCloudWindowTilt.setTooltip   ("[cloud/window_tilt]");
-    sliderCloudWindowSkirt.setTooltip  ("[cloud/window_skirt]");
-    sliderCloudStereoSpread.setTooltip ("[cloud/stereo_spread]");
-    sliderCloudPitchBlur.setTooltip    ("[cloud/pitch_blur] (unit: cent)");
-    sliderCloudReverseProb.setTooltip  ("[cloud/reverse_prob]");
-    sliderEnvelopeAttack.setTooltip    ("[envelope/attack]");
-    sliderEnvelopeRelease.setTooltip   ("[envelope/release]");
+    sliderCloudAmpBlur.setTooltip      ("[cloud/amp_blur] Amount of grain amplitude blurring.");
+    sliderCloudGrainSize.setTooltip    ("[cloud/grain_size] Grain size. (unit: msec)");
+    sliderCloudGrainSizeBlur.setTooltip("[cloud/grain_size_blur] Amount of grain size blurring.");
+    sliderCloudWindowTilt.setTooltip   ("[cloud/window_tilt] Shaping of grain window.");
+    sliderCloudWindowSkirt.setTooltip  ("[cloud/window_skirt] Shaping of grain window.");
+    sliderCloudStereoSpread.setTooltip ("[cloud/stereo_spread] Amount of stereo spread.");
+    sliderCloudPitchBlur.setTooltip    ("[cloud/pitch_blur] Amount of grain pitch blurring. (unit: cent)");
+    sliderCloudReverseProb.setTooltip  ("[cloud/reverse_prob] Probability of grain playing backwards.");
+    sliderEnvelopeAttack.setTooltip    ("[envelope/attack] Attack time. (unit: msec)");
+    sliderEnvelopeRelease.setTooltip   ("[envelope/release] Release time. (unit: msec)");
     
     sliderTriggerDensity.setLookAndFeel    (&luluDialLaf);
     sliderTriggerProbability.setLookAndFeel(&luluDialLaf);
