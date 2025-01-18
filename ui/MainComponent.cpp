@@ -235,26 +235,23 @@ void MainComponent::setAudioProcessor(RNBO::JuceAudioProcessor *p)
         }
     }
 
+    scopeBuffer = std::make_unique<float[]>(static_cast<int>(coreObject.getSampleRate() * 5.0));
+    indexBuffer = std::make_unique<float[]>(1);
+
     RNBO::Float32AudioBuffer scopeBufferType(1, coreObject.getSampleRate());
     RNBO::Float32AudioBuffer indexBufferType(1, coreObject.getSampleRate());
-
-    uint32_t scopeBufferSize = sizeof(float) * static_cast<uint32_t>(coreObject.getSampleRate() * 5.0);
-    uint32_t indexBufferSize = sizeof(float) * static_cast<uint32_t>(1);
-
-    scopeBuffer = std::make_unique<float[]>(scopeBufferSize);
-    indexBuffer = std::make_unique<float[]>(indexBufferSize);
 
     coreObject.setExternalData(
         "scope",
         reinterpret_cast<char*>(scopeBuffer.get()),
-        scopeBufferSize / sizeof(char),
+        static_cast<int>(coreObject.getSampleRate() * 5.0) * sizeof(float),
         scopeBufferType
     );
 
     coreObject.setExternalData(
         "scope_index",
         reinterpret_cast<char*>(indexBuffer.get()),
-        indexBufferSize / sizeof(char),
+        1 * sizeof(float),
         indexBufferType
     );
 

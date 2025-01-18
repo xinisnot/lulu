@@ -25,16 +25,16 @@ public:
     void paint (juce::Graphics& g) override
     {
         g.fillAll(juce::Colour (0xff2b3235));
-        g.setColour (juce::Colour(0xff868a8d));
+        g.setColour (juce::Colour(0xffd0d0d0));
 
-        uint32_t bufferSize = static_cast<uint32_t>(processor->getSampleRate() * scopeLengthInSec);
-        uint32_t ratio = bufferSize / getWidth();
+        float bufferSize = processor->getSampleRate() * scopeLengthInSec;
+        float ratio = bufferSize / getWidth();
 
         juce::Path path1;
 
         for (int i = 0; i < getWidth(); ++i)
         {
-            float sample = *(sampleBufferPtr + i * ratio);
+            float sample = *(sampleBufferPtr + static_cast<int>(i * ratio));
 
             path1.startNewSubPath(i, getHeight() / 2);
             path1.lineTo(i, getHeight() - (sample + 1.f) * (getHeight() / 2));
@@ -43,8 +43,8 @@ public:
 
         juce::Path path2 = path1;
 
-        float currentPhase = *(indexBufferPtr) / bufferSize;
-        float path1Trans   = (1.0 - currentPhase) * getWidth();
+        float currentPhase = (*(indexBufferPtr) + 1) / bufferSize;
+        float path1Trans   = (1.0 - currentPhase) * getWidth() - 1.0f;
         float path2Trans   = path1Trans - getWidth();
 
         path1.applyTransform(juce::AffineTransform::translation(path1Trans, 0.0f));
