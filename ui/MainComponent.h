@@ -14,7 +14,6 @@ public:
     MainComponent();
     ~MainComponent() override;
     void paint(juce::Graphics&) override;
-    void resized() override;
     void sliderValueChanged(juce::Slider* sliderThatWasMoved) override;
     void setAudioProcessor(RNBO::JuceAudioProcessor *p);
     void updateSliderForParam(unsigned long index, double value);
@@ -26,8 +25,6 @@ private:
     LuluDial            sliderTriggerProbability;
     LuluDial            sliderFeedbackAmount;
     LuluDial            sliderFeedbackDamp;
-    LuluDial            sliderCloudPosition;
-    LuluDial            sliderCloudPositionBlur;
     LuluDial            sliderCloudAmpBlur;
     LuluDial            sliderCloudGrainSize;
     LuluDial            sliderCloudGrainSizeBlur;
@@ -39,7 +36,7 @@ private:
     LuluDial            sliderEnvelopeAttack;
     LuluDial            sliderEnvelopeRelease;
     LuluToggle          toggleRecordFreeze;
-    LuluRangeSlider     rangeSlider;
+    LuluRangeSlider     rangeSliderCloudPosition;
     
     std::unique_ptr<float[]> scopeBuffer;
     std::unique_ptr<float[]> indexBuffer;
