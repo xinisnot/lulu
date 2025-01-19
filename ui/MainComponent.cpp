@@ -217,7 +217,7 @@ void MainComponent::setAudioProcessor(RNBO::JuceAudioProcessor *p)
                 if (slider->getMinValue() < slider->getMaxValue())  slider->setMinValue(5000.0 - value);
                 else                                                slider->setMaxValue(5000.0 - value);
             }
-            else if (juce::String(parameterName) == "cloud/position2"){
+            else if (juce::String(parameterName) == "cloud/position2") {
                 if (slider->getMinValue() < slider->getMaxValue())  slider->setMaxValue(5000.0 - value);
                 else                                                slider->setMinValue(5000.0 - value);
             }

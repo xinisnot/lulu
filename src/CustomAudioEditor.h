@@ -16,7 +16,7 @@ private:
 
 protected:
     AudioProcessor                              *_audioProcessor;
-    RNBO::CoreObject&                           _rnboObject; 
+    RNBO::CoreObject&                           _rnboObject;
     MainComponent                               _mainComponent;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CustomAudioEditor)
