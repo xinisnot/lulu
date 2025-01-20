@@ -84,8 +84,8 @@ MainComponent::MainComponent()
     toggleRecordFreeze.setName      ("record/freeze");
     sliderMixerDry.setName          ("mixer/dry");
     sliderMixerWet.setName          ("mixer/wet");
-    sliderCloudPosition1.setTitle   ("cloud/position1");
-    sliderCloudPosition2.setTitle   ("cloud/position2");
+    sliderCloudPosition1.setName    ("cloud/position1");
+    sliderCloudPosition2.setName    ("cloud/position2");
     sliderCloudAmpBlur.setName      ("cloud/amp_blur");
     sliderCloudGrainSize.setName    ("cloud/grain_size");
     sliderCloudGrainSizeBlur.setName("cloud/grain_size_blur");
