@@ -412,11 +412,6 @@
       "id": "envelope",
       "type": "Float64Buffer",
       "tag": "data"
-    },
-    {
-      "id": "arp_count",
-      "type": "Float32Buffer",
-      "tag": "buffer~"
     }
   ],
   "patcherSerial": 0,
