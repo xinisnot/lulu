@@ -4,7 +4,7 @@
 
 MainComponent::MainComponent()
 {
-    setSize(700, 362);
+    setSize(700, 400);
     addAndMakeVisible(sliderTriggerDensity);
     addAndMakeVisible(sliderTriggerProbability);
     addAndMakeVisible(sliderFeedbackAmount);
@@ -29,30 +29,29 @@ MainComponent::MainComponent()
     addAndMakeVisible(sliderCloudPosition2);
     addAndMakeVisible(labelTitle);
     
-
-    sliderTriggerDensity.setBounds    (0,    0, 70, 70);
-    sliderTriggerProbability.setBounds(70,   0, 70, 70);
-    sliderCloudReverseProb.setBounds  (140,  0, 70, 70);
-    sliderCloudGrainSize1.setBounds   (210,  0, 70, 70);
-    sliderCloudGrainSize2.setBounds   (280,  0, 70, 70);
-    sliderCloudPosition1.setBounds    (350,  0, 70, 70);
-    sliderCloudPosition2.setBounds    (420,  0, 70, 70);
-    sliderCloudStereoSpread.setBounds (490,  0, 70, 70);
-    sliderCloudAmpBlur.setBounds      (560,  0, 70, 70);
-    sliderCloudPitchBlur.setBounds    (630,  0, 70, 70);
-    sliderEnvelopeAttack.setBounds    (0,   70, 70, 70);
-    sliderEnvelopeRelease.setBounds   (70,  70, 70, 70);
-    sliderCloudWindowTilt.setBounds   (140, 70, 70, 70);
-    sliderCloudWindowSkirt.setBounds  (210, 70, 70, 70);
-    sliderFeedbackAmount.setBounds    (280, 70, 70, 70);
-    sliderFeedbackDamp.setBounds      (350, 70, 70, 70);
-    toggleRecordFreeze.setBounds      (490, 70, 70, 70);
-    sliderMixerDry.setBounds          (560, 70, 70, 70);
-    sliderMixerWet.setBounds          (630, 70, 70, 70);
-    rangeBarCloudGrainSize.setBounds  (0, 140, 700, 6);
-    scope.setBounds                   (0, 152, 700, 210);
-    rangeSliderCloudPosition.setBounds(0, 152, 700, 210);
-    labelTitle.setBounds              (0, 349, 700, 13);
+    sliderTriggerDensity.setBounds    (0,    0, 70,  70);
+    sliderTriggerProbability.setBounds(70,   0, 70,  70);
+    sliderCloudReverseProb.setBounds  (140,  0, 70,  70);
+    sliderCloudGrainSize1.setBounds   (210,  0, 70,  70);
+    sliderCloudGrainSize2.setBounds   (280,  0, 70,  70);
+    sliderCloudPosition1.setBounds    (350,  0, 70,  70);
+    sliderCloudPosition2.setBounds    (420,  0, 70,  70);
+    sliderCloudStereoSpread.setBounds (490,  0, 70,  70);
+    sliderCloudAmpBlur.setBounds      (560,  0, 70,  70);
+    sliderCloudPitchBlur.setBounds    (630,  0, 70,  70);
+    sliderEnvelopeAttack.setBounds    (0,   70, 70,  70);
+    sliderEnvelopeRelease.setBounds   (70,  70, 70,  70);
+    sliderCloudWindowTilt.setBounds   (140, 70, 70,  70);
+    sliderCloudWindowSkirt.setBounds  (210, 70, 70,  70);
+    sliderFeedbackAmount.setBounds    (280, 70, 70,  70);
+    sliderFeedbackDamp.setBounds      (350, 70, 70,  70);
+    toggleRecordFreeze.setBounds      (490, 70, 70,  70);
+    sliderMixerDry.setBounds          (560, 70, 70,  70);
+    sliderMixerWet.setBounds          (630, 70, 70,  70);
+    rangeBarCloudGrainSize.setBounds  (0,  140, 700, 20);
+    scope.setBounds                   (0,  160, 700, 240);
+    rangeSliderCloudPosition.setBounds(0,  160, 700, 240);
+    labelTitle.setBounds              (0,  387, 700, 13);
 
     labelTitle.setFont(juce::Font (10.00f, juce::Font::plain).withTypefaceStyle ("Regular"));
     labelTitle.setJustificationType (juce::Justification::topRight);
