@@ -28,23 +28,24 @@ MainComponent::MainComponent()
     addAndMakeVisible(sliderCloudPosition2);
     addAndMakeVisible(labelTitle);
     
-    sliderTriggerDensity.setBounds    (0,   0,  70, 70);
-    sliderTriggerProbability.setBounds(70,  0,  70, 70);
-    sliderFeedbackAmount.setBounds    (140, 0,  70, 70);
-    sliderFeedbackDamp.setBounds      (210, 0,  70, 70);
-    sliderCloudStereoSpread.setBounds (280, 0,  70, 70);
-    sliderCloudReverseProb.setBounds  (350, 0,  70, 70);
-    sliderCloudGrainSize.setBounds    (420, 0,  70, 70);
-    sliderCloudGrainSizeBlur.setBounds(490, 0,  70, 70);
-    sliderCloudAmpBlur.setBounds      (560, 0,  70, 70);
-    sliderCloudPitchBlur.setBounds    (630, 0,  70, 70);
-    sliderCloudWindowTilt.setBounds   (0,   70, 70, 70);
-    sliderCloudWindowSkirt.setBounds  (70,  70, 70, 70);
-    sliderEnvelopeAttack.setBounds    (140, 70, 70, 70);
-    sliderEnvelopeRelease.setBounds   (210, 70, 70, 70);
-    toggleRecordFreeze.setBounds      (280, 70, 70, 70);
-    sliderCloudPosition1.setBounds    (350, 70, 70, 70);
-    sliderCloudPosition2.setBounds    (420, 70, 70, 70);
+
+    sliderTriggerDensity.setBounds    (0,    0, 70, 70);
+    sliderTriggerProbability.setBounds(70,   0, 70, 70);
+    sliderCloudReverseProb.setBounds  (140,  0, 70, 70);
+    sliderCloudGrainSize.setBounds    (210,  0, 70, 70);
+    sliderCloudGrainSizeBlur.setBounds(280,  0, 70, 70);
+    sliderCloudPosition1.setBounds    (350,  0, 70, 70);
+    sliderCloudPosition2.setBounds    (420,  0, 70, 70);
+    sliderCloudStereoSpread.setBounds (490,  0, 70, 70);
+    sliderCloudAmpBlur.setBounds      (560,  0, 70, 70);
+    sliderCloudPitchBlur.setBounds    (630,  0, 70, 70);
+    sliderEnvelopeAttack.setBounds    (0,   70, 70, 70);
+    sliderEnvelopeRelease.setBounds   (70,  70, 70, 70);
+    sliderCloudWindowTilt.setBounds   (140, 70, 70, 70);
+    sliderCloudWindowSkirt.setBounds  (210, 70, 70, 70);
+    sliderFeedbackAmount.setBounds    (280, 70, 70, 70);
+    sliderFeedbackDamp.setBounds      (350, 70, 70, 70);
+    toggleRecordFreeze.setBounds      (490, 70, 70, 70);
     sliderMixerDry.setBounds          (560, 70, 70, 70);
     sliderMixerWet.setBounds          (630, 70, 70, 70);
     labelTitle.setBounds              (0, 337, 700, 13);
@@ -218,9 +219,6 @@ void MainComponent::setAudioProcessor(RNBO::JuceAudioProcessor *p)
         else if (juce::String(parameterName) == sliderEnvelopeRelease.getName())    slider = &sliderEnvelopeRelease;
         else if (juce::String(parameterName) == sliderCloudPosition1.getName())     slider = &sliderCloudPosition1;
         else if (juce::String(parameterName) == sliderCloudPosition2.getName())     slider = &sliderCloudPosition2;
-        // else if (juce::String(parameterName) == "cloud/position1" || juce::String(parameterName) == "cloud/position2") {
-        //     slider = &rangeSliderCloudPosition;
-        // }
 
         if (slider) {
             RNBO::ParameterInfo parameterInfo;
@@ -228,18 +226,13 @@ void MainComponent::setAudioProcessor(RNBO::JuceAudioProcessor *p)
             slidersByParameterIndex.set(i, slider);
             coreObject.getParameterInfo(i, &parameterInfo);
             slider->setRange(parameterInfo.min, parameterInfo.max);
-
-            // if (juce::String(parameterName) == "cloud/position1") {
-            //     if (slider->getMinValue() < slider->getMaxValue())  slider->setMinValue(5000.0 - value);
-            //     else                                                slider->setMaxValue(5000.0 - value);
-            // }
-            // else if (juce::String(parameterName) == "cloud/position2") {
-            //     if (slider->getMinValue() < slider->getMaxValue())  slider->setMaxValue(5000.0 - value);
-            //     else                                                slider->setMinValue(5000.0 - value);
-            // }
-            // else                                                        slider->setValue(value);
-
             slider->setValue(value);
+
+            if (juce::String(parameterName) == "cloud/position1" || juce::String(parameterName) == "cloud/position2")
+            {
+                rangeSliderCloudPosition.setRange(parameterInfo.min, parameterInfo.max);
+                rangeSliderCloudPosition.setMinAndMaxValues(5000.0 - value, 5000.0 - value);
+            }
 
             if(slider->getName() == juce::String("trigger/density"))                slider->setSkewFactorFromMidPoint(100.0);
             else if(slider->getName() == juce::String("cloud/grain_size"))          slider->setSkewFactorFromMidPoint(200);
@@ -247,6 +240,7 @@ void MainComponent::setAudioProcessor(RNBO::JuceAudioProcessor *p)
         }
     }
 
+    // oscilloscope
     scopeBuffer = std::make_unique<float[]>(static_cast<int>(coreObject.getSampleRate() * 5.0));
     indexBuffer = std::make_unique<float[]>(1);
 
@@ -280,41 +274,10 @@ void MainComponent::sliderValueChanged(juce::Slider* sliderThatWasMoved)
     
     RNBO::CoreObject& coreObject    = processor->getRnboObject();
     auto parameters                 = processor->getParameters();
+    RNBO::ParameterIndex index      = coreObject.getParameterIndexForID(sliderThatWasMoved->getName().toRawUTF8());
 
-    // if(sliderThatWasMoved->getName() == "cloud/position")
-    // {
-        // RNBO::ParameterIndex index_min = coreObject.getParameterIndexForID(juce::String("cloud/position1").toRawUTF8());
-        // RNBO::ParameterIndex index_max = coreObject.getParameterIndexForID(juce::String("cloud/position2").toRawUTF8());
-
-        // if (index_min != -1) {
-        //     const auto param    = processor->getParameters()[index_min];
-        //     auto newVal         = 5000.0 - sliderThatWasMoved->getMinValue();
-
-        //     if (param && param->getValue() != newVal) {
-        //         auto normalizedValue = coreObject.convertToNormalizedParameterValue(index_min, newVal);
-        //         param->beginChangeGesture();
-        //         param->setValueNotifyingHost(normalizedValue);
-        //         param->endChangeGesture();
-        //     }
-        // }
-
-        // if (index_max != -1) {
-        //     const auto param    = processor->getParameters()[index_max];
-        //     auto newVal         = 5000.0 - sliderThatWasMoved->getMaxValue();
-
-        //     if (param && param->getValue() != newVal) {
-        //         auto normalizedValue = coreObject.convertToNormalizedParameterValue(index_max, newVal);
-        //         param->beginChangeGesture();
-        //         param->setValueNotifyingHost(normalizedValue);
-        //         param->endChangeGesture();
-        //     }
-        // }
-    // }
-    // else
-    // {
-    RNBO::ParameterIndex index = coreObject.getParameterIndexForID(sliderThatWasMoved->getName().toRawUTF8());
-
-    if (index != -1) {
+    if (index != -1)
+    {
         const auto param    = processor->getParameters()[index];
         auto newVal         = sliderThatWasMoved->getValue();
 
@@ -324,8 +287,22 @@ void MainComponent::sliderValueChanged(juce::Slider* sliderThatWasMoved)
             param->setValueNotifyingHost(normalizedValue);
             param->endChangeGesture();
         }
+
+        if (sliderThatWasMoved->getName() == "cloud/position1" || sliderThatWasMoved->getName() == "cloud/position2") {
+            double v1 = 5000.0 - sliderCloudPosition1.getValue();
+            double v2 = 5000.0 - sliderCloudPosition2.getValue();
+
+            if (v1 < v2)
+                rangeSliderCloudPosition.setMinAndMaxValues(v1, v2, juce::NotificationType::dontSendNotification);
+            else
+                rangeSliderCloudPosition.setMinAndMaxValues(v2, v1, juce::NotificationType::dontSendNotification);
+        }
     }
-    // }
+    else if (sliderThatWasMoved == &rangeSliderCloudPosition)
+    {
+        sliderCloudPosition1.setValue(5000.0 - sliderThatWasMoved->getMinValue());
+        sliderCloudPosition2.setValue(5000.0 - sliderThatWasMoved->getMaxValue());
+    }
 }
 
 
@@ -337,19 +314,19 @@ void MainComponent::updateSliderForParam(unsigned long index, double value)
     auto slider                     = slidersByParameterIndex.getReference((int) index);
     
     if (slider && (slider->getThumbBeingDragged() == -1))
-        // if (slider->getName() == juce::String("cloud/position"))
-        // {
-        //     auto denormalizedValue = 5000.0 - coreObject.convertFromNormalizedParameterValue(index, value);
-
-        //     if (juce::String(coreObject.getParameterId(index)) == juce::String("cloud/position1"))
-        //         slider->setMinValue(denormalizedValue, NotificationType::dontSendNotification);
-        //     else
-        //         slider->setMaxValue(denormalizedValue, NotificationType::dontSendNotification);
-        // }
-        // else
     {
         auto denormalizedValue = coreObject.convertFromNormalizedParameterValue(index, value);
         slider->setValue(denormalizedValue, NotificationType::dontSendNotification);
+
+        if (slider->getName() == "cloud/position1" || slider->getName() == "cloud/position2") {
+            double v1 = 5000.0 - sliderCloudPosition1.getValue();
+            double v2 = 5000.0 - sliderCloudPosition2.getValue();
+
+            if (v1 < v2)
+                rangeSliderCloudPosition.setMinAndMaxValues(v1, v2, juce::NotificationType::dontSendNotification);
+            else
+                rangeSliderCloudPosition.setMinAndMaxValues(v2, v1, juce::NotificationType::dontSendNotification);
+        }        
     }
 }
 
