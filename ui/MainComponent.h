@@ -5,6 +5,7 @@
 #include "LuluToggle.h"
 #include "LuluOscilloscope.h"
 #include "LuluRangeSlider.h"
+#include "LuluRangeBar.h"
 #include "RNBO.h"
 #include "RNBO_JuceAudioProcessor.h"
 
@@ -26,8 +27,8 @@ private:
     LuluDial            sliderFeedbackAmount;
     LuluDial            sliderFeedbackDamp;
     LuluDial            sliderCloudAmpBlur;
-    LuluDial            sliderCloudGrainSize;
-    LuluDial            sliderCloudGrainSizeBlur;
+    LuluDial            sliderCloudGrainSize1;
+    LuluDial            sliderCloudGrainSize2;
     LuluDial            sliderCloudWindowTilt;
     LuluDial            sliderCloudWindowSkirt;
     LuluDial            sliderCloudStereoSpread;
@@ -39,17 +40,19 @@ private:
     LuluRangeSlider     rangeSliderCloudPosition;
     LuluDial            sliderCloudPosition1;
     LuluDial            sliderCloudPosition2;
+    LuluRangeBar        rangeBarCloudGrainSize;
     
     std::unique_ptr<float[]> scopeBuffer;
     std::unique_ptr<float[]> indexBuffer;
     LuluOscilloscope    scope;
 
-    juce::Label         labelTitle              { "label", "lulu by @xinisnot" };
     LuluDialLaf         luluDialLaf             { false };
     LuluDialLaf         luluDialLaf_fromCenter  { true };
     LuluToggleLaf       luluToggleLaf;
     LuluRangeSliderLaf  luluRangeSliderLaf;
+    LuluRangeBarLaf     luluRangeBarLaf;
 
+    juce::Label         labelTitle { "label", "lulu by @xinisnot" };
     juce::TooltipWindow tooltipWindow;
 
     RNBO::JuceAudioProcessor* processor = nullptr;

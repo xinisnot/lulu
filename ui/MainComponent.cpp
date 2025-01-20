@@ -4,7 +4,7 @@
 
 MainComponent::MainComponent()
 {
-    setSize(700, 350);
+    setSize(700, 362);
     addAndMakeVisible(sliderTriggerDensity);
     addAndMakeVisible(sliderTriggerProbability);
     addAndMakeVisible(sliderFeedbackAmount);
@@ -13,8 +13,8 @@ MainComponent::MainComponent()
     addAndMakeVisible(sliderMixerDry);
     addAndMakeVisible(sliderMixerWet);
     addAndMakeVisible(sliderCloudAmpBlur);
-    addAndMakeVisible(sliderCloudGrainSize);
-    addAndMakeVisible(sliderCloudGrainSizeBlur);
+    addAndMakeVisible(sliderCloudGrainSize1);
+    addAndMakeVisible(sliderCloudGrainSize2);
     addAndMakeVisible(sliderCloudWindowTilt);
     addAndMakeVisible(sliderCloudWindowSkirt);
     addAndMakeVisible(sliderCloudStereoSpread);
@@ -24,6 +24,7 @@ MainComponent::MainComponent()
     addAndMakeVisible(sliderEnvelopeRelease);
     addAndMakeVisible(scope);
     addAndMakeVisible(rangeSliderCloudPosition);
+    addAndMakeVisible(rangeBarCloudGrainSize);
     addAndMakeVisible(sliderCloudPosition1);
     addAndMakeVisible(sliderCloudPosition2);
     addAndMakeVisible(labelTitle);
@@ -32,8 +33,8 @@ MainComponent::MainComponent()
     sliderTriggerDensity.setBounds    (0,    0, 70, 70);
     sliderTriggerProbability.setBounds(70,   0, 70, 70);
     sliderCloudReverseProb.setBounds  (140,  0, 70, 70);
-    sliderCloudGrainSize.setBounds    (210,  0, 70, 70);
-    sliderCloudGrainSizeBlur.setBounds(280,  0, 70, 70);
+    sliderCloudGrainSize1.setBounds   (210,  0, 70, 70);
+    sliderCloudGrainSize2.setBounds   (280,  0, 70, 70);
     sliderCloudPosition1.setBounds    (350,  0, 70, 70);
     sliderCloudPosition2.setBounds    (420,  0, 70, 70);
     sliderCloudStereoSpread.setBounds (490,  0, 70, 70);
@@ -48,9 +49,10 @@ MainComponent::MainComponent()
     toggleRecordFreeze.setBounds      (490, 70, 70, 70);
     sliderMixerDry.setBounds          (560, 70, 70, 70);
     sliderMixerWet.setBounds          (630, 70, 70, 70);
-    labelTitle.setBounds              (0, 337, 700, 13);
-    scope.setBounds                   (0, 140, 700, 210);
-    rangeSliderCloudPosition.setBounds(0, 140, 700, 210);
+    rangeBarCloudGrainSize.setBounds  (0, 140, 700, 6);
+    scope.setBounds                   (0, 152, 700, 210);
+    rangeSliderCloudPosition.setBounds(0, 152, 700, 210);
+    labelTitle.setBounds              (0, 349, 700, 13);
 
     labelTitle.setFont(juce::Font (10.00f, juce::Font::plain).withTypefaceStyle ("Regular"));
     labelTitle.setJustificationType (juce::Justification::topRight);
@@ -68,8 +70,8 @@ MainComponent::MainComponent()
     sliderCloudPosition1.setTitle    ("pos1");
     sliderCloudPosition2.setTitle    ("pos2");
     sliderCloudAmpBlur.setTitle      ("ampBlur");
-    sliderCloudGrainSize.setTitle    ("size");
-    sliderCloudGrainSizeBlur.setTitle("sizeBlur");
+    sliderCloudGrainSize1.setTitle   ("size1");
+    sliderCloudGrainSize2.setTitle   ("size2");
     sliderCloudWindowTilt.setTitle   ("tilt");
     sliderCloudWindowSkirt.setTitle  ("skirt");
     sliderCloudStereoSpread.setTitle ("stereo");
@@ -88,8 +90,8 @@ MainComponent::MainComponent()
     sliderCloudPosition1.setName    ("cloud/position1");
     sliderCloudPosition2.setName    ("cloud/position2");
     sliderCloudAmpBlur.setName      ("cloud/amp_blur");
-    sliderCloudGrainSize.setName    ("cloud/grain_size");
-    sliderCloudGrainSizeBlur.setName("cloud/grain_size_blur");
+    sliderCloudGrainSize1.setName   ("cloud/grain_size1");
+    sliderCloudGrainSize2.setName   ("cloud/grain_size2");
     sliderCloudWindowTilt.setName   ("cloud/window_tilt");
     sliderCloudWindowSkirt.setName  ("cloud/window_skirt");
     sliderCloudStereoSpread.setName ("cloud/stereo_spread");
@@ -109,8 +111,8 @@ MainComponent::MainComponent()
     sliderCloudPosition1.setTooltip    ("[cloud/position1] Position of generating grain. (unit: msec)");
     sliderCloudPosition2.setTooltip    ("[cloud/position2] Position of generating grain. (unit: msec)");
     sliderCloudAmpBlur.setTooltip      ("[cloud/amp_blur] Amount of grain amplitude blurring.");
-    sliderCloudGrainSize.setTooltip    ("[cloud/grain_size] Grain size. (unit: msec)");
-    sliderCloudGrainSizeBlur.setTooltip("[cloud/grain_size_blur] Amount of grain size blurring.");
+    sliderCloudGrainSize1.setTooltip   ("[cloud/grain_size1] Grain size. (unit: msec)");
+    sliderCloudGrainSize2.setTooltip   ("[cloud/grain_size2] Grain size. (unit: msec)");
     sliderCloudWindowTilt.setTooltip   ("[cloud/window_tilt] Shaping of grain window.");
     sliderCloudWindowSkirt.setTooltip  ("[cloud/window_skirt] Shaping of grain window.");
     sliderCloudStereoSpread.setTooltip ("[cloud/stereo_spread] Amount of stereo spread.");
@@ -118,6 +120,7 @@ MainComponent::MainComponent()
     sliderCloudReverseProb.setTooltip  ("[cloud/reverse_prob] Probability of grain playing backwards.");
     sliderEnvelopeAttack.setTooltip    ("[envelope/attack] Attack time. (unit: msec)");
     sliderEnvelopeRelease.setTooltip   ("[envelope/release] Release time. (unit: msec)");
+    rangeBarCloudGrainSize.setTooltip  ("[cloud/grain_size1][cloud/grain_size2] Grain size. (unit: msec)");
     
     sliderTriggerDensity.setLookAndFeel    (&luluDialLaf);
     sliderTriggerProbability.setLookAndFeel(&luluDialLaf);
@@ -127,8 +130,8 @@ MainComponent::MainComponent()
     sliderMixerDry.setLookAndFeel          (&luluDialLaf);
     sliderMixerWet.setLookAndFeel          (&luluDialLaf);
     sliderCloudAmpBlur.setLookAndFeel      (&luluDialLaf);
-    sliderCloudGrainSize.setLookAndFeel    (&luluDialLaf);
-    sliderCloudGrainSizeBlur.setLookAndFeel(&luluDialLaf);
+    sliderCloudGrainSize1.setLookAndFeel   (&luluDialLaf);
+    sliderCloudGrainSize2.setLookAndFeel   (&luluDialLaf);
     sliderCloudWindowTilt.setLookAndFeel   (&luluDialLaf_fromCenter);
     sliderCloudWindowSkirt.setLookAndFeel  (&luluDialLaf_fromCenter);
     sliderCloudStereoSpread.setLookAndFeel (&luluDialLaf);
@@ -139,6 +142,7 @@ MainComponent::MainComponent()
     rangeSliderCloudPosition.setLookAndFeel(&luluRangeSliderLaf);
     sliderCloudPosition1.setLookAndFeel    (&luluDialLaf);
     sliderCloudPosition2.setLookAndFeel    (&luluDialLaf);
+    rangeBarCloudGrainSize.setLookAndFeel  (&luluRangeBarLaf);
 
     sliderTriggerDensity.addListener    (this);
     sliderTriggerProbability.addListener(this);
@@ -148,8 +152,8 @@ MainComponent::MainComponent()
     sliderMixerDry.addListener          (this);
     sliderMixerWet.addListener          (this);
     sliderCloudAmpBlur.addListener      (this);
-    sliderCloudGrainSize.addListener    (this);
-    sliderCloudGrainSizeBlur.addListener(this);
+    sliderCloudGrainSize1.addListener   (this);
+    sliderCloudGrainSize2.addListener   (this);
     sliderCloudWindowTilt.addListener   (this);
     sliderCloudWindowSkirt.addListener  (this);
     sliderCloudStereoSpread.addListener (this);
@@ -160,6 +164,7 @@ MainComponent::MainComponent()
     rangeSliderCloudPosition.addListener(this);
     sliderCloudPosition1.addListener    (this);
     sliderCloudPosition2.addListener    (this);
+    rangeBarCloudGrainSize.addListener  (this);
 }
 
 MainComponent::~MainComponent()
@@ -175,8 +180,8 @@ MainComponent::~MainComponent()
     sliderMixerDry.setLookAndFeel          (nullptr);
     sliderMixerWet.setLookAndFeel          (nullptr);
     sliderCloudAmpBlur.setLookAndFeel      (nullptr);
-    sliderCloudGrainSize.setLookAndFeel    (nullptr);
-    sliderCloudGrainSizeBlur.setLookAndFeel(nullptr);
+    sliderCloudGrainSize1.setLookAndFeel   (nullptr);
+    sliderCloudGrainSize2.setLookAndFeel   (nullptr);
     sliderCloudWindowTilt.setLookAndFeel   (nullptr);
     sliderCloudWindowSkirt.setLookAndFeel  (nullptr);
     sliderCloudStereoSpread.setLookAndFeel (nullptr);
@@ -187,6 +192,7 @@ MainComponent::~MainComponent()
     rangeSliderCloudPosition.setLookAndFeel(nullptr);
     sliderCloudPosition1.setLookAndFeel    (nullptr);
     sliderCloudPosition2.setLookAndFeel    (nullptr);
+    rangeBarCloudGrainSize.setLookAndFeel  (nullptr);
 }
 
 
@@ -201,8 +207,8 @@ void MainComponent::setAudioProcessor(RNBO::JuceAudioProcessor *p)
         juce::Slider *slider        = nullptr;
         
         if      (juce::String(parameterName) == sliderTriggerDensity.getName())     slider = &sliderTriggerDensity;
-        else if (juce::String(parameterName) == sliderCloudGrainSize.getName())     slider = &sliderCloudGrainSize;
-        else if (juce::String(parameterName) == sliderCloudGrainSizeBlur.getName()) slider = &sliderCloudGrainSizeBlur;
+        else if (juce::String(parameterName) == sliderCloudGrainSize1.getName())    slider = &sliderCloudGrainSize1;
+        else if (juce::String(parameterName) == sliderCloudGrainSize2.getName())    slider = &sliderCloudGrainSize2;
         else if (juce::String(parameterName) == sliderMixerDry.getName())           slider = &sliderMixerDry;
         else if (juce::String(parameterName) == sliderMixerWet.getName())           slider = &sliderMixerWet;
         else if (juce::String(parameterName) == sliderTriggerProbability.getName()) slider = &sliderTriggerProbability;
@@ -233,6 +239,14 @@ void MainComponent::setAudioProcessor(RNBO::JuceAudioProcessor *p)
                 rangeSliderCloudPosition.setRange(parameterInfo.min, parameterInfo.max);
                 rangeSliderCloudPosition.setMinAndMaxValues(5000.0 - value, 5000.0 - value);
             }
+
+            
+            if (juce::String(parameterName) == "cloud/grain_size1" || juce::String(parameterName) == "cloud/grain_size2")
+            {
+                rangeBarCloudGrainSize.setRange(parameterInfo.min, parameterInfo.max);
+                rangeBarCloudGrainSize.setMinAndMaxValues(5000.0 - value, 5000.0 - value);
+            }
+            
 
             if(slider->getName() == juce::String("trigger/density"))                slider->setSkewFactorFromMidPoint(100.0);
             else if(slider->getName() == juce::String("cloud/grain_size"))          slider->setSkewFactorFromMidPoint(200);
@@ -292,16 +306,28 @@ void MainComponent::sliderValueChanged(juce::Slider* sliderThatWasMoved)
             double v1 = 5000.0 - sliderCloudPosition1.getValue();
             double v2 = 5000.0 - sliderCloudPosition2.getValue();
 
-            if (v1 < v2)
-                rangeSliderCloudPosition.setMinAndMaxValues(v1, v2, juce::NotificationType::dontSendNotification);
-            else
-                rangeSliderCloudPosition.setMinAndMaxValues(v2, v1, juce::NotificationType::dontSendNotification);
+            if (v1 < v2)    rangeSliderCloudPosition.setMinAndMaxValues(v1, v2, juce::NotificationType::dontSendNotification);
+            else            rangeSliderCloudPosition.setMinAndMaxValues(v2, v1, juce::NotificationType::dontSendNotification);
+        }
+
+        
+        if (sliderThatWasMoved->getName() == "cloud/grain_size1" || sliderThatWasMoved->getName() == "cloud/grain_size2") {
+            double v1 = 5000.0 - sliderCloudGrainSize1.getValue();
+            double v2 = 5000.0 - sliderCloudGrainSize2.getValue();
+
+            if (v1 < v2)    rangeBarCloudGrainSize.setMinAndMaxValues(v1, v2, juce::NotificationType::dontSendNotification);
+            else            rangeBarCloudGrainSize.setMinAndMaxValues(v2, v1, juce::NotificationType::dontSendNotification);
         }
     }
     else if (sliderThatWasMoved == &rangeSliderCloudPosition)
     {
         sliderCloudPosition1.setValue(5000.0 - sliderThatWasMoved->getMinValue());
         sliderCloudPosition2.setValue(5000.0 - sliderThatWasMoved->getMaxValue());
+    }
+    else if (sliderThatWasMoved == &rangeBarCloudGrainSize)
+    {
+        sliderCloudGrainSize1.setValue(5000.0 - sliderThatWasMoved->getMinValue());
+        sliderCloudGrainSize2.setValue(5000.0 - sliderThatWasMoved->getMaxValue());
     }
 }
 
@@ -318,15 +344,22 @@ void MainComponent::updateSliderForParam(unsigned long index, double value)
         auto denormalizedValue = coreObject.convertFromNormalizedParameterValue(index, value);
         slider->setValue(denormalizedValue, NotificationType::dontSendNotification);
 
-        if (slider->getName() == "cloud/position1" || slider->getName() == "cloud/position2") {
+        if (slider->getName() == "cloud/position1" || slider->getName() == "cloud/position2")
+        {
             double v1 = 5000.0 - sliderCloudPosition1.getValue();
             double v2 = 5000.0 - sliderCloudPosition2.getValue();
 
-            if (v1 < v2)
-                rangeSliderCloudPosition.setMinAndMaxValues(v1, v2, juce::NotificationType::dontSendNotification);
-            else
-                rangeSliderCloudPosition.setMinAndMaxValues(v2, v1, juce::NotificationType::dontSendNotification);
-        }        
+            if (v1 < v2)    rangeSliderCloudPosition.setMinAndMaxValues(v1, v2, juce::NotificationType::dontSendNotification);
+            else            rangeSliderCloudPosition.setMinAndMaxValues(v2, v1, juce::NotificationType::dontSendNotification);
+        }
+        else if (slider->getName() == "cloud/grain_size1" || slider->getName() == "cloud/grain_size2")
+        {
+            double v1 = 5000.0 - sliderCloudGrainSize1.getValue();
+            double v2 = 5000.0 - sliderCloudGrainSize2.getValue();
+
+            if (v1 < v2)    rangeBarCloudGrainSize.setMinAndMaxValues(v1, v2, juce::NotificationType::dontSendNotification);
+            else            rangeBarCloudGrainSize.setMinAndMaxValues(v2, v1, juce::NotificationType::dontSendNotification);
+        }
     }
 }
 
