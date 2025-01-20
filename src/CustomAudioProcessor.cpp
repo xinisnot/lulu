@@ -6,6 +6,12 @@
 #include <rnbo_description.h>
 #endif
 
+
+CustomAudioProcessor::CustomAudioProcessor(const nlohmann::json& patcher_desc, const nlohmann::json& presets, const RNBO::BinaryData& data) 
+    : RNBO::JuceAudioProcessor(patcher_desc, presets, data) 
+{
+}
+
 //create an instance of our custom plugin, optionally set description, presets and binary data (datarefs)
 CustomAudioProcessor* CustomAudioProcessor::CreateDefault() {
 	nlohmann::json patcher_desc, presets;
@@ -25,18 +31,8 @@ CustomAudioProcessor* CustomAudioProcessor::CreateDefault() {
   return new CustomAudioProcessor(patcher_desc, presets, data);
 }
 
-CustomAudioProcessor::CustomAudioProcessor(
-    const nlohmann::json& patcher_desc,
-    const nlohmann::json& presets,
-    const RNBO::BinaryData& data
-    ) 
-  : RNBO::JuceAudioProcessor(patcher_desc, presets, data) 
-{
-}
 
 AudioProcessorEditor* CustomAudioProcessor::createEditor()
 {
-    // Change this to use your CustomAudioEditor
     return new CustomAudioEditor (this, this->_rnboObject);
 }
-

@@ -75,17 +75,17 @@ namespace RNBO {
 class rnbomatic : public PatcherInterfaceImpl {
 public:
 
-class RNBOSubpatcher_12 : public PatcherInterfaceImpl {
+class RNBOSubpatcher_57 : public PatcherInterfaceImpl {
     
     friend class rnbomatic;
     
     public:
     
-    RNBOSubpatcher_12()
+    RNBOSubpatcher_57()
     {
     }
     
-    ~RNBOSubpatcher_12()
+    ~RNBOSubpatcher_57()
     {
     }
     
@@ -1064,17 +1064,17 @@ class RNBOSubpatcher_12 : public PatcherInterfaceImpl {
     
 };
 
-class RNBOSubpatcher_13 : public PatcherInterfaceImpl {
+class RNBOSubpatcher_58 : public PatcherInterfaceImpl {
     
     friend class rnbomatic;
     
     public:
     
-    RNBOSubpatcher_13()
+    RNBOSubpatcher_58()
     {
     }
     
-    ~RNBOSubpatcher_13()
+    ~RNBOSubpatcher_58()
     {
     }
     
@@ -1849,29 +1849,29 @@ class RNBOSubpatcher_13 : public PatcherInterfaceImpl {
     
 };
 
-class RNBOSubpatcher_14 : public PatcherInterfaceImpl {
+class RNBOSubpatcher_59 : public PatcherInterfaceImpl {
     
     friend class rnbomatic;
     
     public:
     
-    class RNBOSubpatcher_10 : public PatcherInterfaceImpl {
+    class RNBOSubpatcher_55 : public PatcherInterfaceImpl {
             
-            friend class RNBOSubpatcher_14;
+            friend class RNBOSubpatcher_59;
             friend class rnbomatic;
             
             public:
             
-            RNBOSubpatcher_10()
+            RNBOSubpatcher_55()
             {
             }
             
-            ~RNBOSubpatcher_10()
+            ~RNBOSubpatcher_55()
             {
             }
             
-            virtual RNBOSubpatcher_14* getPatcher() const {
-                return static_cast<RNBOSubpatcher_14 *>(_parentPatcher);
+            virtual RNBOSubpatcher_59* getPatcher() const {
+                return static_cast<RNBOSubpatcher_59 *>(_parentPatcher);
             }
             
             rnbomatic* getTopLevelPatcher() {
@@ -2288,11 +2288,11 @@ class RNBOSubpatcher_14 : public PatcherInterfaceImpl {
             
     };
     
-    RNBOSubpatcher_14()
+    RNBOSubpatcher_59()
     {
     }
     
-    ~RNBOSubpatcher_14()
+    ~RNBOSubpatcher_59()
     {
         delete this->p_01;
     }
@@ -2429,7 +2429,7 @@ class RNBOSubpatcher_14 : public PatcherInterfaceImpl {
     void getState(PatcherStateInterface& ) {}
     
     void setState() {
-        this->p_01 = new RNBOSubpatcher_10();
+        this->p_01 = new RNBOSubpatcher_55();
         this->p_01->setEngineAndPatcher(this->getEngine(), this);
         this->p_01->initialize();
         this->p_01->setParameterOffset(this->getParameterOffset(this->p_01));
@@ -3460,21 +3460,21 @@ class RNBOSubpatcher_14 : public PatcherInterfaceImpl {
         Int _noteNumber;
         Index isMuted;
         ParameterIndex parameterOffset;
-        RNBOSubpatcher_10* p_01;
+        RNBOSubpatcher_55* p_01;
     
 };
 
-class RNBOSubpatcher_15 : public PatcherInterfaceImpl {
+class RNBOSubpatcher_60 : public PatcherInterfaceImpl {
     
     friend class rnbomatic;
     
     public:
     
-    RNBOSubpatcher_15()
+    RNBOSubpatcher_60()
     {
     }
     
-    ~RNBOSubpatcher_15()
+    ~RNBOSubpatcher_60()
     {
     }
     
@@ -4321,29 +4321,29 @@ class RNBOSubpatcher_15 : public PatcherInterfaceImpl {
     
 };
 
-class RNBOSubpatcher_16 : public PatcherInterfaceImpl {
+class RNBOSubpatcher_61 : public PatcherInterfaceImpl {
     
     friend class rnbomatic;
     
     public:
     
-    class RNBOSubpatcher_11 : public PatcherInterfaceImpl {
+    class RNBOSubpatcher_56 : public PatcherInterfaceImpl {
             
-            friend class RNBOSubpatcher_16;
+            friend class RNBOSubpatcher_61;
             friend class rnbomatic;
             
             public:
             
-            RNBOSubpatcher_11()
+            RNBOSubpatcher_56()
             {
             }
             
-            ~RNBOSubpatcher_11()
+            ~RNBOSubpatcher_56()
             {
             }
             
-            virtual RNBOSubpatcher_16* getPatcher() const {
-                return static_cast<RNBOSubpatcher_16 *>(_parentPatcher);
+            virtual RNBOSubpatcher_61* getPatcher() const {
+                return static_cast<RNBOSubpatcher_61 *>(_parentPatcher);
             }
             
             rnbomatic* getTopLevelPatcher() {
@@ -4901,11 +4901,11 @@ class RNBOSubpatcher_16 : public PatcherInterfaceImpl {
             
     };
     
-    RNBOSubpatcher_16()
+    RNBOSubpatcher_61()
     {
     }
     
-    ~RNBOSubpatcher_16()
+    ~RNBOSubpatcher_61()
     {
         delete this->p_02;
     }
@@ -5480,7 +5480,7 @@ class RNBOSubpatcher_16 : public PatcherInterfaceImpl {
     void getState(PatcherStateInterface& ) {}
     
     void setState() {
-        this->p_02 = new RNBOSubpatcher_11();
+        this->p_02 = new RNBOSubpatcher_56();
         this->p_02->setEngineAndPatcher(this->getEngine(), this);
         this->p_02->initialize();
         this->p_02->setParameterOffset(this->getParameterOffset(this->p_02));
@@ -7272,10 +7272,10 @@ class RNBOSubpatcher_16 : public PatcherInterfaceImpl {
             number expr_18_55 = yR_30;
             number expr_19_56 = __gen_03_h_is_scheduled_value;
             number expr_20_57 = mute_0;
+            out2[(Index)i] = expr_18_55;
+            out1[(Index)i] = expr_17_54;
             out4[(Index)i] = expr_20_57;
             out3[(Index)i] = expr_19_56;
-            out1[(Index)i] = expr_17_54;
-            out2[(Index)i] = expr_18_55;
         }
     
         this->gen_03_h_is_scheduled_value = __gen_03_h_is_scheduled_value;
@@ -8184,21 +8184,21 @@ class RNBOSubpatcher_16 : public PatcherInterfaceImpl {
         Int _noteNumber;
         Index isMuted;
         ParameterIndex parameterOffset;
-        RNBOSubpatcher_11* p_02;
+        RNBOSubpatcher_56* p_02;
     
 };
 
-class RNBOSubpatcher_17 : public PatcherInterfaceImpl {
+class RNBOSubpatcher_62 : public PatcherInterfaceImpl {
     
     friend class rnbomatic;
     
     public:
     
-    RNBOSubpatcher_17()
+    RNBOSubpatcher_62()
     {
     }
     
-    ~RNBOSubpatcher_17()
+    ~RNBOSubpatcher_62()
     {
     }
     
@@ -8213,7 +8213,7 @@ class RNBOSubpatcher_17 : public PatcherInterfaceImpl {
     void cancelClockEvents()
     {
         getEngine()->flushClockEvents(this, -871642103, false);
-        getEngine()->flushClockEvents(this, 1821745152, false);
+        getEngine()->flushClockEvents(this, -1070367995, false);
         getEngine()->flushClockEvents(this, -1468824490, false);
     }
     
@@ -8714,7 +8714,7 @@ class RNBOSubpatcher_17 : public PatcherInterfaceImpl {
             this->loadbang_03_startupbang_bang();
             break;
             }
-        case 1821745152:
+        case -1070367995:
             {
             this->codebox_03_in1_bang();
             break;
@@ -8801,6 +8801,10 @@ class RNBOSubpatcher_17 : public PatcherInterfaceImpl {
         if (index == 7) {
             this->codebox_03_note_count = new Float64Buffer(this->getPatcher()->note_count);
         }
+    
+        if (index == 2) {
+            this->codebox_03_note_on_check = new Float64Buffer(this->getPatcher()->note_on_check);
+        }
     }
     
     void initialize() {
@@ -8809,6 +8813,7 @@ class RNBOSubpatcher_17 : public PatcherInterfaceImpl {
         this->poke_tilde_01_buffer = new Float64Buffer(this->getPatcher()->envelope);
         this->codebox_03_notes_state = new Float64Buffer(this->getPatcher()->notes_state);
         this->codebox_03_note_count = new Float64Buffer(this->getPatcher()->note_count);
+        this->codebox_03_note_on_check = new Float64Buffer(this->getPatcher()->note_on_check);
     }
     
     protected:
@@ -8853,15 +8858,17 @@ class RNBOSubpatcher_17 : public PatcherInterfaceImpl {
     }
     
     void codebox_03_in1_bang() {
-        if (this->codebox_03_note_count->getSampleSafe(0, 0) > 0) {
+        number is_note_on = this->codebox_03_note_on_check->getSampleSafe(0, this->codebox_03_pitch);
+    
+        if (this->codebox_03_note_count->getSampleSafe(0, 0) > 0 && (bool)(is_note_on)) {
             number index_to_erase = 0;
             number index_last_elm = this->codebox_03_note_count->getSampleSafe(0, 0) - 1;
     
             while (index_to_erase != index_last_elm) {
                 if (this->codebox_03_notes_state->getSampleSafe(0, index_to_erase) == this->codebox_03_pitch)
-                    break;//#map:_###_obj_###_:14;//#map:_###_obj_###_:14
+                    break;//#map:_###_obj_###_:17;//#map:_###_obj_###_:17
     
-                index_to_erase += 1;//#map:_###_obj_###_:15
+                index_to_erase += 1;//#map:_###_obj_###_:18
             }
     
             while (index_to_erase != index_last_elm) {
@@ -8869,18 +8876,19 @@ class RNBOSubpatcher_17 : public PatcherInterfaceImpl {
                 number right_pitch = this->codebox_03_notes_state->getSampleSafe(0, right_index);
                 number right_level = this->codebox_03_notes_state->getSampleSafe(1, right_index);
                 number right_ratio = this->codebox_03_notes_state->getSampleSafe(2, right_index);
-                this->poke_default(this->codebox_03_notes_state, right_pitch, index_to_erase, 0, 0);//#map:_###_obj_###_:26
-                this->poke_default(this->codebox_03_notes_state, right_level, index_to_erase, 1, 0);//#map:_###_obj_###_:27
-                this->poke_default(this->codebox_03_notes_state, right_ratio, index_to_erase, 2, 0);//#map:_###_obj_###_:28
-                index_to_erase += 1;//#map:_###_obj_###_:29
+                this->poke_default(this->codebox_03_notes_state, right_pitch, index_to_erase, 0, 0);//#map:_###_obj_###_:29
+                this->poke_default(this->codebox_03_notes_state, right_level, index_to_erase, 1, 0);//#map:_###_obj_###_:30
+                this->poke_default(this->codebox_03_notes_state, right_ratio, index_to_erase, 2, 0);//#map:_###_obj_###_:31
+                index_to_erase += 1;//#map:_###_obj_###_:32
             }
     
-            this->poke_default(this->codebox_03_notes_state, 0, index_to_erase, 0, 0);//#map:_###_obj_###_:33
-            this->poke_default(this->codebox_03_notes_state, 0, index_to_erase, 1, 0);//#map:_###_obj_###_:34
-            this->poke_default(this->codebox_03_notes_state, 0, index_to_erase, 2, 0);//#map:_###_obj_###_:35
-            this->poke_default(this->codebox_03_note_count, index_last_elm, 0, 0, 0);//#map:_###_obj_###_:38
-            this->codebox_03_out1_set(1);//#map:_###_obj_###_:40
-        }//#map:envelope/codebox_obj-6:6
+            this->poke_default(this->codebox_03_notes_state, 0, index_to_erase, 0, 0);//#map:_###_obj_###_:36
+            this->poke_default(this->codebox_03_notes_state, 0, index_to_erase, 1, 0);//#map:_###_obj_###_:37
+            this->poke_default(this->codebox_03_notes_state, 0, index_to_erase, 2, 0);//#map:_###_obj_###_:38
+            this->poke_default(this->codebox_03_note_count, index_last_elm, 0, 0, 0);//#map:_###_obj_###_:41
+            this->poke_default(this->codebox_03_note_on_check, 0, this->codebox_03_pitch, 0, 0);//#map:_###_obj_###_:44
+            this->codebox_03_out1_set(1);//#map:_###_obj_###_:46
+        }//#map:envelope/codebox_obj-6:9
     }
     
     void adsr_01_mute_bang() {
@@ -8924,7 +8932,7 @@ class RNBOSubpatcher_17 : public PatcherInterfaceImpl {
     void startup() {
         this->updateTime(this->getEngine()->getCurrentTime());
         this->getEngine()->scheduleClockEvent(this, -871642103, 0 + this->_currentTime);;
-        this->getEngine()->scheduleClockEvent(this, 1821745152, 0 + this->_currentTime);;
+        this->getEngine()->scheduleClockEvent(this, -1070367995, 0 + this->_currentTime);;
     
         {
             this->scheduleParamInit(0, 0);
@@ -8939,6 +8947,7 @@ class RNBOSubpatcher_17 : public PatcherInterfaceImpl {
         this->poke_tilde_01_buffer = this->poke_tilde_01_buffer->allocateIfNeeded();
         this->codebox_03_notes_state = this->codebox_03_notes_state->allocateIfNeeded();
         this->codebox_03_note_count = this->codebox_03_note_count->allocateIfNeeded();
+        this->codebox_03_note_on_check = this->codebox_03_note_on_check->allocateIfNeeded();
     }
     
     void voice_02_mutestatus_set(number ) {}
@@ -9365,6 +9374,7 @@ class RNBOSubpatcher_17 : public PatcherInterfaceImpl {
         number param_18_lastValue;
         Float64BufferRef codebox_03_notes_state;
         Float64BufferRef codebox_03_note_count;
+        Float64BufferRef codebox_03_note_on_check;
         number param_19_lastValue;
         number stackprotect_count;
         Index _voiceIndex;
@@ -9374,17 +9384,17 @@ class RNBOSubpatcher_17 : public PatcherInterfaceImpl {
     
 };
 
-class RNBOSubpatcher_18 : public PatcherInterfaceImpl {
+class RNBOSubpatcher_63 : public PatcherInterfaceImpl {
     
     friend class rnbomatic;
     
     public:
     
-    RNBOSubpatcher_18()
+    RNBOSubpatcher_63()
     {
     }
     
-    ~RNBOSubpatcher_18()
+    ~RNBOSubpatcher_63()
     {
     }
     
@@ -9747,6 +9757,10 @@ class RNBOSubpatcher_18 : public PatcherInterfaceImpl {
         if (index == 7) {
             this->codebox_04_note_count = new Float64Buffer(this->getPatcher()->note_count);
         }
+    
+        if (index == 2) {
+            this->codebox_04_note_on_check = new Float64Buffer(this->getPatcher()->note_on_check);
+        }
     }
     
     void initialize() {
@@ -9754,6 +9768,7 @@ class RNBOSubpatcher_18 : public PatcherInterfaceImpl {
         this->setState();
         this->codebox_04_notes_state = new Float64Buffer(this->getPatcher()->notes_state);
         this->codebox_04_note_count = new Float64Buffer(this->getPatcher()->note_count);
+        this->codebox_04_note_on_check = new Float64Buffer(this->getPatcher()->note_on_check);
     }
     
     protected:
@@ -9822,6 +9837,7 @@ class RNBOSubpatcher_18 : public PatcherInterfaceImpl {
     void allocateDataRefs() {
         this->codebox_04_notes_state = this->codebox_04_notes_state->allocateIfNeeded();
         this->codebox_04_note_count = this->codebox_04_note_count->allocateIfNeeded();
+        this->codebox_04_note_on_check = this->codebox_04_note_on_check->allocateIfNeeded();
     }
     
     void codebox_04_in2_set(number v) {
@@ -9856,19 +9872,21 @@ class RNBOSubpatcher_18 : public PatcherInterfaceImpl {
         this->codebox_04_in1 = in1;
         number velocity = this->codebox_04_in2;
         number pitch = this->codebox_04_in1;
+        number already = this->codebox_04_note_on_check->getSampleSafe(0, pitch);
     
-        if (velocity > 0) {
+        if (velocity > 0 && already == 0) {
             number index_to_write = this->codebox_04_note_count->getSampleSafe(0, 0);
             number note_level = velocity * velocity / (number)16129;
             number freq_ratio = fixnan(rnbo_pow(2, (pitch - 60) / (number)12));
-            this->poke_default(this->codebox_04_notes_state, pitch, index_to_write, 0, 0);//#map:_###_obj_###_:15
-            this->poke_default(this->codebox_04_notes_state, note_level, index_to_write, 1, 0);//#map:_###_obj_###_:16
-            this->poke_default(this->codebox_04_notes_state, freq_ratio, index_to_write, 2, 0);//#map:_###_obj_###_:17
-            this->poke_default(this->codebox_04_note_count, index_to_write + 1, 0, 0, 0);//#map:_###_obj_###_:20
-            this->codebox_04_out1_set(pitch + 1);//#map:_###_obj_###_:23
+            this->poke_default(this->codebox_04_notes_state, pitch, index_to_write, 0, 0);//#map:_###_obj_###_:17
+            this->poke_default(this->codebox_04_notes_state, note_level, index_to_write, 1, 0);//#map:_###_obj_###_:18
+            this->poke_default(this->codebox_04_notes_state, freq_ratio, index_to_write, 2, 0);//#map:_###_obj_###_:19
+            this->poke_default(this->codebox_04_note_count, index_to_write + 1, 0, 0, 0);//#map:_###_obj_###_:22
+            this->poke_default(this->codebox_04_note_on_check, 1, pitch, 0, 0);//#map:_###_obj_###_:25
+            this->codebox_04_out1_set(pitch + 1);//#map:_###_obj_###_:28
         } else {
-            this->codebox_04_out2_set(pitch + 1);//#map:_###_obj_###_:28
-        }//#map:midi_process/codebox_obj-11:7
+            this->codebox_04_out2_set(pitch + 1);//#map:_###_obj_###_:33
+        }//#map:midi_process/codebox_obj-11:9
     }
     
     void eventinlet_06_out1_number_set(number v) {
@@ -9878,19 +9896,21 @@ class RNBOSubpatcher_18 : public PatcherInterfaceImpl {
     void codebox_04_in1_bang() {
         number velocity = this->codebox_04_in2;
         number pitch = this->codebox_04_in1;
+        number already = this->codebox_04_note_on_check->getSampleSafe(0, pitch);
     
-        if (velocity > 0) {
+        if (velocity > 0 && already == 0) {
             number index_to_write = this->codebox_04_note_count->getSampleSafe(0, 0);
             number note_level = velocity * velocity / (number)16129;
             number freq_ratio = fixnan(rnbo_pow(2, (pitch - 60) / (number)12));
-            this->poke_default(this->codebox_04_notes_state, pitch, index_to_write, 0, 0);//#map:_###_obj_###_:15
-            this->poke_default(this->codebox_04_notes_state, note_level, index_to_write, 1, 0);//#map:_###_obj_###_:16
-            this->poke_default(this->codebox_04_notes_state, freq_ratio, index_to_write, 2, 0);//#map:_###_obj_###_:17
-            this->poke_default(this->codebox_04_note_count, index_to_write + 1, 0, 0, 0);//#map:_###_obj_###_:20
-            this->codebox_04_out1_set(pitch + 1);//#map:_###_obj_###_:23
+            this->poke_default(this->codebox_04_notes_state, pitch, index_to_write, 0, 0);//#map:_###_obj_###_:17
+            this->poke_default(this->codebox_04_notes_state, note_level, index_to_write, 1, 0);//#map:_###_obj_###_:18
+            this->poke_default(this->codebox_04_notes_state, freq_ratio, index_to_write, 2, 0);//#map:_###_obj_###_:19
+            this->poke_default(this->codebox_04_note_count, index_to_write + 1, 0, 0, 0);//#map:_###_obj_###_:22
+            this->poke_default(this->codebox_04_note_on_check, 1, pitch, 0, 0);//#map:_###_obj_###_:25
+            this->codebox_04_out1_set(pitch + 1);//#map:_###_obj_###_:28
         } else {
-            this->codebox_04_out2_set(pitch + 1);//#map:_###_obj_###_:28
-        }//#map:midi_process/codebox_obj-11:7
+            this->codebox_04_out2_set(pitch + 1);//#map:_###_obj_###_:33
+        }//#map:midi_process/codebox_obj-11:9
     }
     
     void codebox_04_in2_bang() {}
@@ -9965,6 +9985,7 @@ class RNBOSubpatcher_18 : public PatcherInterfaceImpl {
         number invsr;
         Float64BufferRef codebox_04_notes_state;
         Float64BufferRef codebox_04_note_count;
+        Float64BufferRef codebox_04_note_on_check;
         number stackprotect_count;
         Index _voiceIndex;
         Int _noteNumber;
@@ -10203,7 +10224,7 @@ DataRef* getDataRef(DataRefIndex index)  {
         }
     case 2:
         {
-        return addressOf(this->note_off);
+        return addressOf(this->note_on_check);
         break;
         }
     case 3:
@@ -10309,7 +10330,7 @@ void processDataViewUpdate(DataRefIndex index, MillisecondTime time) {
     }
 
     if (index == 2) {
-        this->data_03_buffer = new Float64Buffer(this->note_off);
+        this->data_03_buffer = new Float64Buffer(this->note_on_check);
         this->data_03_bufferUpdated();
     }
 
@@ -10362,7 +10383,7 @@ void processDataViewUpdate(DataRefIndex index, MillisecondTime time) {
 void initialize() {
     this->scope_index = initDataRef("scope_index", false, nullptr, "buffer~");
     this->scope = initDataRef("scope", false, nullptr, "buffer~");
-    this->note_off = initDataRef("note_off", false, nullptr, "data");
+    this->note_on_check = initDataRef("note_on_check", false, nullptr, "data");
     this->envelope = initDataRef("envelope", false, nullptr, "data");
     this->sample_index = initDataRef("sample_index", true, nullptr, "data");
     this->source = initDataRef("source", true, nullptr, "data");
@@ -10376,8 +10397,8 @@ void initialize() {
     this->data_01_buffer = new Float32Buffer(this->scope_index);
     this->scope->setIndex(1);
     this->data_02_buffer = new Float32Buffer(this->scope);
-    this->note_off->setIndex(2);
-    this->data_03_buffer = new Float64Buffer(this->note_off);
+    this->note_on_check->setIndex(2);
+    this->data_03_buffer = new Float64Buffer(this->note_on_check);
     this->envelope->setIndex(3);
     this->data_04_buffer = new Float64Buffer(this->envelope);
     this->sample_index->setIndex(4);
@@ -10413,25 +10434,25 @@ Index getPatcherSerial() const {
 void getState(PatcherStateInterface& ) {}
 
 void setState() {
-    this->p_03 = new RNBOSubpatcher_12();
+    this->p_03 = new RNBOSubpatcher_57();
     this->p_03->setEngineAndPatcher(this->getEngine(), this);
     this->p_03->initialize();
     this->p_03->setParameterOffset(this->getParameterOffset(this->p_03));
-    this->p_04 = new RNBOSubpatcher_13();
+    this->p_04 = new RNBOSubpatcher_58();
     this->p_04->setEngineAndPatcher(this->getEngine(), this);
     this->p_04->initialize();
     this->p_04->setParameterOffset(this->getParameterOffset(this->p_04));
-    this->p_05 = new RNBOSubpatcher_14();
+    this->p_05 = new RNBOSubpatcher_59();
     this->p_05->setEngineAndPatcher(this->getEngine(), this);
     this->p_05->initialize();
     this->p_05->setParameterOffset(this->getParameterOffset(this->p_05));
-    this->p_06 = new RNBOSubpatcher_15();
+    this->p_06 = new RNBOSubpatcher_60();
     this->p_06->setEngineAndPatcher(this->getEngine(), this);
     this->p_06->initialize();
     this->p_06->setParameterOffset(this->getParameterOffset(this->p_06));
 
     for (Index i = 0; i < 1500; i++) {
-        this->p_07[(Index)i] = new RNBOSubpatcher_16();
+        this->p_07[(Index)i] = new RNBOSubpatcher_61();
         this->p_07[(Index)i]->setEngineAndPatcher(this->getEngine(), this);
         this->p_07[(Index)i]->initialize();
         this->p_07[(Index)i]->setParameterOffset(this->getParameterOffset(this->p_07[0]));
@@ -10439,14 +10460,14 @@ void setState() {
     }
 
     for (Index i = 0; i < 128; i++) {
-        this->p_08[(Index)i] = new RNBOSubpatcher_17();
+        this->p_08[(Index)i] = new RNBOSubpatcher_62();
         this->p_08[(Index)i]->setEngineAndPatcher(this->getEngine(), this);
         this->p_08[(Index)i]->initialize();
         this->p_08[(Index)i]->setParameterOffset(this->getParameterOffset(this->p_08[0]));
         this->p_08[(Index)i]->setVoiceIndex(i + 1);
     }
 
-    this->p_09 = new RNBOSubpatcher_18();
+    this->p_09 = new RNBOSubpatcher_63();
     this->p_09->setEngineAndPatcher(this->getEngine(), this);
     this->p_09->initialize();
     this->p_09->setParameterOffset(this->getParameterOffset(this->p_09));
@@ -11227,9 +11248,9 @@ void allocateDataRefs() {
 
     this->data_03_buffer = this->data_03_buffer->allocateIfNeeded();
 
-    if (this->note_off->hasRequestedSize()) {
-        if (this->note_off->wantsFill())
-            this->zeroDataRef(this->note_off);
+    if (this->note_on_check->hasRequestedSize()) {
+        if (this->note_on_check->wantsFill())
+            this->zeroDataRef(this->note_on_check);
 
         this->getEngine()->sendDataRefUpdated(2);
     }
@@ -12362,7 +12383,7 @@ void assign_defaults()
     number stackprotect_count;
     DataRef scope_index;
     DataRef scope;
-    DataRef note_off;
+    DataRef note_on_check;
     DataRef envelope;
     DataRef sample_index;
     DataRef source;
@@ -12375,13 +12396,13 @@ void assign_defaults()
     Index isMuted;
     indexlist paramInitIndices;
     indexlist paramInitOrder;
-    RNBOSubpatcher_12* p_03;
-    RNBOSubpatcher_13* p_04;
-    RNBOSubpatcher_14* p_05;
-    RNBOSubpatcher_15* p_06;
-    RNBOSubpatcher_16* p_07[1500];
-    RNBOSubpatcher_17* p_08[128];
-    RNBOSubpatcher_18* p_09;
+    RNBOSubpatcher_57* p_03;
+    RNBOSubpatcher_58* p_04;
+    RNBOSubpatcher_59* p_05;
+    RNBOSubpatcher_60* p_06;
+    RNBOSubpatcher_61* p_07[1500];
+    RNBOSubpatcher_62* p_08[128];
+    RNBOSubpatcher_63* p_09;
 
 };
 
