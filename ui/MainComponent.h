@@ -37,6 +37,8 @@ private:
     LuluDial            sliderEnvelopeRelease;
     LuluToggle          toggleRecordFreeze;
     LuluRangeSlider     rangeSliderCloudPosition;
+    LuluDial            sliderCloudPosition1;
+    LuluDial            sliderCloudPosition2;
     
     std::unique_ptr<float[]> scopeBuffer;
     std::unique_ptr<float[]> indexBuffer;
