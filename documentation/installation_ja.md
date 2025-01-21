@@ -16,13 +16,17 @@
 3. プロンプトがMacのパスワードを求めた場合、入力してエンターキーを押す。**マークは表示されません*。
 
 ### [2-1] VSTプラグイン用コマンド
-```
-sudo xattr -rd com.apple.quarantine "/Library/Audio/Plug-Ins/VST3/lulu.vst3"
+
+```shell
+sudo xattr -rd com.apple.quarantine \
+"/Library/Audio/Plug-Ins/VST3/lulu.vst3"
 ```
 
 [2-2] AUプラグイン用コマンド
-```
-sudo xattr -rd com.apple.quarantine "/Library/Audio/Plug-Ins/Components/lulu.component"
+
+```shell
+sudo xattr -rd com.apple.quarantine \
+"/Library/Audio/Plug-Ins/Components/lulu.component"
 ```
 
 ## [3] 完了

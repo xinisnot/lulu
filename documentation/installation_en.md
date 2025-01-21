@@ -16,13 +16,17 @@ Plugins are not certified because I’m not a member of the Apple Developer Prog
 3. Enter the password of your Mac if the prompt requests to do so, and hit Enter-key. *Note that the * mark does not appear*.
 
 ### [2-1] for VST
-```
-sudo xattr -rd com.apple.quarantine "/Library/Audio/Plug-Ins/VST3/lulu.vst3"
+
+```shell
+sudo xattr -rd com.apple.quarantine \
+"/Library/Audio/Plug-Ins/VST3/lulu.vst3"
 ```
 
 ### [2-2] for AU
-```
-sudo xattr -rd com.apple.quarantine "/Library/Audio/Plug-Ins/Components/lulu.component"
+
+```shell
+sudo xattr -rd com.apple.quarantine \
+"/Library/Audio/Plug-Ins/Components/lulu.component"
 ```
 
 ## [3] Finish
