@@ -5,7 +5,7 @@
 ## [1] 適切なフォルダにプラグインを置く
 プラグインの置き場所として、以下のシステムフォルダをおすすめします。
 
-* `/Library/Audio/Plug-Ins/VST3` (VSプラグイン)
+* `/Library/Audio/Plug-Ins/VST3` (VSTプラグイン)
 * `/Library/Audio/Plug-Ins/Components` (AUプラグイン)
 
 ## [2] プラグインを使用可能にする（Catalina以降）
