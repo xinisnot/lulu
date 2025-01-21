@@ -47,13 +47,13 @@ MIDIトラックを作成し、MIDIリージョンに適当なノートを書き
 
 ## size1, size2
 * `cloud/grain_size1`, `cloud/grain_size2`
-* グレインの大きさ
-* グレインごとに、2つの値の範囲でランダマイズ (単位msec)
+* グレインの大きさ (単位msec)
+* グレインごとに、2つの値の範囲でランダマイズ
 
 ## pos1, pos2
 * `cloud/position1`, `cloud/position2`
-* グレインを生成する録音バッファの位置
-* グレインごとに、2つの値の範囲でランダマイズ (単位msec)
+* グレインを生成する録音バッファの位置 (単位msec)
+* グレインごとに、2つの値の範囲でランダマイズ
 
 ## stereo
 * `cloud/stereo_spread`
@@ -65,7 +65,7 @@ MIDIトラックを作成し、MIDIリージョンに適当なノートを書き
 
 ## pitchBlur
 * `cloud/pitch_blur`
-* グレインのピッチの偏差
+* グレインのピッチの偏差 (単位cent)
 
 ## attack
 * `envelope/attack`
