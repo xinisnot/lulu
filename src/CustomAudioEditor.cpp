@@ -1,12 +1,15 @@
 #include "CustomAudioEditor.h"
 
-CustomAudioEditor::CustomAudioEditor (RNBO::JuceAudioProcessor* const p, RNBO::CoreObject& rnboObject)
+CustomAudioEditor::CustomAudioEditor (RNBO::JuceAudioProcessor* const p, RNBO::CoreObject& rnboObject, float* scopeBufferPtr, float* indexBufferPtr)
     : AudioProcessorEditor (p)
     , _rnboObject(rnboObject)
     , _audioProcessor(p)
 {
     _audioProcessor->AudioProcessor::addListener(this);
+    _mainComponent.setScopeBufferPtr(scopeBufferPtr);
+    _mainComponent.setIndexBufferPtr(indexBufferPtr);
     _mainComponent.setAudioProcessor(p);
+    
     addAndMakeVisible(_mainComponent);
     setSize(_mainComponent.getWidth(), _mainComponent.getHeight());
 }

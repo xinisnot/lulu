@@ -168,9 +168,6 @@ MainComponent::MainComponent()
 
 MainComponent::~MainComponent()
 {
-    scopeBuffer.release();
-    indexBuffer.release();
-
     sliderTriggerDensity.setLookAndFeel    (nullptr);
     sliderTriggerProbability.setLookAndFeel(nullptr);
     sliderFeedbackAmount.setLookAndFeel    (nullptr);
@@ -254,28 +251,8 @@ void MainComponent::setAudioProcessor(RNBO::JuceAudioProcessor *p)
     }
 
     // oscilloscope
-    scopeBuffer = std::make_unique<float[]>(static_cast<int>(coreObject.getSampleRate() * 5.0));
-    indexBuffer = std::make_unique<float[]>(1);
-
-    RNBO::Float32AudioBuffer scopeBufferType(1, coreObject.getSampleRate());
-    RNBO::Float32AudioBuffer indexBufferType(1, coreObject.getSampleRate());
-
-    coreObject.setExternalData(
-        "scope",
-        reinterpret_cast<char*>(scopeBuffer.get()),
-        static_cast<int>(coreObject.getSampleRate() * 5.0) * sizeof(float),
-        scopeBufferType
-    );
-
-    coreObject.setExternalData(
-        "scope_index",
-        reinterpret_cast<char*>(indexBuffer.get()),
-        1 * sizeof(float),
-        indexBufferType
-    );
-
-    scope.setSampleBufferPtr(scopeBuffer.get());
-    scope.setIndexBufferPtr(indexBuffer.get());
+    scope.setSampleBufferPtr(scopeBuffer);
+    scope.setIndexBufferPtr(indexBuffer);
     scope.setScopeLengthInSec(5.0f);
     scope.setAudioProcessor(processor);
 }
@@ -362,5 +339,14 @@ void MainComponent::updateSliderForParam(unsigned long index, double value)
     }
 }
 
+void MainComponent::setScopeBufferPtr(float* ptr)
+{
+    scopeBuffer = ptr;
+}
+
+void MainComponent::setIndexBufferPtr(float* ptr)
+{
+    indexBuffer = ptr;
+}
 
 void MainComponent::paint(juce::Graphics& g) { g.fillAll(juce::Colour (0xff2c3337)); }

@@ -18,6 +18,8 @@ public:
     void sliderValueChanged(juce::Slider* sliderThatWasMoved) override;
     void setAudioProcessor(RNBO::JuceAudioProcessor *p);
     void updateSliderForParam(unsigned long index, double value);
+    void setScopeBufferPtr(float* ptr);
+    void setIndexBufferPtr(float* ptr);
 
 private:
     LuluDial            sliderMixerDry;
@@ -42,8 +44,8 @@ private:
     LuluDial            sliderCloudPosition2;
     LuluRangeBar        rangeBarCloudGrainSize;
     
-    std::unique_ptr<float[]> scopeBuffer;
-    std::unique_ptr<float[]> indexBuffer;
+    float* scopeBuffer;
+    float* indexBuffer;
     LuluOscilloscope    scope;
 
     LuluDialLaf         luluDialLaf             { false };

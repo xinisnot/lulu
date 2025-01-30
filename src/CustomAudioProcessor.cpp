@@ -10,6 +10,34 @@
 CustomAudioProcessor::CustomAudioProcessor(const nlohmann::json& patcher_desc, const nlohmann::json& presets, const RNBO::BinaryData& data) 
     : RNBO::JuceAudioProcessor(patcher_desc, presets, data) 
 {
+	// oscilloscope buffer
+    RNBO::CoreObject& coreObject = getRnboObject();
+
+    scopeBuffer = std::make_unique<float[]>(static_cast<int>(coreObject.getSampleRate() * 5.0));
+    indexBuffer = std::make_unique<float[]>(1);
+
+    RNBO::Float32AudioBuffer scopeBufferType(1, coreObject.getSampleRate());
+    RNBO::Float32AudioBuffer indexBufferType(1, coreObject.getSampleRate());
+
+    coreObject.setExternalData(
+        "scope",
+        reinterpret_cast<char*>(scopeBuffer.get()),
+        static_cast<int>(coreObject.getSampleRate() * 5.0) * sizeof(float),
+        scopeBufferType
+    );
+
+    coreObject.setExternalData(
+        "scope_index",
+        reinterpret_cast<char*>(indexBuffer.get()),
+        1 * sizeof(float),
+        indexBufferType
+    );
+}
+
+CustomAudioProcessor::~CustomAudioProcessor()
+{
+  scopeBuffer.release();
+  indexBuffer.release();
 }
 
 //create an instance of our custom plugin, optionally set description, presets and binary data (datarefs)
@@ -34,5 +62,5 @@ CustomAudioProcessor* CustomAudioProcessor::CreateDefault() {
 
 AudioProcessorEditor* CustomAudioProcessor::createEditor()
 {
-    return new CustomAudioEditor (this, this->_rnboObject);
+    return new CustomAudioEditor (this, this->_rnboObject, scopeBuffer.get(), indexBuffer.get());
 }
