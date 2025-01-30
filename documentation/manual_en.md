@@ -11,7 +11,7 @@ Two range-bars positioned in lower half are linked to the following dial.
 * size1, size2
 * pos1, pos2
 
-Input sound is displayed on the oscilloscope. *Note: current version will reset oscilloscope drawing when window is closed. There's no problem in using*.
+Input sound is displayed on the oscilloscope.
 
 <div style="page-break-before:always"></div>
 
