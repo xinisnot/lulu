@@ -12,7 +12,6 @@ $ cd lulu/thirdparty
 $ ln -s PATH_TO_JUCE .
 $ mv SYMBOLIC_LINK_NAME juce
 $ cd ../build
-$ cd build
 ```
 Next generate your build system. For example you want to use macOS and Xcode, you should do below.
 
