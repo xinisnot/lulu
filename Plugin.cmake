@@ -110,13 +110,13 @@ target_link_libraries(RNBOAudioPlugin
   )
 
 #TODO windows and linux
-if(APPLE)
-  install(
-    TARGETS RNBOAudioPlugin_VST3
-    DESTINATION ~/Library/Audio/Plug-Ins/VST3/
-    )
-  install(
-    TARGETS RNBOAudioPlugin_AU
-    DESTINATION ~/Library/Audio/Plug-Ins/Components/
-    )
-endif()
+# if(APPLE)
+#   install(
+#     TARGETS RNBOAudioPlugin_VST3
+#     DESTINATION ~/Library/Audio/Plug-Ins/VST3/
+#     )
+#   install(
+#     TARGETS RNBOAudioPlugin_AU
+#     DESTINATION ~/Library/Audio/Plug-Ins/Components/
+#     )
+# endif()
