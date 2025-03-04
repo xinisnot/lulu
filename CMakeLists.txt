@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
 
 # On M1 Macs, uncomment to enable universal binaries
-# set(CMAKE_OSX_ARCHITECTURES "x86_64;arm64" CACHE STRING "")
+set(CMAKE_OSX_ARCHITECTURES "x86_64;arm64" CACHE STRING "")
 
 set(CMAKE_BUILD_TYPE Debug CACHE STRING "Choose the type of build, options are: Debug Release")
 
@@ -54,6 +54,8 @@ add_subdirectory(
 # See the discussion here: https://forums.steinberg.net/t/vst3-and-midi-cc-pitfall/201879/11
 add_compile_definitions(JUCE_VST3_EMULATE_MIDI_CC_WITH_PARAMETERS=0)
 
+# setup your application, you can remove this include if you don't want to build applications
+# include(${CMAKE_CURRENT_LIST_DIR}/App.cmake)
 
 # setup your plugin(s), you can remove this include if you don't want to build plugins
 include(${CMAKE_CURRENT_LIST_DIR}/Plugin.cmake)
