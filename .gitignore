@@ -1,6 +1,4 @@
 .DS_Store
 /build/*
 !/build/.gitkeep
-/thirdparty/*
-!/thirdparty/.gitkeep
 .vscode
