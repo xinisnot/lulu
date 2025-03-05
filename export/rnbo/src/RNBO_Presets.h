@@ -77,6 +77,12 @@ namespace RNBO {
         PresetPtr preset;
     };
 
+    class DummyPreset : public PatcherState
+    {
+    public:
+        bool isDummy() const override { return true; }
+    };
+
 #ifdef RNBO_NOSTDLIB
 	using UniquePresetPtr = UniquePtr<Preset>;
 #else
