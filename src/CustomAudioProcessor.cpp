@@ -11,27 +11,9 @@ CustomAudioProcessor::CustomAudioProcessor(const nlohmann::json& patcher_desc, c
     : RNBO::JuceAudioProcessor(patcher_desc, presets, data) 
 {
 	// oscilloscope buffer
-    RNBO::CoreObject& coreObject = getRnboObject();
+    samplerate = this->_rnboObject.getSampleRate();
+    setScopeBufferAndIndexBuffer();
 
-    scopeBuffer = std::make_unique<float[]>(static_cast<int>(coreObject.getSampleRate() * 5.0));
-    indexBuffer = std::make_unique<float[]>(1);
-
-    RNBO::Float32AudioBuffer scopeBufferType(1, coreObject.getSampleRate());
-    RNBO::Float32AudioBuffer indexBufferType(1, coreObject.getSampleRate());
-
-    coreObject.setExternalData(
-        "scope",
-        reinterpret_cast<char*>(scopeBuffer.get()),
-        static_cast<int>(coreObject.getSampleRate() * 5.0) * sizeof(float),
-        scopeBufferType
-    );
-
-    coreObject.setExternalData(
-        "scope_index",
-        reinterpret_cast<char*>(indexBuffer.get()),
-        1 * sizeof(float),
-        indexBufferType
-    );
 }
 
 CustomAudioProcessor::~CustomAudioProcessor()
@@ -62,5 +44,35 @@ CustomAudioProcessor* CustomAudioProcessor::CreateDefault() {
 
 AudioProcessorEditor* CustomAudioProcessor::createEditor()
 {
+    if(samplerate != this->_rnboObject.getSampleRate())
+    {
+        setScopeBufferAndIndexBuffer();
+        samplerate = this->_rnboObject.getSampleRate();
+    }
+
     return new CustomAudioEditor (this, this->_rnboObject, scopeBuffer.get(), indexBuffer.get());
+}
+
+
+void CustomAudioProcessor::setScopeBufferAndIndexBuffer()
+{
+    scopeBuffer = std::make_unique<float[]>(static_cast<int>(this->_rnboObject.getSampleRate() * 5.0));
+    indexBuffer = std::make_unique<float[]>(1);
+
+    RNBO::Float32AudioBuffer scopeBufferType(1, this->_rnboObject.getSampleRate());
+    RNBO::Float32AudioBuffer indexBufferType(1, this->_rnboObject.getSampleRate());
+
+    this->_rnboObject.setExternalData(
+        "scope",
+        reinterpret_cast<char*>(scopeBuffer.get()),
+        static_cast<int>(this->_rnboObject.getSampleRate() * 5.0) * sizeof(float),
+        scopeBufferType
+    );
+
+    this->_rnboObject.setExternalData(
+        "scope_index",
+        reinterpret_cast<char*>(indexBuffer.get()),
+        1 * sizeof(float),
+        indexBufferType
+    );
 }
