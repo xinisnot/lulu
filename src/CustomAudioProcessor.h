@@ -10,8 +10,10 @@ public:
     ~CustomAudioProcessor() override;
     static CustomAudioProcessor* CreateDefault();
     juce::AudioProcessorEditor* createEditor() override;
+    void setScopeBufferAndIndexBuffer();
 
 private:
+    double samplerate;
     std::unique_ptr<float[]> scopeBuffer;
     std::unique_ptr<float[]> indexBuffer;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CustomAudioProcessor)
