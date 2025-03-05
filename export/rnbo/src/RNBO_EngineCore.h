@@ -310,8 +310,12 @@ namespace RNBO {
 		void notifyOutgoingEvents() {
 			for (auto pi : _activeParameterInterfaces) {
 				pi->pushDirtyParameters(_currentTime);
+                if (_presetTouched) {
+                    pi->pushOutgoingEvent(PresetEvent(_currentTime, PresetEvent::Touched, nullptr, nullptr));
+                }
 				pi->notifyOutgoingEvents();
 			}
+            _presetTouched = false;
 		}
 
 		MillisecondTime getCurrentTime() override { return _currentTime; }
@@ -633,7 +637,7 @@ namespace RNBO {
 		void presetTouched() override {
 #ifndef RNBO_NOPRESETS
 			if (!_settingPreset) {
-				sendOutgoingEvent(PresetEvent(_currentTime, PresetEvent::Touched, nullptr, nullptr));
+                _presetTouched = true;
 			}
 #endif // RNBO_NOPRESETS
 		}
@@ -644,6 +648,10 @@ namespace RNBO {
 		void setScheduleCallback(ScheduleCallback callback) override {
 			_scheduleCallback = callback;
 		}
+
+        bool hasCurrentEvent() const {
+            return _eventContext != nullptr;
+        }
 
 	protected:
 
@@ -761,6 +769,8 @@ namespace RNBO {
 		MidiEventList* 					_midiOutput = nullptr;
 
 		ScheduleCallback				_scheduleCallback = nullptr;
+
+        bool                            _presetTouched = false;
 	};
 
 } // namespace RNBO

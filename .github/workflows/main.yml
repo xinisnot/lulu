@@ -13,6 +13,7 @@ env:
   PATH_TO_MANUAL_EN: "documentation/manual_en.pdf"
   PATH_TO_MANUAL_JA: "documentation/manual_ja.pdf"
   PACKAGE_NAME_MAC: "lulu-mac"
+  PACKAGE_NAME_WIN: "lulu-win"
   
 jobs:
   deploy-osx:
@@ -45,5 +46,38 @@ jobs:
       if: startsWith(github.ref, 'refs/tags/')
       with:
         files: ${{ env.PACKAGE_NAME_MAC }}.zip
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  deploy-win:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Update submodules
+      run: |
+        git submodule update --init --recursive
+        git submodule update --remote
+    - name: Build
+      working-directory: ./build
+      run: |
+        cmake .. -G "Visual Studio 17"
+        cmake --build . --config Release
+    - name: Packaging
+      shell: bash
+      run: |
+        mkdir ${{ env.PACKAGE_NAME_WIN }}
+        cp -r ${{ env.PATH_TO_VST }} ${{ env.PACKAGE_NAME_WIN }}
+        cp -r ${{ env.PATH_TO_INSTALLATION_EN }} ${{ env.PACKAGE_NAME_MAC }}
+        cp -r ${{ env.PATH_TO_INSTALLATION_JA }} ${{ env.PACKAGE_NAME_MAC }}
+        cp -r ${{ env.PATH_TO_MANUAL_EN }} ${{ env.PACKAGE_NAME_MAC }}
+        cp -r ${{ env.PATH_TO_MANUAL_JA }} ${{ env.PACKAGE_NAME_MAC }}
+        powershell -c Compress-Archive -Path ${{ env.PACKAGE_NAME_WIN }} -DestinationPath ${{ env.PACKAGE_NAME_WIN }}.zip
+        rm -r ${{ env.PACKAGE_NAME_WIN }}
+    - name: Release
+      uses: softprops/action-gh-release@master
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: ${{ env.PACKAGE_NAME_WIN }}.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

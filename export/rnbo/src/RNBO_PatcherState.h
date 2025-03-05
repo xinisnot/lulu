@@ -246,6 +246,8 @@ namespace RNBO {
 			return helper;
 		}
 
+        virtual bool isDummy() const { return false; }
+        
 	private:
 
 		friend class StateHelper<PatcherState>;

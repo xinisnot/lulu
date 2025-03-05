@@ -207,9 +207,11 @@ namespace RNBO {
 	{
 		ParameterInterfaceSync::scheduleEvent(event);
 		
-		_engine.beginProcessDataRefs();
-		_engine.processEventsUntil(event.getTime());
-		_engine.endProcessDataRefs();
+        if (!_engine.hasCurrentEvent()) {
+            _engine.beginProcessDataRefs();
+            _engine.processEventsUntil(event.getTime());
+            _engine.endProcessDataRefs();
+        }
 	}
 
 	void ParameterInterfaceTrigger::setScheduleCallback(ScheduleCallback callback) {

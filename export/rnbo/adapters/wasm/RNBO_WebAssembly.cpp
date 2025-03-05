@@ -241,6 +241,13 @@ public:
         this->scheduleEvent(RNBO::ParameterEvent(parameterIndex, eventTime, value, reinterpret_cast<RNBO::ParameterInterfaceId>(source)));
     }
 
+    void scheduleParameterBangEventWrapper(
+        RNBO::Index parameterIndex,
+        RNBO::MillisecondTime eventTime
+    ) {
+        this->scheduleEvent(RNBO::ParameterBangEvent(parameterIndex, eventTime));
+    }
+
 	void scheduleTransportEventWrapper(
 		RNBO::MillisecondTime eventTime,
 		int state
@@ -639,6 +646,7 @@ EMSCRIPTEN_BINDINGS(rnbo) {
         .function("process", &CoreObjectWrapper::processWrapper)
         .function("scheduleMidiEvent", &CoreObjectWrapper::scheduleMidiEventWrapper)
         .function("scheduleParameterEvent", &CoreObjectWrapper::scheduleParameterEventWrapper)
+        .function("scheduleParameterBangEvent", &CoreObjectWrapper::scheduleParameterBangEventWrapper)
         .function("scheduleTransportEvent", &CoreObjectWrapper::scheduleTransportEventWrapper)
         .function("scheduleTempoEvent", &CoreObjectWrapper::scheduleTempoEventWrapper)
         .function("scheduleBeatTimeEvent", &CoreObjectWrapper::scheduleBeatTimeEventWrapper)
