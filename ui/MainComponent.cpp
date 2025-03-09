@@ -244,7 +244,7 @@ void MainComponent::setAudioProcessor(RNBO::JuceAudioProcessor *p)
             }
             
 
-            if(slider->getName() == juce::String("trigger/density"))                slider->setSkewFactorFromMidPoint(100.0);
+            if(slider->getName() == juce::String("trigger/density"))                slider->setSkewFactorFromMidPoint(150.0);
             else if(slider->getName() == juce::String("cloud/grain_size"))          slider->setSkewFactorFromMidPoint(200);
             else if(slider->getName() == juce::String("cloud/grain_size_blur"))     slider->setSkewFactorFromMidPoint(0.1);
         }
