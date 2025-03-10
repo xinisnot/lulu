@@ -13,7 +13,7 @@ public:
     void setScopeBufferAndIndexBuffer();
 
 private:
-    double samplerate;
+    double samplerate { 0.0 };
     std::unique_ptr<float[]> scopeBuffer;
     std::unique_ptr<float[]> indexBuffer;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CustomAudioProcessor)
