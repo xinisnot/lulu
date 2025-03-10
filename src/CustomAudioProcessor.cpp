@@ -10,10 +10,6 @@
 CustomAudioProcessor::CustomAudioProcessor(const nlohmann::json& patcher_desc, const nlohmann::json& presets, const RNBO::BinaryData& data) 
     : RNBO::JuceAudioProcessor(patcher_desc, presets, data) 
 {
-	// oscilloscope buffer
-    samplerate = this->_rnboObject.getSampleRate();
-    setScopeBufferAndIndexBuffer();
-
 }
 
 CustomAudioProcessor::~CustomAudioProcessor()
