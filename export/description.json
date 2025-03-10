@@ -109,7 +109,7 @@
       "name": "density",
       "paramId": "trigger/density",
       "minimum": 0,
-      "maximum": 2000,
+      "maximum": 400,
       "exponent": 1,
       "steps": 0,
       "initialValue": 1,
